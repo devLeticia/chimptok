@@ -1,8 +1,7 @@
 import { HeaderContainer } from './styles'
-import logo from '../../assets/logo.png'
+import logo from '../../../public/chimptok_logo.svg'
 import { Scroll, Timer } from 'phosphor-react'
 import { NavLink } from 'react-router-dom'
-
 export function Header() {
   return (
     <HeaderContainer>

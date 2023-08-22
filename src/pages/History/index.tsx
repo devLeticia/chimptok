@@ -1,22 +1,23 @@
-import { HistoryContainer, HistoryList, Status } from './styles'
 import { useContext } from 'react'
-import { CyclesContext } from './../../contexts/CyclesContext'
 import { formatDistanceToNow } from 'date-fns'
-// import ptBR from 'date-fns/esm/locale/pt-BR/index.js'
+import ptBR from 'date-fns/locale/pt-BR'
+import { CyclesContext } from '../../contexts/CyclesContext'
+import { HistoryContainer, HistoryList, Status } from './styles'
 
 export function History() {
   const { cycles } = useContext(CyclesContext)
+
   return (
     <HistoryContainer>
-      <h1>My history</h1>
-      {/* <pre>{JSON.stringify(cycles, null, 2)}</pre> */}
+      <h1>Projects history</h1>
+
       <HistoryList>
         <table>
           <thead>
             <tr>
-              <th>Task</th>
-              <th>Duration</th>
-              <th>Start</th>
+              <th>Tarefa</th>
+              <th>Duração</th>
+              <th>Duração</th>
               <th>Status</th>
             </tr>
           </thead>
@@ -25,20 +26,22 @@ export function History() {
               return (
                 <tr key={cycle.id}>
                   <td>{cycle.task}</td>
-                  <td>{cycle.minutesAmount} minutes</td>
+                  <td>{cycle.minutesAmount} minutos</td>
                   <td>
                     {formatDistanceToNow(new Date(cycle.startDate), {
                       addSuffix: true,
-                      // locale: ptBR,
+                      locale: ptBR,
                     })}
                   </td>
                   <td>
                     {cycle.finishedDate && (
                       <Status statusColor="green">Concluído</Status>
                     )}
+
                     {cycle.interruptedDate && (
                       <Status statusColor="red">Interrompido</Status>
                     )}
+
                     {!cycle.finishedDate && !cycle.interruptedDate && (
                       <Status statusColor="yellow">Em andamento</Status>
                     )}

@@ -7,7 +7,7 @@ export const LayoutContainer = styled.div`
   padding: 2.5rem;
   background: ${(props) => props.theme['gray-800']};
   border-radius: 8px;
-
+  border: solid 1px #d2d2d2;
   display: flex;
   flex-direction: column;
 `

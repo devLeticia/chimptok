@@ -24,7 +24,7 @@ export const FormContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: ${(props) => props.theme['gray-100']};
+  color: ${(props) => props.theme['gray-600']};
   font-size: 1.25rem;
   font-weight: bold;
   flex-wrap: wrap;
@@ -32,11 +32,12 @@ export const FormContainer = styled.div`
 
 export const TaskInput = styled(BaseInput)`
   flex: 1;
-
+  text-align: center;
   &::-webkit-calendar-picker-indicator {
     display: none !important;
   }
 `
-export const MinutesAmount = styled(BaseInput)`
+export const MinutesAmountInput = styled(BaseInput)`
+  text-align: center;
   width: 4rem;
 `
