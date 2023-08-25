@@ -14,8 +14,9 @@ export function App() {
           <Router />
         </CyclesContextProvider>
       </BrowserRouter>
-
       <GlobalStyle />
     </ThemeProvider>
   )
 }
+
+// switch default with light using state change (button)

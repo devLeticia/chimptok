@@ -16,7 +16,7 @@ import { Countdown } from './components/Countdown'
 import { CyclesContext } from '../../contexts/CyclesContext'
 
 const newCycleFormValidationSchema = zod.object({
-  task: zod.string().min(1, 'Informe a tarefa'),
+  task: zod.string().min(1, 'Write the task'),
   minutesAmount: zod
     .number()
     .min(5, 'Time must be at least 5 minutes long.')
@@ -67,7 +67,11 @@ export function Home() {
           </StartCountdownButton>
         )}
       </form>
-      <Mascot src={chimpMascot} alt="Beautiful Red Apple" className="mascot" />
+      <Mascot
+        src={chimpMascot}
+        alt="Nice monkey admiring countdown"
+        className="fadeInUp"
+      />
     </HomeContainer>
   )
 }

@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 
 export const HomeContainer = styled.main`
   height: 100%;
@@ -51,10 +51,28 @@ export const StopCountdownButton = styled(BaseCountdownButton)`
     background: ${(props) => props.theme['red-700']};
   }
 `
+
+const fadeInUp = keyframes`
+   0% {
+      transform: translateY(100%);
+      opacity: 1;
+    }
+    50% {
+      transform: translateY(-20%);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(0%);
+      opacity: 1;
+    }
+`
+
 export const Mascot = styled.img`
   position: absolute;
   bottom: 0;
   left: 0;
   margin-bottom: -2.5rem;
-  width: 20rem;
+  height: 20rem;
+  //animation-name: ${fadeInUp};
+  //animation-duration: 0.8s;
 `

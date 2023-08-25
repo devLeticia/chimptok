@@ -20,7 +20,6 @@ body {
 
 body, input, textarea, button {
   font-family: 'Montserrat', sans-serif;
-  font-weight: 300;
   font-size: 1rem;
 }
 `

@@ -22,10 +22,10 @@ export const HistoryList = styled.div`
     min-width: 600px;
 
     th {
-      background-color: ${(props) => props.theme['gray-600']};
+      background-color: ${(props) => props.theme['gray-700']};
       padding: 1rem;
       text-align: left;
-      color: ${(props) => props.theme['gray-100']};
+      color: ${(props) => props.theme.white};
       font-size: 0.875rem;
       line-height: 1.6rem;
 
@@ -48,6 +48,7 @@ export const HistoryList = styled.div`
       &:first-child {
         width: 50%;
         padding-left: 1.5rem;
+        font-weight: bold;
       }
       &:last-child {
         padding-right: 1.5rem;

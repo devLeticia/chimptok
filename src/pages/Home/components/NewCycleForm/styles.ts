@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 const BaseInput = styled.input`
   background: transparent;
-  color: ${(props) => props.theme['green-300']};
+  color: ${(props) => props.theme['green-500']};
   height: 2.5rem;
   border: 0;
   border-bottom: 2px solid ${(props) => props.theme['gray-500']};
@@ -40,4 +40,12 @@ export const TaskInput = styled(BaseInput)`
 export const MinutesAmountInput = styled(BaseInput)`
   text-align: center;
   width: 4rem;
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type='number'] {
+    -moz-appearance: textfield;
+  }
 `
