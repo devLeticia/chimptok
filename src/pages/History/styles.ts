@@ -8,21 +8,69 @@ export const HistoryContainer = styled.div`
 
   h1 {
     font-size: 1.5rem;
-    color: ${(props) => props.theme['gray-600']};
+    color: ${(props) => props.theme['brown-800']};
   }
 `
+
+export const EmptyHistoryContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+
+  img {
+    height: 14rem;
+  }
+
+  p,
+  h1 {
+    max-width: 30rem;
+  }
+
+  p {
+    font-style: italic;
+  }
+
+  button {
+    border: 0;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 0.5rem;
+    font-weight: bold;
+
+    cursor: pointer;
+    color: ${(props) => props.theme.white};
+
+    background-color: ${(props) => props.theme['green-500']};
+    padding: 1rem 1.75rem;
+
+    :hover {
+      background-color: ${(props) => props.theme['green-300']};
+      cursor: pointer;
+    }
+  }
+`
+
 export const HistoryList = styled.div`
   flex: 1;
   overflow: auto;
-  margin-top: 2rem;
 
   table {
+    margin-top: 2rem;
     width: 100%;
     border-collapse: collapse; // one border between table elements
     min-width: 600px;
 
     th {
-      background-color: ${(props) => props.theme['gray-700']};
+      background-color: ${(props) => props.theme['brown-700']};
       padding: 1rem;
       text-align: left;
       color: ${(props) => props.theme.white};
@@ -40,8 +88,8 @@ export const HistoryList = styled.div`
     }
 
     td {
-      background-color: ${(props) => props.theme['gray-800']};
-      border-top: 4px solid ${(props) => props.theme['gray-800']};
+      background-color: ${(props) => props.theme['gray-50']};
+      border-top: 4px solid ${(props) => props.theme['gray-50']};
       padding: 1rem;
       font-size: 0.875 rem;
       line-height: 1.6;

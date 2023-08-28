@@ -29,6 +29,27 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+
+}
+
+img {
+  user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+    }
+
+  ::-moz-selection {
+  /* Code for Firefox */
+  color: white;
+  background-color: green-300;
+}
+
+::selection {
+  color: white;
+  background-color: green-300;
 }
 
 h1 {
