@@ -9,6 +9,7 @@ import {
   Status,
 } from './styles'
 import { useNavigate } from 'react-router-dom'
+import { CheckCircle, XCircle, WarningCircle } from 'phosphor-react'
 import ChimpMeditating from '../../../public/chimp_meditating.svg'
 
 export function History() {
@@ -48,7 +49,7 @@ export function History() {
                 return (
                   <tr key={cycle.id}>
                     <td className="task">{cycle.task}</td>
-                    <td>{cycle.minutesAmount} minutes</td>
+                    <td>{cycle.minutesAmount} min</td>
                     <td>
                       {formatDistanceToNow(new Date(cycle.startDate), {
                         addSuffix: true,
@@ -57,15 +58,23 @@ export function History() {
                     </td>
                     <td>
                       {cycle.finishedDate && (
-                        <Status statusColor="green">Concluded</Status>
+                        <Status statusColor="green">
+                          <CheckCircle size={18} weight="fill" />
+                          Concluded
+                        </Status>
                       )}
 
                       {cycle.interruptedDate && (
-                        <Status statusColor="red">Interrupted</Status>
+                        <Status statusColor="red">
+                          <XCircle size={18} weight="fill" />
+                          Interrupted
+                        </Status>
                       )}
-
                       {!cycle.finishedDate && !cycle.interruptedDate && (
-                        <Status statusColor="yellow">Ongoing</Status>
+                        <Status statusColor="yellow">
+                          <WarningCircle size={18} weight="fill" />
+                          Ongoing
+                        </Status>
                       )}
                     </td>
                   </tr>

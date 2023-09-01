@@ -1,6 +1,7 @@
 import styled, { keyframes } from 'styled-components'
 
 export const HomeContainer = styled.main`
+  flex: 1;
   height: 100%;
   position: relative;
   display: flex;

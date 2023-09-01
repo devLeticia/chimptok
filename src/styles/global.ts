@@ -4,8 +4,7 @@ export const GlobalStyle = createGlobalStyle`
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    
+    box-sizing: border-box;  
 }
 
 img {
@@ -37,12 +36,30 @@ body {
     background: ${(props) => props.theme['gray-100']};
     color: ${(props) => props.theme['brown-800']};
     -webkit-font-smoothing: antialiased;
-
-
 }
 
 body, input, textarea, button {
   font-family: 'Montserrat', sans-serif;
   font-size: 1rem;
+}
+
+
+::-webkit-scrollbar {
+  width: 20px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #d6dee1;
+  border-radius: 20px;
+  border: 6px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #a8bbbf;
 }
 `

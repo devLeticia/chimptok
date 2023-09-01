@@ -2,10 +2,11 @@ import styled from 'styled-components'
 
 export const HistoryContainer = styled.div`
   flex: 1;
+  max-height: 60vh;
   padding: 3.5rem;
   display: flex;
   flex-direction: column;
-
+  overflow: hidden;
   h1 {
     font-size: 1.5rem;
     color: ${(props) => props.theme['brown-800']};
@@ -64,12 +65,17 @@ export const HistoryList = styled.div`
   overflow: auto;
 
   table {
+    position: relative;
+    border-collapse: collapse;
     margin-top: 2rem;
     width: 100%;
     border-collapse: collapse; // one border between table elements
     min-width: 600px;
+    position: relative;
 
     th {
+      position: sticky;
+      top: 0;
       background-color: ${(props) => props.theme['brown-700']};
       padding: 1rem;
       text-align: left;
@@ -106,26 +112,34 @@ export const HistoryList = styled.div`
 `
 
 const STATUS_COLORS = {
-  yellow: 'yellow-500',
-  green: 'green-500',
-  red: 'red-500',
+  yellow: {
+    bg: '#f5e0a7',
+    text: '#9d7300',
+  },
+  green: {
+    bg: '#bce1b0',
+    text: '#1a6103',
+  },
+  red: {
+    bg: '#efa9a9',
+    text: '#a90a17',
+  },
 } as const
 
 interface StatusProps {
   statusColor: keyof typeof STATUS_COLORS
 }
 
-export const Status = styled.span<StatusProps>`
+export const Status = styled.div<StatusProps>`
   display: flex;
+  justify-content: center;
   align-items: center;
+  text-align: center;
+  font-size: small;
   gap: 0.5rem;
-
-  &::before {
-    content: '';
-    width: 0.5rem;
-    height: 0.5rem;
-    border-radius: 9999px;
-    background-color: ${(props) =>
-      props.theme[STATUS_COLORS[props.statusColor]]};
-  }
+  border-radius: 3px;
+  padding: 0.5rem 0.25rem;
+  background-color: ${(props) => STATUS_COLORS[props.statusColor].bg};
+  font-weight: bold;
+  color: ${(props) => STATUS_COLORS[props.statusColor].text};
 `
