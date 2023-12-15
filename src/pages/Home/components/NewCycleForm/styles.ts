@@ -24,7 +24,7 @@ export const FormContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: ${(props) => props.theme['brown-800']};
+  color: ${(props) => props.theme['dark-900']};
   font-size: 1.25rem;
   font-weight: bold;
   flex-wrap: wrap;

@@ -27,8 +27,8 @@ export function History() {
           <h1>No Tasks in History</h1>
           <img src={ChimpMeditating} alt="Coolest Chimp logo smiling to you" />
           <p>
-            "I will not lose my temper with this person who has not started any
-            tasks yet. I will not..."
+            I will not lose my temper with this person who has not started any
+            tasks yet. I will not...
           </p>
           <button onClick={handleGoToTimer}>Start a New Task</button>
         </EmptyHistoryContainer>

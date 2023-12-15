@@ -14,40 +14,48 @@ export const HomeContainer = styled.main`
     align-items: center;
     gap: 3.5rem;
   }
+
+  p {
+    font-weight: 600;
+    color: ${(props) => props.theme['gray-500']};
+  }
+
+  hr {
+    border-top: 1px solid ${(props) => props.theme['gray-300']};
+    width: 100%;
+  }
 `
 
 export const BaseCountdownButton = styled.button`
+  font-family: 'Plus Jakarta Sans', sans-serif;
   width: 100%;
   border: 0;
-  padding: 1rem;
+  padding: 1.25rem;
   border-radius: 8px;
   display: flex;
   justify-content: center;
   align-items: center;
-
   gap: 0.5rem;
-  font-weight: bold;
-
+  font-weight: 600;
   cursor: pointer;
 
   &:disabled {
-    opacity: 0.7;
+    //opacity: 0.7;
     cursor: not-allowed;
   }
 `
 export const StartCountdownButton = styled(BaseCountdownButton)`
-  background: ${(props) => props.theme['green-500']};
-  color: ${(props) => props.theme['gray-100']};
-
+  background: ${(props) => props.theme['blue-500']};
+  color: white;
+  border-radius: 9px;
   &:not(:disabled):hover {
-    background: ${(props) => props.theme['green-700']};
+    background: ${(props) => props.theme['blue-500']};
   }
 `
 
 export const StopCountdownButton = styled(BaseCountdownButton)`
   background: ${(props) => props.theme['red-500']};
   color: ${(props) => props.theme['gray-100']};
-
   &:not(:disabled):hover {
     background: ${(props) => props.theme['red-700']};
   }

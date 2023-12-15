@@ -3,7 +3,6 @@ import { produce } from 'immer'
 import { ActionTypes } from './actions'
 
 export interface Cycle {
-  [x: string]: string | number | Date
   id: string
   task: string
   minutesAmount: number

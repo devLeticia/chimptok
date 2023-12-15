@@ -5,6 +5,7 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;  
+    font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 img {
@@ -19,12 +20,12 @@ img {
   ::-moz-selection {
   /* Code for Firefox */
   color: white;
-  background-color:  ${(props) => props.theme['green-500']};
+  background-color:  ${(props) => props.theme['yellow-500']};
 }
 
 ::selection {
-  color: white;
-  background-color: ${(props) => props.theme['green-500']};
+  color: ${(props) => props.theme['dark-900']};
+  background-color: ${(props) => props.theme['yellow-500']};
 }
 
 :focus {
@@ -34,7 +35,7 @@ img {
 
 body {
     background: ${(props) => props.theme['gray-100']};
-    color: ${(props) => props.theme['brown-800']};
+    color: ${(props) => props.theme['yellow-500']};
     -webkit-font-smoothing: antialiased;
 }
 
@@ -60,6 +61,6 @@ body, input, textarea, button {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #a8bbbf;
+  background-color:  ${(props) => props.theme['gray-500']};
 }
 `

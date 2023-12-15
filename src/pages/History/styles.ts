@@ -9,7 +9,7 @@ export const HistoryContainer = styled.div`
   overflow: hidden;
   h1 {
     font-size: 1.5rem;
-    color: ${(props) => props.theme['brown-800']};
+    color: ${(props) => props.theme['dark-900']};
   }
 `
 
@@ -27,12 +27,6 @@ export const EmptyHistoryContainer = styled.div`
   img {
     height: 14rem;
   }
-
-  p,
-  h1 {
-    max-width: 30rem;
-  }
-
   p {
     font-style: italic;
   }
@@ -76,7 +70,7 @@ export const HistoryList = styled.div`
     th {
       position: sticky;
       top: 0;
-      background-color: ${(props) => props.theme['brown-700']};
+      background-color: ${(props) => props.theme['dark-900']};
       padding: 1rem;
       text-align: left;
       color: ${(props) => props.theme.white};
@@ -94,8 +88,8 @@ export const HistoryList = styled.div`
     }
 
     td {
-      background-color: ${(props) => props.theme['gray-50']};
-      border-top: 4px solid ${(props) => props.theme['gray-50']};
+      background-color: ${(props) => props.theme['gray-500']};
+      border-top: 4px solid ${(props) => props.theme['gray-500']};
       padding: 1rem;
       font-size: 0.875 rem;
       line-height: 1.6;

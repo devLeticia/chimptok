@@ -1,19 +1,19 @@
-import { HandPalm, Play } from 'phosphor-react'
+import { HandPalm } from 'phosphor-react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod'
 import { useContext } from 'react'
-import chimpMascot from '../../../public/chimptok_mascot.svg'
 
 import {
   HomeContainer,
   StartCountdownButton,
   StopCountdownButton,
-  Mascot,
 } from './styles'
-import { NewCycleForm } from './components/NewCycleForm'
+// import { NewCycleForm } from './components/NewCycleForm'
 import { Countdown } from './components/Countdown'
 import { CyclesContext } from '../../contexts/CyclesContext'
+import { ProgressOfTheDay } from './components/ProgressOfTheDay/index'
+import { ConsistencyOfTheWeek } from './components/ConsistencyOfTheWeek/index'
 
 const newCycleFormValidationSchema = zod.object({
   task: zod.string().min(1, 'Write the task'),
@@ -45,33 +45,29 @@ export function Home() {
   }
 
   const task = watch('task')
-  const isSubmitDisable = !task
+  const isSubmitDisabled = !task
 
   return (
     <HomeContainer>
       <form onSubmit={handleSubmit(handleCreateNewCycle)}>
-        <FormProvider {...newCycleForm}>
-          <NewCycleForm />
-        </FormProvider>
-        <Countdown />
+        <FormProvider {...newCycleForm}>{/* <NewCycleForm /> */}</FormProvider>
+        <ConsistencyOfTheWeek />
+        <ProgressOfTheDay />
 
+        <hr />
+        <p>Click the button to choose a task to work on</p>
+        <Countdown />
         {activeCycle ? (
           <StopCountdownButton onClick={interruptCurrentCycle} type="button">
             <HandPalm size={24} />
             Interrupt
           </StopCountdownButton>
         ) : (
-          <StartCountdownButton disabled={isSubmitDisable} type="submit">
-            <Play size={24} />
-            Start
+          <StartCountdownButton disabled={isSubmitDisabled} type="submit">
+            Start a New Task
           </StartCountdownButton>
         )}
       </form>
-      <Mascot
-        src={chimpMascot}
-        alt="Nice monkey admiring countdown"
-        className="fadeInUp"
-      />
     </HomeContainer>
   )
 }
