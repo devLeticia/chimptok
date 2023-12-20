@@ -1,27 +1,27 @@
 import {
   AuthTitle,
   AuthSubtitle,
+  MinorText,
   PasswordValidations,
   ValidationsListWrapper,
-  MinorText,
 } from './styles'
+
 import { Input } from '../../../components/Input'
-import { At, IdentificationBadge, Keyhole, CheckCircle } from 'phosphor-react'
-import GoogleLogo from './../../../../public/logos/google_logo.svg'
+import { Keyhole, CheckCircle } from 'phosphor-react'
 import { Button } from '../../../components/Button'
 
-export function RegisterNewAccount() {
+export function ResetPassword() {
   return (
     <>
-      <AuthTitle>Create Account</AuthTitle>
-      <AuthSubtitle>Insert infos to start chasing your goals</AuthSubtitle>
-      <Input placeholder="E-mail" icon={<At weight="duotone" size={24} />} />
+      <AuthTitle>Reset Password</AuthTitle>
+      <AuthSubtitle>Create a new and good password.</AuthSubtitle>
+
       <Input
-        placeholder="Name or Nickname"
-        icon={<IdentificationBadge weight="duotone" size={24} />}
+        placeholder="New Passaword"
+        icon={<Keyhole weight="duotone" size={24} />}
       />
       <Input
-        placeholder="Passaword"
+        placeholder="Repeat New Passaword"
         icon={<Keyhole weight="duotone" size={24} />}
       />
       <ValidationsListWrapper>
@@ -38,18 +38,10 @@ export function RegisterNewAccount() {
           <p>At lest one number or special character</p>
         </PasswordValidations>
       </ValidationsListWrapper>
-      <Button>Create Account</Button>
-      {/* <DividerWithText>Or</DividerWithText> */}
-      <Button color="dark">
-        <img
-          src={GoogleLogo}
-          width={20}
-          alt="Coolest Chimp logo smiling to you"
-        />
-        Connect with Google
-      </Button>
+      <Button>Reset Password</Button>
+
       <MinorText>
-        Already have an account? Just <span>log in</span>
+        Dont have an account yet? Lets <span>create one</span>
       </MinorText>
     </>
   )

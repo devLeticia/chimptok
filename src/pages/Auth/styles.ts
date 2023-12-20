@@ -35,7 +35,8 @@ export const AuthSecondaryContainer = styled.div`
 `
 
 export const AuthCard = styled.div`
-  max-width: 800px;
+  padding: 2rem;
+  max-width: 600px;
   background-color: white;
   display: flex;
   height: 100%;
@@ -46,7 +47,7 @@ export const AuthCard = styled.div`
 `
 
 export const ContentContainer = styled.div`
-  max-width: 500px;
+  max-width: 450px;
   flex-grow: 1;
   gap: 0.75rem;
   display: flex;
@@ -58,6 +59,7 @@ export const ContentContainer = styled.div`
 export const ChimptokLogotype = styled.h1`
   font-size: 1.5rem;
   text-transform: uppercase;
+  font-style: italic;
   color: ${(props) => props.theme['dark-900']};
   font-family: 'Barlow Semi Condensed', sans-serif;
   font-weight: 900;

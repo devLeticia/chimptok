@@ -35,13 +35,17 @@ img {
 
 body {
     background: ${(props) => props.theme['gray-100']};
-    color: ${(props) => props.theme['yellow-500']};
+    color: ${(props) => props.theme['dark-900']};
     -webkit-font-smoothing: antialiased;
+    font-size: 0.85rem;
+  color: ${(props) => props.theme['dark-900']};
+  font-weight: 600;
 }
 
 body, input, textarea, button {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 1rem;
+  font-size: 0.85rem;
+  color: ${(props) => props.theme['dark-900']};
+  font-weight: 600;
 }
 
 

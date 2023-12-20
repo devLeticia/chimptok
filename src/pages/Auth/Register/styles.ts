@@ -7,7 +7,7 @@ export const AuthTitle = styled.h1`
 `
 export const AuthSubtitle = styled.h1`
   font-size: 0.85rem;
-  color: ${(props) => props.theme['gray-500']};
+  color: ${(props) => props.theme['dark-900']};
   font-weight: 600;
 `
 
@@ -75,6 +75,7 @@ export const LogInButton = styled.button`
 `
 
 export const DividerWithText = styled.div`
+  margin-top: 2rem;
   font-size: 0.85rem;
   color: ${(props) => props.theme['gray-500']};
   font-weight: 600;
@@ -88,5 +89,42 @@ export const DividerWithText = styled.div`
     content: '';
     border: 1px solid ${(props) => props.theme['gray-300']};
     margin: 1rem 1rem 1rem 1rem;
+  }
+`
+
+export const PasswordValidations = styled.div`
+  padding-left: 2rem;
+  display: flex;
+  gap: 0.5rem;
+  justify-items: start;
+  align-items: center;
+  width: 100%;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: ${(props) => props.theme['gray-500']};
+`
+
+export const ValidationsListWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
+`
+
+export const MinorText = styled.p`
+  font-size: 0.85rem;
+  color: ${(props) => props.theme['dark-900']};
+  font-weight: 600;
+  margin-top: 4rem;
+
+  span {
+    text-decoration: underline;
+
+    :hover {
+      color: ${(props) => props.theme['yellow-600']};
+      cursor: pointer;
+    }
   }
 `

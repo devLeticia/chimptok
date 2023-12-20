@@ -119,3 +119,24 @@ export const MinorText = styled.p`
     }
   }
 `
+
+export const PasswordValidations = styled.div`
+  padding-left: 2rem;
+  display: flex;
+  gap: 0.5rem;
+  justify-items: start;
+  align-items: center;
+  width: 100%;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: ${(props) => props.theme['gray-500']};
+`
+
+export const ValidationsListWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
+`

@@ -1,5 +1,6 @@
 import { Login } from './Login/index'
 import { RegisterNewAccount } from './Register'
+import { FlagBanner } from 'phosphor-react'
 import {
   Container,
   AuthSecondaryContainer,
@@ -7,6 +8,8 @@ import {
   ChimptokLogotype,
   ContentContainer,
 } from './styles'
+import { ForgotPassword } from './ForgotPassword'
+import { ResetPassword } from './Reset Password/index';
 
 export function Auth() {
   return (
@@ -16,9 +19,12 @@ export function Auth() {
       </AuthSecondaryContainer>
       <AuthCard>
         <ContentContainer>
+          <FlagBanner size={36} color="#342d2d" weight="fill" />
           <ChimptokLogotype>CHIMPTOK</ChimptokLogotype>
-          <Login />
-          {/* <RegisterNewAccount/> */}
+          <ResetPassword />
+          {/* <ForgotPassword /> */}
+          {/* <Login /> */}
+          {/* <RegisterNewAccount /> */}
         </ContentContainer>
       </AuthCard>
     </Container>
