@@ -1,15 +1,33 @@
-import { ConsistencyContainer } from './styles'
+import {
+  YaarConsistency,
+  Title,
+  RangeLabel,
+  YearGrid,
+  DaySquare,
+  DataWrapper,
+} from './styles'
 
 export function Consistency() {
+  const today = new Date()
+  const currentDay = today.getDate()
+  const isPastDay = (day: number) => day < currentDay
+
   return (
-    <ConsistencyContainer>
-      <div>
-        <h1>Consistency</h1>
-        <select name="consistencyFilter" id="1">
-          <option value="Current month">Current Month</option>
-          <option value="Current year">CurrentYear</option>
-        </select>
-      </div>
-    </ConsistencyContainer>
+    <YaarConsistency>
+      <DataWrapper>
+        <Title>Consistency</Title>
+        <RangeLabel>Jan - Fev - Mar</RangeLabel>
+      </DataWrapper>
+      <YearGrid>
+        {[...Array(90)].map((_, index) => (
+          <DaySquare
+            key={index}
+            past={isPastDay(index + 1)}
+            current={index + 1 === currentDay}
+            intensity={index}
+          />
+        ))}
+      </YearGrid>
+    </YaarConsistency>
   )
 }

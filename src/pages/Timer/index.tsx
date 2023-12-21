@@ -1,19 +1,16 @@
-import { HandPalm } from 'phosphor-react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod'
 import { useContext } from 'react'
 
-import {
-  HomeContainer,
-  StartCountdownButton,
-  StopCountdownButton,
-} from './styles'
+import { HomeContainer, TimerContainer } from './styles'
 // import { NewCycleForm } from './components/NewCycleForm'
 import { Countdown } from './components/Countdown'
 import { CyclesContext } from '../../contexts/CyclesContext'
 import { ProgressOfTheDay } from './components/ProgressOfTheDay/index'
 import { ConsistencyOfTheWeek } from './components/ConsistencyOfTheWeek/index'
+import { Card } from '../../components/Card'
+import { Button } from '../../components/Button'
 
 const newCycleFormValidationSchema = zod.object({
   task: zod.string().min(1, 'Write the task'),
@@ -25,7 +22,7 @@ const newCycleFormValidationSchema = zod.object({
 
 type NewCycleFormData = zod.infer<typeof newCycleFormValidationSchema>
 
-export function Home() {
+export function Timer() {
   const { activeCycle, createNewCycle, interruptCurrentCycle } =
     useContext(CyclesContext)
 
@@ -48,26 +45,27 @@ export function Home() {
   const isSubmitDisabled = !task
 
   return (
-    <HomeContainer>
-      <form onSubmit={handleSubmit(handleCreateNewCycle)}>
-        <FormProvider {...newCycleForm}>{/* <NewCycleForm /> */}</FormProvider>
+    <Card>
+      <HomeContainer>
         <ConsistencyOfTheWeek />
         <ProgressOfTheDay />
 
         <hr />
-        <p>Click the button to choose a task to work on</p>
-        <Countdown />
-        {activeCycle ? (
-          <StopCountdownButton onClick={interruptCurrentCycle} type="button">
-            <HandPalm size={24} />
-            Interrupt
-          </StopCountdownButton>
-        ) : (
-          <StartCountdownButton disabled={isSubmitDisabled} type="submit">
-            Start a New Task
-          </StartCountdownButton>
-        )}
-      </form>
-    </HomeContainer>
+        <TimerContainer>
+          <p>Click the button to choose a task to work on</p>
+          <form onSubmit={handleSubmit(handleCreateNewCycle)}>
+            <FormProvider {...newCycleForm}>
+              {/* <NewCycleForm /> */}
+            </FormProvider>
+            <Countdown />
+            {activeCycle ? (
+              <Button>Interrupt Task</Button>
+            ) : (
+              <Button color="blue">Start a New Task</Button>
+            )}
+          </form>
+        </TimerContainer>
+      </HomeContainer>
+    </Card>
   )
 }

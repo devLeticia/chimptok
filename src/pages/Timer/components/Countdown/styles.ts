@@ -5,7 +5,8 @@ export const CountdownContainer = styled.div`
   line-height: 8rem;
   color: ${(props) => props.theme['gray-100']};
   display: flex;
-  gap: 1rem;
+  justify-content: space-between;
+  gap: 0.5rem;
 
   span {
     font-family: 'Roboto Mono', monospace;

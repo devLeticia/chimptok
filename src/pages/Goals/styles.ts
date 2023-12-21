@@ -10,7 +10,6 @@ export const GoalsContainer = styled.div`
   nav {
     display: flex;
     gap: 0.5rem;
-    justify-content: space-between;
 
     div {
       display: flex;

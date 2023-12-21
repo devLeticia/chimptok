@@ -7,5 +7,5 @@ export const LayoutContainer = styled.div`
 export const RouterContainer = styled.div`
   margin-top: 5rem;
   padding: 2.5rem;
-  width: 764px;
+  width: 769px;
 `

@@ -1,20 +1,9 @@
 import styled, { keyframes } from 'styled-components'
 
 export const HomeContainer = styled.main`
-  flex: 1;
-  height: 100%;
-  position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 3.5rem;
-  }
-
+  gap: 2rem;
   p {
     font-weight: 600;
     color: ${(props) => props.theme['gray-500']};
@@ -84,4 +73,14 @@ export const Mascot = styled.img`
   height: 20rem;
   //animation-name: ${fadeInUp};
   //animation-duration: 0.8s;
+`
+export const TimerContainer = styled.div`
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  button {
+    margin-top: 2rem;
+  }
 `

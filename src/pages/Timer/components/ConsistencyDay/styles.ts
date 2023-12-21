@@ -19,4 +19,5 @@ export const DayLabel = styled.h4`
   color: ${(props) => props.theme['gray-500']};
   font-family: 'Barlow Semi Condensed', sans-serif;
   font-weight: 600;
+  font-size: 1rem;
 `

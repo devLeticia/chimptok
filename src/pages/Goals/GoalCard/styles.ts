@@ -44,7 +44,7 @@ export const CardContainer = styled.div`
   display: flex;
   gap: 0.75rem;
   flex-direction: column;
-  padding: 2rem;
+  padding: 1.5rem;
   border: solid 2px ${(props) => props.theme['gray-300']};
   border-radius: 9px;
 

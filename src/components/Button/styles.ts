@@ -34,7 +34,9 @@ export const ButtonWrapper = styled.button<ButtonWrapperProps>`
           'yellow-500'
         ]}; // You can set a default color or handle other cases as needed
   color: ${(props) =>
-    props.color === 'dark' ? 'white' : props.theme['dark-900']};
+    props.color === 'dark' || props.color === 'blue'
+      ? 'white'
+      : props.theme['dark-900']};
   padding: 1rem 2rem;
   white-space: nowrap;
 

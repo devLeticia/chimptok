@@ -18,7 +18,7 @@ export const LabelRow = styled.div`
 `
 
 export const WeekContainer = styled.div`
-  margin-top: 1.5rem;
+  margin-top: 1rem;
   width: 100%;
   display: flex;
   justify-content: space-between;

@@ -1,3 +1,4 @@
+import { Card } from '../../components/Card'
 import { Consistency } from './Consistency'
 import { ConsistencyChart } from './ConsistencyChart'
 import { ConsistencySummary } from './ConsistencySummary'
@@ -7,15 +8,17 @@ import { ReportsContainer, ListsContainer } from './styles'
 
 export function Reports() {
   return (
-    <ReportsContainer>
-      <Consistency />
-      <ConsistencySummary />
-      <ConsistencyChart />
-      <ListsContainer>
-        <GoalRanking />
-        <hr />
-        <TaskHistory />
-      </ListsContainer>
-    </ReportsContainer>
+    <Card>
+      <ReportsContainer>
+        <Consistency />
+        <ConsistencySummary />
+        <ConsistencyChart />
+        <ListsContainer>
+          <GoalRanking />
+          <hr />
+          <TaskHistory />
+        </ListsContainer>
+      </ReportsContainer>
+    </Card>
   )
 }
