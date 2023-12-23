@@ -2,9 +2,9 @@ import {
   TaskHistoryContainer,
   IconContainer,
   TaskDataContainer,
-  TaskContainer
+  TaskContainer,
+  StyledCheckCircle,
 } from './styles'
-import { CheckCircle } from 'phosphor-react'
 
 export function TaskHistory() {
   return (
@@ -12,7 +12,7 @@ export function TaskHistory() {
       <h1>Task History</h1>
       <TaskContainer>
         <IconContainer>
-          <CheckCircle size={28} weight="fill" />
+          <StyledCheckCircle size={18} weight="fill" />
         </IconContainer>
         <TaskDataContainer>
           <span>20 min ago</span>

@@ -6,7 +6,7 @@ import {
   LabelsContainer,
   SessionTitle,
   ListContainer,
-  RankingNumber
+  RankingNumber,
 } from './styles'
 
 export function GoalRanking() {
@@ -16,6 +16,57 @@ export function GoalRanking() {
       <ListContainer>
         <GoalContainer>
           <RankingNumber>#1</RankingNumber>
+          <InfoContainer>
+            <LabelsContainer>
+              <h1>Learn English</h1>
+              <p>12 days left</p>
+            </LabelsContainer>
+            <ProgressBar>
+              <div></div>
+            </ProgressBar>
+          </InfoContainer>
+        </GoalContainer>
+
+        <GoalContainer>
+          <RankingNumber>#1</RankingNumber>
+          <InfoContainer>
+            <LabelsContainer>
+              <h1>Learn English</h1>
+              <p>12 days left</p>
+            </LabelsContainer>
+            <ProgressBar>
+              <div></div>
+            </ProgressBar>
+          </InfoContainer>
+        </GoalContainer>
+
+        <GoalContainer>
+          <RankingNumber>#1</RankingNumber>
+          <InfoContainer>
+            <LabelsContainer>
+              <h1>Learn English</h1>
+              <p>12 days left</p>
+            </LabelsContainer>
+            <ProgressBar>
+              <div></div>
+            </ProgressBar>
+          </InfoContainer>
+        </GoalContainer>
+
+        <GoalContainer>
+          <RankingNumber>#2</RankingNumber>
+          <InfoContainer>
+            <LabelsContainer>
+              <h1>Learn English</h1>
+              <p>12 days left</p>
+            </LabelsContainer>
+            <ProgressBar>
+              <div></div>
+            </ProgressBar>
+          </InfoContainer>
+        </GoalContainer>
+        <GoalContainer>
+          <RankingNumber>#3</RankingNumber>
           <InfoContainer>
             <LabelsContainer>
               <h1>Learn English</h1>

@@ -38,12 +38,12 @@ export const LabelsContainer = styled.div`
   p {
     line-height: 180%;
     text-align: right;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     color: ${(props) => props.theme['gray-500']};
     font-weight: 700;
   }
   h1 {
-    font-size: 1rem;
+    font-size: 0.85rem;
     color: ${(props) => props.theme['gray-700']};
     font-weight: 800;
   }
@@ -55,7 +55,7 @@ export const ListContainer = styled.div`
 `
 
 export const ProgressBar = styled.div`
-  height: 0.65rem;
+  height: 0.5rem;
   background-color: ${(props) => props.theme['gray-200']};
   border-radius: 9px;
 

@@ -23,8 +23,9 @@ export const RangeLabel = styled.p`
 
 export const YearGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(25, 1fr); /* 15 columns for 75 squares */
-  gap: 0.5rem;
+  grid-template-columns: repeat(30, 1fr); /* 15 columns for 75 squares */
+  column-gap: 0.5rem; /* Horizontal gap */
+  row-gap: 0.3rem; /* Vertical gap */
 `
 
 export const DaySquare = styled.div<{

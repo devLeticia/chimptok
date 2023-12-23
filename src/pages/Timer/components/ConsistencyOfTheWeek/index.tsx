@@ -1,38 +1,25 @@
-import { ConsistencyContainer, LabelRow, WeekContainer } from './styles'
-import { ConsistencyDay } from '../ConsistencyDay'
+import {
+  ConsistencyContainer,
+  LabelRow,
+  DayBoxContainer,
+  DayBox,
+  DayLabel,
+} from './styles'
 
-const weekConsistency = [
-  {
-    hours: 2,
-    day: 'MONDAY',
-  },
-  {
-    hours: 2,
-    day: 'TUESDAY',
-  },
-  {
-    hours: 2,
-    day: 'WEDNESDAY',
-  },
-  {
-    hours: 2,
-    day: 'THURSDAY',
-  },
-  {
-    hours: 2,
-    day: 'FRIDAY',
-  },
-  {
-    hours: 2,
-    day: 'SATURDAY',
-  },
-  {
-    hours: 2,
-    day: 'SUNDAY',
-  },
+const daysOfWeek = [
+  'MONDAY',
+  'TUESDAY',
+  'WEDNESDAY',
+  'THURSDAY',
+  'FRIDAY',
+  'SATURDAY',
+  'SUNDAY',
 ]
 
 export function ConsistencyOfTheWeek() {
+  const today = new Date()
+  const currentDay = today.getDate()
+  const isPastDay = (day: number) => day < currentDay
   return (
     <ConsistencyContainer>
       <LabelRow>
@@ -43,15 +30,24 @@ export function ConsistencyOfTheWeek() {
         <p>2023</p>
       </LabelRow>
 
-      <WeekContainer>
-        {weekConsistency.map((day, index) => {
-          return (
-            <div key={index}>
-              <ConsistencyDay hours={day.hours} day={day.day} />
-            </div>
-          )
-        })}
-      </WeekContainer>
+      <DayBoxContainer>
+        {daysOfWeek.map((day, index) => (
+          <div key={index}>
+            <DayBox
+              past={isPastDay(index + 1)}
+              current={index + 1 === currentDay}
+              intensity={index}
+            />
+            <DayLabel
+              past={isPastDay(index + 1)}
+              current={index + 1 === currentDay}
+              intensity={index}
+            >
+              {day}
+            </DayLabel>
+          </div>
+        ))}
+      </DayBoxContainer>
     </ConsistencyContainer>
   )
 }

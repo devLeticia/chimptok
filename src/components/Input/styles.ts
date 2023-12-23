@@ -16,10 +16,6 @@ export const StyledInput = styled.input`
   box-sizing: border-box;
   transition: border 0.3s ease; /* Add transition for border property */
   font-weight: 600;
-  /* border: ${(props) =>
-    props.hasError
-      ? `2px solid ${props.theme['gray-300']}`
-      : `2px solid ${props.theme['red-300']}`}; */
 
   &:focus,
   &:focus-within {
@@ -54,4 +50,19 @@ export const ErrorMessage = styled.div`
   right: 1rem;
   font-weight: 600;
   transition: color 0.3s ease; /* Add transition for color property */
+`
+
+export const StyledValidatorIcon = styled.div<{ validator: boolean }>`
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+  color: ${(props) =>
+    props.validator ? props.theme['gray-500'] : props.theme['red-500']};
+  transition: color 0.3s ease;
+
+  ${InputWrapper}:focus-within & {
+    color: ${(props) =>
+      props.validator ? props.theme['green-500'] : props.theme['red-500']};
+  }
 `
