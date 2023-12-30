@@ -9,8 +9,15 @@ import { Input } from '../../../components/Input'
 import { At, IdentificationBadge, Keyhole, CheckCircle } from 'phosphor-react'
 import GoogleLogo from './../../../../public/logos/google_logo.svg'
 import { Button } from '../../../components/Button'
+import { useNavigate } from 'react-router-dom'
 
 export function RegisterNewAccount() {
+  const navigate = useNavigate()
+
+  function handleRedirectToLogin() {
+    navigate('/login')
+  }
+
   return (
     <>
       <AuthTitle>Create Account</AuthTitle>
@@ -49,7 +56,8 @@ export function RegisterNewAccount() {
         Connect with Google
       </Button>
       <MinorText>
-        Already have an account? Just <span>log in</span>
+        Already have an account? Just{' '}
+        <span onClick={handleRedirectToLogin}>log in</span>
       </MinorText>
     </>
   )

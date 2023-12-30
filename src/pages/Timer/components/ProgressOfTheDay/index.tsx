@@ -8,8 +8,8 @@ export function ProgressOfTheDay() {
   return (
     <ProgressBarContainer>
       <ProgressLabelContainer>
-        <p>Goal of the day</p>
-        <p>2h</p>
+        <p>{`Today's Goal`}</p>
+        <p>2 hours in tasks</p>
       </ProgressLabelContainer>
       <ProgressBar>
         <div></div>

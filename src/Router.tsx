@@ -21,7 +21,10 @@ export function Router() {
         <Route path="/user-settings" element={<UserSettings />} />
       </Route>
       <Route path="/" element={<FullPageLayout />}>
-        <Route path="/auth" element={<Auth />} />
+        <Route path="/login" element={<Auth />} />
+        <Route path="/signup" element={<Auth />} />
+        <Route path="/forgot-password" element={<Auth />} />
+        <Route path="/reset-password" element={<Auth />} />
         <Route path="/welcome" element={<Welcome />} />
         <Route path="/onboarding" element={<Onboarding />} />
       </Route>

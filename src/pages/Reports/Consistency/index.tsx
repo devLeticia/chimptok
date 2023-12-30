@@ -1,3 +1,4 @@
+import { Tooltip } from 'react-tooltip'
 import {
   YaarConsistency,
   Title,
@@ -20,12 +21,31 @@ export function Consistency() {
       </DataWrapper>
       <YearGrid>
         {[...Array(90)].map((_, index) => (
-          <DaySquare
+          <div
             key={index}
-            past={isPastDay(index + 1)}
-            current={index + 1 === currentDay}
-            intensity={index}
-          />
+            data-tip={`Day ${index + 1}`}
+            data-for={`dayTooltip${index + 1}`}
+          >
+            <DaySquare
+              data-tooltip-id="my-tooltip"
+              data-tooltip-content="Hello world!"
+              past={isPastDay(index + 1)}
+              current={index + 1 === currentDay}
+              intensity={index}
+            />
+            <Tooltip
+              id="my-tooltip"
+              render={({ content, activeAnchor }) => (
+                <span>
+                  The element #{content} is currently active.
+                  <br />
+                  Relevant attribute:{' '}
+                  {activeAnchor?.getAttribute('data-some-relevant-attr') ||
+                    'not set'}
+                </span>
+              )}
+            />
+          </div>
         ))}
       </YearGrid>
     </YaarConsistency>

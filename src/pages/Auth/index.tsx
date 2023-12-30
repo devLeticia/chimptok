@@ -9,7 +9,24 @@ import {
   ContentContainer,
 } from './styles'
 import { ForgotPassword } from './ForgotPassword'
-import { ResetPassword } from './Reset Password/index';
+import { ResetPassword } from './Reset Password/index'
+
+// import { useNavigate } from "react-router-dom";
+
+const getAuthComponent = (pathname: string) => {
+  switch (pathname) {
+    case '/login':
+      return <Login />
+    case '/signup':
+      return <RegisterNewAccount />
+    case '/forgot-password':
+      return <ForgotPassword />
+    case '/reset-password':
+      return <ResetPassword />
+    default:
+      return <Login />
+  }
+}
 
 export function Auth() {
   return (
@@ -21,10 +38,7 @@ export function Auth() {
         <ContentContainer>
           <FlagBanner size={36} color="#342d2d" weight="fill" />
           <ChimptokLogotype>CHIMPTOK</ChimptokLogotype>
-          <ResetPassword />
-          {/* <ForgotPassword /> */}
-          {/* <Login /> */}
-          {/* <RegisterNewAccount /> */}
+          {getAuthComponent(location.pathname)}
         </ContentContainer>
       </AuthCard>
     </Container>

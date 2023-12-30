@@ -12,7 +12,8 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   placeholder: string
   icon?: ReactNode
   errorMessage?: string
-  validator: true
+  showValidator?: boolean
+  validator?: boolean
 }
 
 const getValidatorIcon = (validator: boolean) => {
@@ -27,6 +28,7 @@ export function Input({
   placeholder,
   icon,
   errorMessage,
+  showValidator,
   validator,
   ...props
 }: InputProps) {
@@ -35,11 +37,11 @@ export function Input({
       <StyledInput placeholder={placeholder} {...props} />
       {icon && <IconWrapper>{icon}</IconWrapper>}
       {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
-      {
+      {showValidator && (
         <StyledValidatorIcon validator={validator}>
           {getValidatorIcon(validator)}
         </StyledValidatorIcon>
-      }
+      )}
     </InputWrapper>
   )
 }

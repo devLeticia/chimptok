@@ -1,16 +1,18 @@
-import {
-  AuthTitle,
-  AuthSubtitle,
-  ForgotPasswordLink,
-  MinorText,
-} from './styles'
+import { AuthTitle, AuthSubtitle, MinorText } from './styles'
 
 import { Input } from '../../../components/Input'
-import { At, Keyhole, ArrowLeft } from 'phosphor-react'
-import GoogleLogo from './../../../../public/logos/google_logo.svg'
+import { At, ArrowLeft } from 'phosphor-react'
 import { Button } from '../../../components/Button'
 
+import { useNavigate } from 'react-router-dom'
+
 export function ForgotPassword() {
+  const navigate = useNavigate()
+
+  function handleRedirectToSignup() {
+    navigate('/timer')
+  }
+
   return (
     <>
       <AuthTitle>Forgot Password</AuthTitle>
@@ -28,7 +30,8 @@ export function ForgotPassword() {
         Never Mind. Go Back to Login
       </Button>
       <MinorText>
-        Dont have an account yet? Lets <span>create one</span>
+        Dont have an account yet? Lets{' '}
+        <span onClick={handleRedirectToSignup}>create one</span>
       </MinorText>
     </>
   )

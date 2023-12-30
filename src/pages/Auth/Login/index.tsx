@@ -9,14 +9,26 @@ import { Input } from '../../../components/Input'
 import { At, Keyhole } from 'phosphor-react'
 import GoogleLogo from './../../../../public/logos/google_logo.svg'
 import { Button } from '../../../components/Button'
+import { useNavigate } from 'react-router-dom'
 
 export function Login() {
+  const navigate = useNavigate()
+
+  function handleRedirectToSignup() {
+    navigate('/signup')
+  }
+
   return (
     <>
       <AuthTitle>Log in</AuthTitle>
       <AuthSubtitle>Welcome back!</AuthSubtitle>
 
-      <Input placeholder="E-mail" icon={<At weight="duotone" size={24} />} />
+      <Input
+        showValidator={false}
+        validator
+        placeholder="E-mail"
+        icon={<At weight="duotone" size={24} />}
+      />
       <Input
         placeholder="Passaword"
         icon={<Keyhole weight="duotone" size={24} />}
@@ -32,7 +44,8 @@ export function Login() {
         Connect with Google
       </Button>
       <MinorText>
-        Don't have an account yet? Let's <span>log in</span>
+        {`Don't have an account yet? Let's`}{' '}
+        <span onClick={handleRedirectToSignup}>create one!</span>
       </MinorText>
     </>
   )

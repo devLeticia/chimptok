@@ -54,11 +54,13 @@ export const ErrorMessage = styled.div`
 
 export const StyledValidatorIcon = styled.div<{ validator: boolean }>`
   position: absolute;
-  top: 50%;
+  top: 55%;
   right: 1rem;
   transform: translateY(-50%);
   color: ${(props) =>
-    props.validator ? props.theme['gray-500'] : props.theme['red-500']};
+    props.validator === true
+      ? props.theme['green-500']
+      : props.theme['red-500']};
   transition: color 0.3s ease;
 
   ${InputWrapper}:focus-within & {

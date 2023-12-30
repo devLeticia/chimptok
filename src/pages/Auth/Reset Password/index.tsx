@@ -9,8 +9,15 @@ import {
 import { Input } from '../../../components/Input'
 import { Keyhole, CheckCircle } from 'phosphor-react'
 import { Button } from '../../../components/Button'
+import { useNavigate } from 'react-router-dom'
 
 export function ResetPassword() {
+  const navigate = useNavigate()
+
+  function handleRedirectToSignup() {
+    navigate('/signup')
+  }
+
   return (
     <>
       <AuthTitle>Reset Password</AuthTitle>
@@ -41,7 +48,8 @@ export function ResetPassword() {
       <Button>Reset Password</Button>
 
       <MinorText>
-        Dont have an account yet? Lets <span>create one</span>
+        {` Don't have an account yet? Lets `}
+        <span onClick={handleRedirectToSignup}>create one gwergwer</span>
       </MinorText>
     </>
   )
