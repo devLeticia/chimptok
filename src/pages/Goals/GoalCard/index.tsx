@@ -1,67 +1,80 @@
 import {
   GoalContainer,
-  GoalIndex,
   CardContainer,
   LabelRow,
   CardTitle,
   ProgressBar,
-  TaskCounterContainer,
-  TaskListContainer,
+  TaskDetails,
+  TasksContainer,
   TaskIndex,
-  Task,
+  TaskDescriptionWrapper,
+  TaskDescription,
+  StatusBadge,
 } from './styles'
-import { CaretRight } from 'phosphor-react'
 
-const goals = [
-  {
-    name: 'Become Fluent in English',
-    tasks: [
-      'Do something',
-      'Do something just like this',
-      'Do something fnwoiefnwe foiwejfw oifjwe oijfwe ',
-      'Do something foweijfwpoefpwoej',
-      'Do something',
-    ],
-  },
-  {
-    name: 'Become Fluent in English',
-    tasks: [
-      'Do something',
-      'Do something',
-      'Do something',
-      'Do something',
-      'Do something',
-    ],
-  },
-]
+import { CheckCircle } from 'phosphor-react'
 
-export function GoalCard() {
+interface GoalCardProps {
+  goal: {
+    goalName: string
+    tasks: Array<string>
+    createdAt: Date
+    deadline: Date
+    hoursPerWeek: number
+    totalHoursSpent: number
+    progressPercentage: number
+    status: number
+  }
+}
+
+export function GoalCard({ goal }: GoalCardProps) {
+  function isPastGoal(status: number) {
+    return status === 2 || status === 3
+  }
+
   return (
     <GoalContainer>
-      <GoalIndex>1</GoalIndex>
       <CardContainer>
-        <LabelRow>
-          <p>2 hours per week</p>
-          <p>up to 20/06/2024 </p>
-        </LabelRow>
+        {isPastGoal(goal.status) && (
+          <StatusBadge>
+            <CheckCircle weight="fill" size={18} />
+            <p>Concluded</p>
+          </StatusBadge>
+        )}
+        {!isPastGoal(goal.status) && (
+          <LabelRow>
+            {goal.hoursPerWeek} {goal.hoursPerWeek === 1 ? 'hour' : 'hours'} per
+            week
+            <p
+              title={goal.deadline.toLocaleDateString('en-US', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric',
+              })}
+            >
+              up to {goal.deadline.toLocaleDateString('en-US')}
+            </p>
+          </LabelRow>
+        )}
         <hr />
-        <CardTitle>Become fluent in English</CardTitle>
-        <ProgressBar>
+        <CardTitle>{goal.goalName}</CardTitle>
+        <ProgressBar progressPercentage={goal.progressPercentage}>
           <div></div>
         </ProgressBar>
-        <TaskCounterContainer>
-          <CaretRight size={20} weight="fill" />
-          <span>{goals[1].tasks.length} tasks</span>
-        </TaskCounterContainer>
-        {goals[0].tasks.map((task, index) => {
-          return (
-            <TaskListContainer key="index">
-              <TaskIndex>{index + 1}</TaskIndex>
-              <Task>{task}</Task>
-            </TaskListContainer>
-          )
-        })}
-        {/* <button>Edit goals</button> */}
+        <TaskDetails>
+          <summary>{goal.tasks.length} tasks</summary>
+          <TasksContainer>
+            {goal.tasks.map((task, index) => {
+              return (
+                <TaskDescriptionWrapper key={index}>
+                  <TaskIndex>{index + 1}.</TaskIndex>
+                  <TaskDescription>{task}</TaskDescription>
+                </TaskDescriptionWrapper>
+              )
+            })}
+            {/* <button>Edit goal</button> */}
+          </TasksContainer>
+        </TaskDetails>
       </CardContainer>
     </GoalContainer>
   )

@@ -9,6 +9,9 @@ import { FullPageLayout } from './layouts/FullPageLayout'
 import { Auth } from './pages/Auth'
 import { Welcome } from './pages/Welcome/index'
 import { Onboarding } from './pages/Onboarding/index'
+import { ActiveGoals } from './pages/Goals/ActiveGoals'
+import { PastGoals } from './pages/Goals/PastGoals'
+import { NewGoalForm } from './pages/Goals/NewGoalForm'
 
 export function Router() {
   return (
@@ -17,7 +20,11 @@ export function Router() {
       <Route path="/" element={<DefaultLayout />}>
         <Route path="/timer" element={<Timer />} />
         <Route path="/reports" element={<Reports />} />
-        <Route path="/goals" element={<Goals />} />
+        <Route path="/goals" element={<Goals />}>
+          <Route index element={<Navigate to="active" />} />
+          <Route path="active" element={<ActiveGoals />} />
+          <Route path="past" element={<PastGoals />} />
+        </Route>
         <Route path="/user-settings" element={<UserSettings />} />
       </Route>
       <Route path="/" element={<FullPageLayout />}>
@@ -29,9 +36,6 @@ export function Router() {
         <Route path="/onboarding" element={<Onboarding />} />
       </Route>
       <Route path="*" element={<NotFoundPage />} />
-      {/* <Route path="/admin" element={<AdminLayout />}>
-        <Route path="/products" />
-      </Route> */}
     </Routes>
   )
 }

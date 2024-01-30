@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { AccountInfo } from './components/AccountInfo'
 import { CancelAccount } from './components/CancelAccount'
 import { ProfileInfo } from './components/profileInfo'
@@ -7,14 +8,28 @@ import { Support } from './components/Support'
 import { MainContainer, DeleteAccountButton } from './styles'
 
 export function UserSettings() {
+  const [showCancelAccount, setShowCancelAccount] = useState(false)
+
+  const handleCancelAccountClick = () => {
+    setShowCancelAccount(!showCancelAccount)
+  }
+
   return (
     <MainContainer>
       <ProfileInfo />
-      <AccountInfo />
-      <SocialMedia />
-      <Support />
-      <CancelAccount />
-      <DeleteAccountButton>Delete Account</DeleteAccountButton>
+      {!showCancelAccount && (
+        <>
+          <AccountInfo />
+          <SocialMedia />
+          <Support />
+          <DeleteAccountButton onClick={handleCancelAccountClick}>
+            Cancel Account
+          </DeleteAccountButton>
+        </>
+      )}
+      {showCancelAccount && (
+        <CancelAccount onCancelClick={handleCancelAccountClick} />
+      )}
     </MainContainer>
   )
 }

@@ -16,7 +16,11 @@ export const CardTitle = styled.h1`
   font-weight: 800;
   margin-bottom: 2rem;
 `
-
+export const InputsWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+`
 export const SaveButton = styled.button`
   align-self: flex-end;
   border: 0;

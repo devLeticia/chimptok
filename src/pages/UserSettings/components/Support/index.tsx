@@ -1,4 +1,10 @@
-import { Card, CardTitle, SupportContainer, SaveButton, SupportText } from './styles'
+import {
+  Card,
+  CardTitle,
+  SupportContainer,
+  SaveButton,
+  SupportText,
+} from './styles'
 
 export function Support() {
   return (
@@ -6,11 +12,12 @@ export function Support() {
       <CardTitle>Support</CardTitle>
       <SupportContainer>
         <SupportText>
-          ILorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et.
+          {`Got problems or questions?`} <br />{' '}
+          {`Shoot us a message at contact@chimptok.com or hit Report Problem.`}
+          <br /> {` We've got your back!`}
         </SupportText>
-        <SaveButton>Report a problema</SaveButton>
       </SupportContainer>
+      <SaveButton>Report Problem</SaveButton>
     </Card>
   )
 }

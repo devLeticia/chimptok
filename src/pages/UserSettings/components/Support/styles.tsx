@@ -45,6 +45,7 @@ export const SaveButton = styled.button`
 
 export const SupportText = styled.p`
   font-size: 0.85rem;
-  color: ${(props) => props.theme['gray-500']};
-  font-weight: 600;
+  color: ${(props) => props.theme['gray-700']};
+  font-weight: 500;
+  line-height: 1.5;
 `

@@ -1,23 +1,44 @@
-import { NavLink } from 'react-router-dom'
+import { useState } from 'react'
+import { NavLink, Outlet } from 'react-router-dom'
 import { GoalsContainer } from './styles'
-import { GoalCard } from './GoalCard/index'
 import { Card } from '../../components/Card'
+import { Plus } from 'phosphor-react'
+import { Button } from '../../components/Button'
+import { Modal } from './../../components/Modal/index'
+import { NewGoalForm } from './NewGoalForm/index'
 
 export function Goals() {
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const openModal = () => {
+    setIsModalOpen(true)
+  }
+
+  const closeModal = () => {
+    setIsModalOpen(false)
+  }
   return (
     <>
       <Card>
         <GoalsContainer>
           <nav>
-            <NavLink to="/active" title="Timer" className="active">
-              Active Goals
-            </NavLink>
-            <NavLink to="/past" title="Timer">
-              Past Goals
-            </NavLink>
-            <button>Add Goal</button>
+            <div>
+              <NavLink to="/goals/active" title="Active Goals">
+                Active Goals
+              </NavLink>
+              <NavLink to="/goals/past" title="Past Goals">
+                Past Goals
+              </NavLink>
+            </div>
+            <Button onClick={openModal}>
+              <Plus weight="bold" size={18} />
+              New Goal
+            </Button>
           </nav>
-          <GoalCard />
+          <Modal isOpen={isModalOpen} onClose={closeModal}>
+            <NewGoalForm />
+          </Modal>
+          <Outlet />
         </GoalsContainer>
       </Card>
     </>

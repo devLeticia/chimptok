@@ -11,6 +11,7 @@ import {
 import { useNavigate } from 'react-router-dom'
 import { CheckCircle, XCircle, WarningCircle } from 'phosphor-react'
 import ChimpMeditating from '../../../public/chimp_meditating.svg'
+import { Button } from '../../components/Button'
 
 export function History() {
   const { cycles } = useContext(CyclesContext)
@@ -30,7 +31,9 @@ export function History() {
             I will not lose my temper with this person who has not started any
             tasks yet. I will not...
           </p>
-          <button onClick={handleGoToTimer}>Start a New Task</button>
+          <Button fullWidth onClick={handleGoToTimer}>
+            Start a New Task
+          </Button>
         </EmptyHistoryContainer>
       ) : (
         <HistoryList>

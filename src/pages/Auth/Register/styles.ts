@@ -10,7 +10,14 @@ export const AuthSubtitle = styled.h1`
   color: ${(props) => props.theme['dark-900']};
   font-weight: 600;
 `
-
+export const FormContainer = styled.div`
+  width: 100%;
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+`
 export const CreateAccountButton = styled.button`
   border: solid 2px ${(props) => props.theme['yellow-500']};
   width: 100%;

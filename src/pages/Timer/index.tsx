@@ -10,7 +10,8 @@ import { CyclesContext } from '../../contexts/CyclesContext'
 import { ProgressOfTheDay } from './components/ProgressOfTheDay/index'
 import { ConsistencyOfTheWeek } from './components/ConsistencyOfTheWeek/index'
 import { Card } from '../../components/Card'
-import { Button } from '../../components/Button'
+// import { Button } from '../../components/Button'
+import { NewTaskCycleForm } from './components/NewTaskCycleForm/index'
 
 const newCycleFormValidationSchema = zod.object({
   task: zod.string().min(1, 'Write the task'),
@@ -48,23 +49,12 @@ export function Timer() {
     <Card>
       <HomeContainer>
         <ConsistencyOfTheWeek />
-        <ProgressOfTheDay />
+        <ProgressOfTheDay goalOfTheDay={2} hoursDedicated={1} />
 
         <hr />
-        <TimerContainer>
-          <p>Click the button to choose a task to work on</p>
-          <form onSubmit={handleSubmit(handleCreateNewCycle)}>
-            <FormProvider {...newCycleForm}>
-              {/* <NewCycleForm /> */}
-            </FormProvider>
-            <Countdown />
-            {activeCycle ? (
-              <Button>Interrupt Task</Button>
-            ) : (
-              <Button color="blue">Start a New Task</Button>
-            )}
-          </form>
-        </TimerContainer>
+
+        <Countdown />
+        <NewTaskCycleForm />
       </HomeContainer>
     </Card>
   )

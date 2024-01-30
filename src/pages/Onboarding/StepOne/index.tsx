@@ -1,5 +1,6 @@
 import { Button } from '../../../components/Button'
 import { Input } from '../../../components/Input'
+import { DividerWithText } from '../../Auth/Login/styles'
 import {
   SuperHeader,
   Subtitle,
@@ -17,7 +18,7 @@ import {
   Plus,
 } from 'phosphor-react'
 
-export function StepOne() {
+export function NewGoalForm() {
   return (
     <>
       <SuperHeader>SET THE GOAL</SuperHeader>
@@ -28,16 +29,25 @@ export function StepOne() {
           <span>(you’ll be able to set more goals later)</span>
         </SessionLabel>
         <Input
+          type="text"
           placeholder="Goal to Achieve"
           icon={<FlagBanner weight="duotone" size={24} />}
         />
+        <SessionLabel>Set a date dealine and</SessionLabel>
         <DetailsWrapper>
           <Input
+            type="date"
             placeholder="Deadline"
             icon={<Calendar weight="duotone" size={24} />}
           />
           <Input
-            placeholder="Weekly Hours"
+            type="number"
+            onKeyDown={(evt) =>
+              ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()
+            }
+            min={1}
+            max={40}
+            placeholder="Hours per week"
             icon={<Clock weight="duotone" size={24} />}
           />
         </DetailsWrapper>
@@ -50,20 +60,12 @@ export function StepOne() {
           placeholder="Task"
           icon={<CheckSquareOffset weight="duotone" size={24} />}
         />
-        <Input
-          placeholder="Another Task"
-          icon={<CheckSquareOffset weight="duotone" size={24} />}
-        />
-        <Input
-          placeholder="One more Task"
-          icon={<CheckSquareOffset weight="duotone" size={24} />}
-        />
         <Button color="dark">
           <Plus size={16} weight="bold" color="white" />
           Add another Task
         </Button>
         <Button>Save and Proceed</Button>
-        <Skip>Skip</Skip>
+        <Skip>Skip Onboarding</Skip>
       </SectionWrapper>
     </>
   )

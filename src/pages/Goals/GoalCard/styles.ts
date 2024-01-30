@@ -1,11 +1,12 @@
 import styled from 'styled-components'
-
+interface GoalCardProps {
+  progressPercentage: number
+}
 export const GoalContainer = styled.div`
   width: 100%;
   display: flex;
   align-items: start;
-  gap: 2rem;
-  margin-top: 3rem;
+  gap: 1.25rem;
 
   button {
     width: 300px;
@@ -29,27 +30,19 @@ export const GoalContainer = styled.div`
     }
   }
 `
-export const GoalIndex = styled.h1`
-  text-align: right;
-  line-height: 80%;
-  font-size: 3rem;
-  font-family: 'Barlow Semi Condensed', sans-serif;
-  font-style: italic;
-  color: ${(props) => props.theme['dark-900']};
-  font-weight: 900;
-`
+
 export const CardContainer = styled.div`
   background-color: white;
   width: 100%;
   display: flex;
-  gap: 0.75rem;
+  gap: 0.5rem;
   flex-direction: column;
-  padding: 1.5rem;
-  border: solid 2px ${(props) => props.theme['gray-300']};
+  padding: 1.25rem;
+  border: solid 1px ${(props) => props.theme['gray-300']};
   border-radius: 9px;
 
   hr {
-    border-top: 1px solid ${(props) => props.theme['gray-300']};
+    border-top: 1px solid ${(props) => props.theme['gray-150']};
     width: 100%;
   }
 `
@@ -57,26 +50,27 @@ export const LabelRow = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  font-weight: 700;
-  font-size: 0.85rem;
-  color: ${(props) => props.theme['gray-500']};
+  font-weight: 600;
+  font-size: 0.75rem;
+  color: ${(props) => props.theme['gray-700']};
 `
 
 export const CardTitle = styled.h1`
   color: ${(props) => props.theme['dark-900']};
-  font-size: 1.05rem;
+  font-size: 1rem;
   font-weight: 800;
 `
 
-export const ProgressBar = styled.div`
-  height: 0.75rem;
+export const ProgressBar = styled.div<GoalCardProps>`
+  height: 0.5rem;
   background-color: ${(props) => props.theme['gray-200']};
   border-radius: 9px;
 
   div {
     height: 100%;
     border-radius: 9px;
-    width: 70%;
+    width: ${(props) =>
+      props.progressPercentage}%; /* Dynamic width based on progressPercentage */
     background-color: ${(props) => props.theme['blue-500']};
   }
 `
@@ -92,28 +86,62 @@ export const TaskCounterContainer = styled.div`
     color: ${(props) => props.theme['gray-300']};
   }
 `
-export const TaskListContainer = styled.div`
+export const TasksContainer = styled.div`
   width: 100%;
   display: flex;
-  align-items: center;
-  padding-left: 2rem;
-  gap: 1rem;
-  display: none;
+  flex-direction: column;
+  padding-top: 1rem;
+  gap: 0.25rem;
+`
+
+export const TaskDetails = styled.details`
+  :hover {
+    cursor: pointer;
+  }
+
+  summary {
+    margin-top: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: ${(props) => props.theme['gray-700']};
+  }
+`
+export const TaskDescriptionWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
 `
 export const TaskIndex = styled.p`
   font-family: 'Roboto Mono', monospace;
-  font-size: 0.85rem;
-  display: flex;
-  justify-content: center;
-  color: white;
-  background-color: ${(props) => props.theme['dark-900']};
-  width: 1.75rem;
-  height: 1.75rem;
-  border-radius: 100%;
-  line-height: 200%;
+  text-align: right;
+  width: 30px;
+  font-weight: bold;
+  letter-spacing: -0.1rem;
 `
+
+export const TaskDescription = styled.p`
+  font-size: 0.85rem;
+  color: ${(props) => props.theme['gray-700']};
+  font-weight: 500;
+  line-height: 1.5;
+`
+
 export const Task = styled.p`
   font-weight: 700;
   font-size: 0.85rem;
   color: ${(props) => props.theme['dark-900']};
+`
+
+export const StatusBadge = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 0.25rem;
+  align-items: center;
+  color: ${(props) => props.theme['green-500']};
+  font-size: 0.75rem;
+  font-weight: 800;
+
+  p {
+    color: ${(props) => props.theme['green-700']};
+  }
 `

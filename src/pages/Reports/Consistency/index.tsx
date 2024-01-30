@@ -17,10 +17,10 @@ export function Consistency() {
     <YaarConsistency>
       <DataWrapper>
         <Title>Consistency</Title>
-        <RangeLabel>Jan - Fev - Mar</RangeLabel>
+        <RangeLabel>100 days in sight</RangeLabel>
       </DataWrapper>
       <YearGrid>
-        {[...Array(90)].map((_, index) => (
+        {[...Array(100)].map((_, index) => (
           <div
             key={index}
             data-tip={`Day ${index + 1}`}

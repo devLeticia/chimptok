@@ -11,7 +11,14 @@ export const AuthSubtitle = styled.h1`
   font-weight: 600;
   margin-bottom: 2rem;
 `
-
+export const FormContainer = styled.div`
+  width: 100%;
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+`
 export const CreateAccountButton = styled.button`
   border: solid 2px ${(props) => props.theme['yellow-500']};
   width: 100%;

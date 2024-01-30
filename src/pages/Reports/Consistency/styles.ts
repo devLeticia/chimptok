@@ -23,9 +23,9 @@ export const RangeLabel = styled.p`
 
 export const YearGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(30, 1fr); /* 15 columns for 75 squares */
-  column-gap: 0.5rem; /* Horizontal gap */
-  row-gap: 0.3rem; /* Vertical gap */
+  grid-template-columns: repeat(25, 1fr); /* 15 columns for 75 squares */
+  column-gap: 0.4rem; /* Horizontal gap */
+  row-gap: 0.2rem; /* Vertical gap */
 `
 
 export const DaySquare = styled.div<{
@@ -42,7 +42,7 @@ export const DaySquare = styled.div<{
       : props.past
       ? props.theme['yellow-400']
       : props.theme['gray-200']};
-  border-radius: 3px; /* Optional: Add rounded corners */
+  border-radius: 1px; /* Optional: Add rounded corners */
   border: 2px solid
     ${(props) =>
       props.past

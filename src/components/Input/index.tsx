@@ -1,47 +1,35 @@
 import {
-  InputWrapper,
   StyledInput,
+  Label,
   IconWrapper,
   ErrorMessage,
   StyledValidatorIcon,
+  InputWrapper,
+  InputContainer,
 } from './styles'
-import { InputHTMLAttributes, ReactNode } from 'react'
-import { CheckCircle, XCircle } from 'phosphor-react'
+import { InputHTMLAttributes, ReactNode, forwardRef } from 'react'
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  placeholder: string
+  placeholder?: string
   icon?: ReactNode
-  errorMessage?: string
-  showValidator?: boolean
-  validator?: boolean
+  errorMessage?: string | null | undefined
+  isValid?: boolean
+  label?: string
 }
 
-const getValidatorIcon = (validator: boolean) => {
-  return validator ? (
-    <CheckCircle size={20} weight="fill" />
-  ) : (
-    <XCircle size={20} weight="fill" />
-  )
-}
-
-export function Input({
-  placeholder,
-  icon,
-  errorMessage,
-  showValidator,
-  validator,
-  ...props
-}: InputProps) {
-  return (
-    <InputWrapper>
-      <StyledInput placeholder={placeholder} {...props} />
-      {icon && <IconWrapper>{icon}</IconWrapper>}
-      {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
-      {showValidator && (
-        <StyledValidatorIcon validator={validator}>
-          {getValidatorIcon(validator)}
-        </StyledValidatorIcon>
-      )}
-    </InputWrapper>
-  )
-}
+export const Input = forwardRef<HTMLInputElement, InputProps>(
+  ({ placeholder, icon, errorMessage, isValid, label, ...props }, ref) => {
+    return (
+      <InputContainer>
+        {label && <Label>{label}</Label>}
+        <InputWrapper>
+          <StyledInput placeholder={placeholder} ref={ref} {...props} />
+          {icon && <IconWrapper>{icon}</IconWrapper>}
+          {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
+          {isValid && <StyledValidatorIcon size={22} weight="fill" />}
+        </InputWrapper>
+      </InputContainer>
+    )
+  },
+)
+Input.displayName = 'Input'

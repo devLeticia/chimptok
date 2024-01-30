@@ -4,7 +4,7 @@ export const Card = styled.div`
   background-color: white;
   width: 100%;
   display: flex;
-  gap: 0.75rem;
+  gap: 2rem;
   flex-direction: column;
   padding: 2rem;
   border: solid 2px ${(props) => props.theme['gray-300']};
@@ -19,13 +19,14 @@ export const CardTitle = styled.h1`
 `
 export const Container = styled.h1`
   display: flex;
-  gap: 0.25rem;
+  gap: 0.5rem;
   flex-direction: column;
 
   p {
     font-size: 0.85rem;
-    color: ${(props) => props.theme['gray-500']};
-    font-weight: 600;
+    color: ${(props) => props.theme['gray-700']};
+    font-weight: 500;
+    line-height: 1.5;
   }
 `
 export const Subtitle = styled.h2`

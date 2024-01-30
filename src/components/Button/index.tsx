@@ -1,27 +1,28 @@
-import React from 'react'
+import React, { ButtonHTMLAttributes } from 'react'
 import { ButtonWrapper } from './styles'
 
-interface ButtonProps {
-  onClick?: () => void
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode
-  disabled?: boolean
   color?: 'yellow' | 'blue' | 'dark'
   buttonType?: 'filled' | 'border' | 'flat'
+  fullWidth?: boolean
 }
 
 export function Button({
-  onClick,
   children,
   disabled = false,
   color = 'yellow',
   buttonType = 'filled',
+  fullWidth = false,
+  ...props
 }: ButtonProps) {
   return (
     <ButtonWrapper
-      onClick={onClick}
+      fullWidth={fullWidth}
       disabled={disabled}
       color={color}
       buttonType={buttonType}
+      {...props}
     >
       {children}
     </ButtonWrapper>

@@ -9,7 +9,7 @@ export const defaultTheme = {
   'gray-150': '#F3F3F3',
   'gray-200': '#E9E9E9',
   'gray-300': '#D9D9D9',
-  'gray-500': '#ABABAB',
+  'gray-500': '#9394a5', //
   'gray-700': '#5C5B5B',
 
   // 'brown-700': '#403B3B',
@@ -27,9 +27,12 @@ export const defaultTheme = {
   'yellow-400': '#f3db88',
   'yellow-500': '#FADE7E',
   'yellow-600': '#FBD862',
+  'yellow-700': '#d9b12b',
+  'yellow-800': '#937202',
   'blue-400': '#85BEFF',
   'blue-500': '#65A3FF',
   'green-500': '#87D96C',
+  'green-700': '#61a949',
   'orange-500': '#FEC167',
   'dark-800': '#403B3B',
   'dark-900': '#302D27',

@@ -44,6 +44,12 @@ export const SocialMediaContainer = styled.div`
     flex: 1;
     max-width: 50%;
   }
+  p {
+    font-size: 0.85rem;
+    color: ${(props) => props.theme['gray-700']};
+    font-weight: 500;
+    line-height: 1.5;
+  }
 `
 export const LinksContainer = styled.div`
   display: flex;

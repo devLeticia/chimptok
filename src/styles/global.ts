@@ -9,7 +9,6 @@ export const GlobalStyle = createGlobalStyle`
 }
 
 img {
-  user-drag: none;
   user-select: none;
   -moz-user-select: none;
   -webkit-user-drag: none;
@@ -46,6 +45,16 @@ body, input, textarea, button {
   font-size: 0.85rem;
   color: ${(props) => props.theme['dark-900']};
   font-weight: 600;
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-text-fill-color: ${(props) => props.theme['dark-900']};
+    font-weight: 600;
+    transition: background-color 5000s ease-in-out 0s;
+    box-shadow: none
+}
 }
 
 

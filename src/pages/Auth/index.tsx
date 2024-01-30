@@ -32,7 +32,7 @@ export function Auth() {
   return (
     <Container>
       <AuthSecondaryContainer>
-        <h1>Youre on the right track towards your goal!</h1>
+        <h1>{`You're on the right track towards your goal!`}</h1>
       </AuthSecondaryContainer>
       <AuthCard>
         <ContentContainer>

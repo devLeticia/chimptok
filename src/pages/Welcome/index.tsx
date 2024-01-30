@@ -7,16 +7,29 @@ import {
   StyledCheckCircle,
 } from './styles'
 
+import { useNavigate } from 'react-router-dom'
+
 export function Welcome() {
+  const navigate = useNavigate()
+
+  function handleRedirectToOnboarding() {
+    navigate('/onboarding')
+  }
+
   return (
     <>
       <ConfirmationContainer>
-        <SuperHeader>WE ARE READY TO GO!</SuperHeader>
-        <Subtitle>Your e-mail was confirmed</Subtitle>
-        <p>Set this date because thats when your life will change</p>
-        <StyledCheckCircle size={56} weight="fill" />
         <CallToActionContainer>
-          <Button color="blue">Start at Chimptok</Button>
+          <StyledCheckCircle size={56} weight="fill" />
+          <Subtitle>Your e-mail was confirmed</Subtitle>
+          <p>{`Set this date because that's when your life is about to change!`}</p>
+        </CallToActionContainer>
+        <SuperHeader>{`WE'RE READY`}</SuperHeader>
+        <SuperHeader>{`TO GO!`}</SuperHeader>
+        <CallToActionContainer>
+          <Button color="yellow" onClick={handleRedirectToOnboarding}>
+            Start at Chimptok
+          </Button>
         </CallToActionContainer>
       </ConfirmationContainer>
     </>

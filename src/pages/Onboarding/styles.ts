@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 
 export const OnboardingContainer = styled.div`
   background-color: ${(props) => props.theme['gray-100']};
@@ -61,13 +61,38 @@ export const ProgressWrapper = styled.div`
   gap: 0.5rem;
   margin-bottom: 0.5rem;
 `
+
+const progressAnimation = keyframes`
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+`
+
 export const StepProgress = styled.div`
   height: 0.35rem;
   width: 100%;
   border-radius: 30px;
-  background-color: ${(props) => props.theme['blue-500']};
-`
+  overflow: hidden;
+  position: relative;
+  background-color: ${(props) => props.theme['gray-300']};
 
+  &::before {
+    content: '';
+    display: block;
+    height: 100%;
+    width: 100%;
+    background-color: ${(props) => props.theme['gray-300']};
+    animation: ${progressAnimation} 1s forwards;
+  }
+
+  &.completed::before {
+    width: 100%;
+    background-color: ${(props) => props.theme['blue-500']};
+  }
+`
 export const ProgressLabel = styled.div`
   color: ${(props) => props.theme['gray-500']};
   text-align: right;

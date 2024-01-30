@@ -1,5 +1,11 @@
+import { CheckCircle } from 'phosphor-react'
 import styled from 'styled-components'
 
+export const InputContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+`
 export const InputWrapper = styled.div`
   width: 100%;
   position: relative;
@@ -23,7 +29,15 @@ export const StyledInput = styled.input`
     border: 2px solid ${(props) => props.theme['yellow-500']};
   }
 `
-
+export const Label = styled.p`
+  margin-bottom: 0.5rem;
+  text-align: left;
+  font-weight: 700;
+  span {
+    margin-left: 0.25rem;
+    color: ${(props) => props.theme['gray-500']};
+  }
+`
 export const IconWrapper = styled.div`
   position: absolute;
   top: 50%;
@@ -33,7 +47,7 @@ export const IconWrapper = styled.div`
   transition: color 0.3s ease; /* Add transition for color property */
 
   ${InputWrapper}:focus-within & {
-    color: ${(props) => props.theme['dark-900']};
+    color: ${(props) => props.theme['yellow-700']};
   }
 `
 
@@ -48,23 +62,14 @@ export const ErrorMessage = styled.div`
   padding-bottom: 0.5rem;
   bottom: 20%;
   right: 1rem;
-  font-weight: 600;
+  font-weight: 700;
   transition: color 0.3s ease; /* Add transition for color property */
 `
 
-export const StyledValidatorIcon = styled.div<{ validator: boolean }>`
+export const StyledValidatorIcon = styled(CheckCircle)`
   position: absolute;
-  top: 55%;
+  top: 50%;
   right: 1rem;
   transform: translateY(-50%);
-  color: ${(props) =>
-    props.validator === true
-      ? props.theme['green-500']
-      : props.theme['red-500']};
-  transition: color 0.3s ease;
-
-  ${InputWrapper}:focus-within & {
-    color: ${(props) =>
-      props.validator ? props.theme['green-500'] : props.theme['red-500']};
-  }
+  color: ${(props) => props.theme['green-500']};
 `
