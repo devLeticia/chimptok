@@ -3,6 +3,7 @@ import Select from '../../../../components/Select'
 import { Container, NewCycleCTA, MinutesOptionsContainer } from './styles'
 import { Radio } from './../../../../components/RadioButton/index'
 import { useState } from 'react'
+import { useCycles } from '../../../../contexts/CyclesContext'
 
 type Task = {
   id: string
@@ -88,10 +89,12 @@ const activeGoals = [
   },
 ]
 export function NewTaskCycleForm() {
+  const { startNewCycle } = useCycles()
+
   const minutesAmountOptions = [
     {
       id: 1,
-      amountInMinutes: 15,
+      amountInMinutes: 1,
     },
     {
       id: 2,
@@ -107,7 +110,7 @@ export function NewTaskCycleForm() {
     },
     {
       id: 0,
-      amountInMinutes: undefined,
+      amountInMinutes: 120, // try to add a unlimited here
     },
   ]
 
@@ -117,9 +120,7 @@ export function NewTaskCycleForm() {
     activeGoals[0].tasks[0],
   )
 
-  const [selectedMinutesAmount, setSelectedMinutesAmount] = useState<
-    number | null
-  >(null)
+  const [selectedMinutesAmount, setSelectedMinutesAmount] = useState<number>(30)
 
   function handleGoalSelect(goal: Goal) {
     setSelectedGoal(goal)
@@ -154,6 +155,8 @@ export function NewTaskCycleForm() {
   function handleSumbmitNewTaskCycle() {
     const requestBody = {
       // userId,
+      goalName: selectedGoal.goalName,
+      taskName: selectedTask.description,
       startDate: new Date(),
       goalId: selectedGoal.id,
       taskId: selectedTask.id,
@@ -163,15 +166,9 @@ export function NewTaskCycleForm() {
     startNewCycle(requestBody)
   }
 
-  async function startNewCycle(requestBody) {
-    await startNewCycleInContext(requestBody)
-  }
   return (
     <Container>
       <NewCycleCTA>Time to Put Your Butt to Work!</NewCycleCTA>
-      {/* <p>{JSON.stringify(selectedGoal)}</p>
-      <p>{JSON.stringify(selectedTask)}</p>
-      <p>{JSON.stringify(selectedMinutesAmount)}</p> */}
       <Select
         placeholder="Choose a goal"
         options={activeGoals}

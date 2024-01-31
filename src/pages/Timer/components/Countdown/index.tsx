@@ -1,72 +1,70 @@
+import React, { useEffect, useState, useCallback } from 'react'
 import { differenceInSeconds } from 'date-fns'
-import { useContext, useEffect } from 'react'
-import { CyclesContext } from '../../../../contexts/CyclesContext'
-import { CountdownContainer, Separator } from './styles'
+import { ActiveCycleDescription, CountdownContainer, Separator } from './styles'
+import { useCycles } from './../../../../contexts/CyclesContext'
+import { Button } from './../../../../components/Button/index'
 
 export function Countdown() {
-  const {
-    activeCycle,
-    activeCycleId,
-    markCurrentCycleAsFinished,
-    amountSecondsPassed,
-    setSecondsPassed,
-  } = useContext(CyclesContext)
+  const { activeCycle, markCurrentCycleAsFinished } = useCycles()
 
-  const totalSeconds = activeCycle ? activeCycle.minutesAmount * 60 : 0
+  const calculateRemainingTime = useCallback(() => {
+    if (activeCycle) {
+      const totalSeconds = activeCycle.minutesAmount * 60
+      const secondsDifference = differenceInSeconds(
+        new Date(),
+        new Date(activeCycle.startDate),
+      )
+      return Math.max(0, totalSeconds - secondsDifference)
+    }
+    return 0
+  }, [activeCycle])
+
+  const [remainingTime, setRemainingTime] = useState(calculateRemainingTime())
 
   useEffect(() => {
-    let interval: string | number | NodeJS.Timeout | undefined
+    console.log('activeCycle:', activeCycle)
 
-    if (activeCycle) {
-      interval = setInterval(() => {
-        const secondsDifference = differenceInSeconds(
-          new Date(),
-          new Date(activeCycle.startDate),
-        )
+    setRemainingTime(calculateRemainingTime())
 
-        if (secondsDifference >= totalSeconds) {
-          markCurrentCycleAsFinished()
+    let interval: NodeJS.Timeout
 
-          setSecondsPassed(totalSeconds)
-          clearInterval(interval)
-        } else {
-          setSecondsPassed(secondsDifference)
-        }
-      }, 1000)
+    function updateRemainingTime() {
+      setRemainingTime(calculateRemainingTime())
+    }
+
+    if (activeCycle && remainingTime > 0) {
+      interval = setInterval(updateRemainingTime, 1000)
     }
 
     return () => {
       clearInterval(interval)
     }
-  }, [
-    activeCycle,
-    totalSeconds,
-    activeCycleId,
-    setSecondsPassed,
-    markCurrentCycleAsFinished,
-  ])
+  }, [activeCycle, remainingTime, calculateRemainingTime])
 
-  const currentSeconds = activeCycle ? totalSeconds - amountSecondsPassed : 0
-
-  const minutesAmount = Math.floor(currentSeconds / 60)
-  const secondsAmount = currentSeconds % 60
-
-  const minutes = String(minutesAmount).padStart(2, '0')
-  const seconds = String(secondsAmount).padStart(2, '0')
+  const minutes = String(Math.floor(remainingTime / 60)).padStart(2, '0')
+  const seconds = String(remainingTime % 60).padStart(2, '0')
 
   useEffect(() => {
-    if (activeCycle) {
-      document.title = `${minutes}:${seconds}`
+    if (remainingTime === 0 && activeCycle) {
+      markCurrentCycleAsFinished()
     }
-  }, [minutes, seconds, activeCycle])
+  }, [remainingTime, activeCycle, markCurrentCycleAsFinished])
 
   return (
-    <CountdownContainer>
-      <span>{minutes[0]}</span>
-      <span>{minutes[1]}</span>
-      <Separator>:</Separator>
-      <span>{seconds[0]}</span>
-      <span>{seconds[1]}</span>
-    </CountdownContainer>
+    <>
+      <ActiveCycleDescription>
+        Working for <span>{activeCycle?.minutesAmount} minutes</span> on{' '}
+        <span>{activeCycle?.taskName}</span> towards{' '}
+        <span>{activeCycle?.goalName}</span>
+      </ActiveCycleDescription>
+      <CountdownContainer>
+        <span>{minutes[0]}</span>
+        <span>{minutes[1]}</span>
+        <Separator>:</Separator>
+        <span>{seconds[0]}</span>
+        <span>{seconds[1]}</span>
+      </CountdownContainer>
+      <Button color="dark">Interrupt</Button>
+    </>
   )
 }
