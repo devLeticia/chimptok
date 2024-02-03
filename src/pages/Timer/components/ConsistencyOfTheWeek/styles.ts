@@ -16,41 +16,36 @@ export const LabelRow = styled.div``
 export const SummaryContainer = styled.div`
   width: 100%;
   display: flex;
-  justify-content: space-between;
-`
-export const DateSummary = styled.div`
-  display: flex;
-  flex-direction: column;
   font-size: 0.75rem;
-  &:last-child {
-    text-align: right;
-  }
+  justify-content: center;
+  gap: 1rem;
 `
+export const DateSummary = styled.div``
 
 export const DayBoxContainer = styled.div`
   margin-top: 1rem;
   display: flex;
-  justify-content: space-between;
-  justify-items: center;
+  width: 100%;
+  justify-content: center;
+  gap: 0.5rem;
 `
 
 export const DayBox = styled.div<ModalConsistencyProps>`
   width: 3rem; /* Set your desired width */
   aspect-ratio: 1;
-  box-sizing: content-box;
+  box-sizing: border-box;
   border: 3px solid
     ${(props) =>
-      props.status === 'past'
-        ? props.theme['yellow-600']
-        : props.status === 'current'
+      props.status === 'current'
         ? props.theme['dark-900']
-        : props.theme['gray-300']}; /* Border for past days */
-  border-radius: 7px;
+        : 'none'}; /* Border for past days */
+
+  border-radius: 3px;
   background-color: ${(props) =>
     props.status === 'current'
       ? props.theme.white
       : props.status === 'past' && props.intensity === 0
-      ? props.theme.white
+      ? props.theme['dark-900']
       : props.status === 'past' && props.intensity === 1
       ? props.theme['yellow-300']
       : props.status === 'past' && props.intensity === 2
@@ -59,11 +54,12 @@ export const DayBox = styled.div<ModalConsistencyProps>`
       ? props.theme['yellow-500']
       : props.status === 'past' && props.intensity >= 4
       ? props.theme['yellow-600']
-      : props.theme['gray-100']};
+      : props.theme['gray-300']};
   margin: auto;
 `
 
 export const DayLabel = styled.h1<ModalConsistencyProps>`
+  box-sizing: border-box;
   margin-top: 1rem;
   font-family: 'Barlow Semi Condensed', sans-serif;
   text-transform: uppercase;

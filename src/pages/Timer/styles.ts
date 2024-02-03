@@ -3,18 +3,27 @@ import styled, { keyframes } from 'styled-components'
 export const HomeContainer = styled.main`
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-  p {
+
+  p,
+  span {
     font-weight: 600;
     color: ${(props) => props.theme['gray-500']};
   }
 
   hr {
-    border-top: 1px solid ${(props) => props.theme['gray-300']};
+    border-top: 1px solid ${(props) => props.theme['gray-200']};
     width: 100%;
   }
-`
 
+  img {
+    height: 2rem;
+  }
+`
+export const SuperiorContainer = styled.main`
+  display: flex;
+  flex-direction: column;
+  padding: 0rem 3rem;
+`
 export const BaseCountdownButton = styled.button`
   font-family: 'Plus Jakarta Sans', sans-serif;
   width: 100%;

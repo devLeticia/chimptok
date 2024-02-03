@@ -3,37 +3,74 @@ import {
   CardContainer,
   LabelRow,
   CardTitle,
-  ProgressBar,
   TaskDetails,
   TasksContainer,
   TaskIndex,
   TaskDescriptionWrapper,
   TaskDescription,
   StatusBadge,
+  ActionsContainer,
 } from './styles'
 
-import { CheckCircle } from 'phosphor-react'
+import { CheckCircle, Pencil, Trash } from 'phosphor-react'
+import { DomainProgressBar } from './../../../domain-components/ProgressBar/index'
+import { Button } from '../../../components/Button'
+import { ConfirmDialog } from '../../../components/Dialog'
+import { useState } from 'react'
+import { Loading } from '../../../components/Loading'
+import { Toast } from '../../../components/Toast'
 
+type Goal = {
+  goalName: string
+  tasks: Array<string>
+  createdAt: Date
+  deadline: Date
+  hoursPerWeek: number
+  totalHoursSpent: number
+  progressPercentage: number
+  status: number
+}
 interface GoalCardProps {
-  goal: {
-    goalName: string
-    tasks: Array<string>
-    createdAt: Date
-    deadline: Date
-    hoursPerWeek: number
-    totalHoursSpent: number
-    progressPercentage: number
-    status: number
-  }
+  goal: Goal
 }
 
 export function GoalCard({ goal }: GoalCardProps) {
+  const [isDialogOpen, setIsDialogOpen] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+
   function isPastGoal(status: number) {
     return status === 2 || status === 3
   }
 
+  function handleOpenGoalEdition(goal: Goal) {
+    console.log(goal)
+  }
+
+  function handleDeleteGoal(goal: Goal) {
+    console.log(goal)
+  }
+
+  function handleOpenDialog(goal: Goal) {
+    console.log(goal)
+    setIsDialogOpen(true)
+  }
+
+  function handleCloseDialog() {
+    setIsDialogOpen(false)
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 2000)
+  }
+
+  function handleConfirmDeletion(goal: Goal) {
+    // Handle deletion logic here
+    setIsLoading(true)
+    // Close the dialog after deletion
+    handleCloseDialog()
+  }
   return (
     <GoalContainer>
+      <Toast message="Operation successful!" type="success" />
       <CardContainer>
         {isPastGoal(goal.status) && (
           <StatusBadge>
@@ -58,9 +95,7 @@ export function GoalCard({ goal }: GoalCardProps) {
         )}
         <hr />
         <CardTitle>{goal.goalName}</CardTitle>
-        <ProgressBar progressPercentage={goal.progressPercentage}>
-          <div></div>
-        </ProgressBar>
+        <DomainProgressBar progress={goal.progressPercentage} />
         <TaskDetails>
           <summary>{goal.tasks.length} tasks</summary>
           <TasksContainer>
@@ -72,9 +107,28 @@ export function GoalCard({ goal }: GoalCardProps) {
                 </TaskDescriptionWrapper>
               )
             })}
-            {/* <button>Edit goal</button> */}
           </TasksContainer>
+          <ActionsContainer>
+            <Button onClick={() => handleOpenDialog(goal)}>
+              <Trash weight="bold" size={18} />
+              Delete
+            </Button>
+            <Button onClick={() => handleOpenGoalEdition(goal)}>
+              <Pencil weight="bold" size={18} />
+              Edit Goal
+            </Button>
+          </ActionsContainer>
         </TaskDetails>
+        <ConfirmDialog
+          cancelText="Cancel"
+          confirmationText="Delete"
+          isOpen={isDialogOpen}
+          onClose={handleCloseDialog}
+          onConfirm={() => handleConfirmDeletion(goal)}
+          title={'Are you sure?'}
+          text={`All goals and tasks, as well as its history will be deleted.`}
+        ></ConfirmDialog>
+        <Loading isLoading={isLoading} />
       </CardContainer>
     </GoalContainer>
   )

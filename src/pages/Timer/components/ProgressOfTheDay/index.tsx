@@ -1,5 +1,5 @@
 import { DomainProgressBar } from '../../../../domain-components/ProgressBar'
-import { ProgressBarContainer, ProgressLabelContainer } from './styles'
+import { ProgressBarContainer } from './styles'
 
 interface ProgressOftheDay {
   goalOfTheDay: number
@@ -12,11 +12,12 @@ export function ProgressOfTheDay({
   const progressOfTheDay = (hoursDedicated / goalOfTheDay) * 100
   return (
     <ProgressBarContainer>
-      <ProgressLabelContainer>
-        <p>{`Today's Goal`}</p>
-        <p>{goalOfTheDay} Hours in Tasks</p>
-      </ProgressLabelContainer>
+      <p>{`Today's Goal`}</p>
       <DomainProgressBar progress={progressOfTheDay} />
+      <p>
+        0{''}/{''}
+        {goalOfTheDay} hours
+      </p>
     </ProgressBarContainer>
   )
 }

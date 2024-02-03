@@ -8,17 +8,17 @@ import { TaskAndTimer } from './components/TaskAndTimer'
 
 export function Timer() {
   return (
-    <Card>
+    <>
       <HomeContainer>
-        <ConsistencyOfTheWeek />
-        <ProgressOfTheDay goalOfTheDay={2} hoursDedicated={1} />
-
-        <hr />
-
-        <CyclesProvider>
-          <TaskAndTimer />
-        </CyclesProvider>
+        <Card>
+          <ConsistencyOfTheWeek />
+          <ProgressOfTheDay goalOfTheDay={2} hoursDedicated={1} />
+          <hr />
+          <CyclesProvider>
+            <TaskAndTimer />
+          </CyclesProvider>
+        </Card>
       </HomeContainer>
-    </Card>
+    </>
   )
 }

@@ -10,7 +10,6 @@ export const TaskHistoryContainer = styled.div`
     font-size: 1rem;
     color: ${(props) => props.theme['dark-900']};
     font-weight: 800;
-    margin-bottom: 1.5rem;
   }
 
   span {
@@ -21,6 +20,15 @@ export const TaskHistoryContainer = styled.div`
   }
 `
 
+export const TaskListContainer = styled.div`
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  height: 244px;
+  overflow: auto;
+`
+
 export const IconContainer = styled.div`
   flex-grow: 0;
 `
@@ -28,8 +36,8 @@ export const TaskContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 1rem;
-
+  gap: 0.5rem;
+  margin-right: 0.25rem;
   h1 {
     font-size: 0.85rem;
     color: ${(props) => props.theme['gray-700']};
@@ -44,4 +52,14 @@ export const TaskDataContainer = styled.div`
 `
 export const StyledCheckCircle = styled(CheckCircle)`
   color: ${(props) => props.theme['green-500']};
+`
+export const GoalDescription = styled.p`
+  color: ${(props) => props.theme['gray-500']};
+  line-height: 180%;
+  font-size: 0.7rem;
+  font-weight: 700;
+
+  span {
+    font-style: italic;
+  }
 `

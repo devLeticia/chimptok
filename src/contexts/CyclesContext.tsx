@@ -15,6 +15,7 @@ type CycleContextProps = {
   activeCycle: NewCycle | undefined
   startNewCycle: (newCycleData: NewCycle) => void
   markCurrentCycleAsFinished: () => void
+  abandonCurrentCycle: () => void
 }
 
 const CyclesContext = createContext<CycleContextProps | undefined>(undefined)
@@ -41,13 +42,18 @@ export const CyclesProvider: React.FC<CyclesProviderProps> = ({ children }) => {
 
   function markCurrentCycleAsFinished() {
     // setActiveCycle(undefined)
-    console.log('marcar como terminado:', markCurrentCycleAsFinished)
+    setActiveCycle(undefined)
+  }
+
+  function abandonCurrentCycle() {
+    setActiveCycle(undefined)
   }
 
   const contextValue: CycleContextProps = {
     activeCycle,
     startNewCycle,
     markCurrentCycleAsFinished,
+    abandonCurrentCycle,
   }
 
   return (

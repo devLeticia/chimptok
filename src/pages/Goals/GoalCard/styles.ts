@@ -7,28 +7,6 @@ export const GoalContainer = styled.div`
   display: flex;
   align-items: start;
   gap: 1.25rem;
-
-  button {
-    width: 300px;
-    border: 0;
-    border-radius: 8px;
-    display: inline-block;
-    justify-content: center;
-    align-items: center;
-    font-size: 0.85rem;
-    font-weight: 800;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    cursor: pointer;
-    color: ${(props) => props.theme.white};
-    background-color: ${(props) => props.theme['yellow-500']};
-    color: ${(props) => props.theme['dark-900']};
-    padding: 0.5rem 1.5rem;
-
-    :hover {
-      background-color: ${(props) => props.theme['blue-500']};
-      cursor: pointer;
-    }
-  }
 `
 
 export const CardContainer = styled.div`
@@ -144,4 +122,12 @@ export const StatusBadge = styled.div`
   p {
     color: ${(props) => props.theme['green-700']};
   }
+`
+
+export const ActionsContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  margin-top: 1rem;
+  justify-content: end;
 `

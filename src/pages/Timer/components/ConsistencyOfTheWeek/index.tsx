@@ -1,7 +1,6 @@
 import {
   ConsistencyContainer,
   SummaryContainer,
-  DateSummary,
   DayBoxContainer,
   DayBox,
   DayLabel,
@@ -15,7 +14,7 @@ const consistencyOfTheWeek = {
   weekConsistency: [
     {
       day: 1,
-      name: 'Monday',
+      name: 'Mon',
       date: '2024-01-22T00:00:00.000Z',
       intensity: 0,
       totalHoursInTasks: 2,
@@ -23,7 +22,7 @@ const consistencyOfTheWeek = {
     },
     {
       day: 2,
-      name: 'Tuesday',
+      name: 'Tue',
       date: '2024-01-22T00:00:00.000Z',
       totalHoursInTasks: 2,
       intensity: 1,
@@ -31,7 +30,7 @@ const consistencyOfTheWeek = {
     },
     {
       day: 3,
-      name: 'Wednesday',
+      name: 'Wed',
       date: '2024-01-23T00:00:00.000Z',
       totalHoursInTasks: 2,
       intensity: 3,
@@ -41,7 +40,7 @@ const consistencyOfTheWeek = {
     },
     {
       day: 4,
-      name: 'Thursday',
+      name: 'Thu',
       date: '2024-01-24T00:00:00.000Z',
       totalHoursInTasks: 2,
       totalTaskCycles: 2,
@@ -51,7 +50,7 @@ const consistencyOfTheWeek = {
     },
     {
       day: 5,
-      name: 'Friday',
+      name: 'Fri',
       date: '2024-01-26T00:00:00.000Z',
       totalHoursInTasks: 2,
       intensity: 2,
@@ -61,7 +60,7 @@ const consistencyOfTheWeek = {
     },
     {
       day: 6,
-      name: 'Saturday',
+      name: 'Sat',
       date: '2024-01-27T00:00:00.000Z',
       intensity: 0,
       totalHoursInTasks: 2,
@@ -71,7 +70,7 @@ const consistencyOfTheWeek = {
     },
     {
       day: 7,
-      name: 'Sunday',
+      name: 'Sun',
       date: '2024-01-28T00:00:00.000Z',
       intensity: 2,
       totalHoursInTasks: 2,
@@ -88,6 +87,7 @@ export function ConsistencyOfTheWeek() {
     return new Intl.DateTimeFormat('en-US', {
       day: 'numeric',
       month: 'long',
+      year: 'numeric',
     }).format(ddate)
   }
 
@@ -110,14 +110,9 @@ export function ConsistencyOfTheWeek() {
   return (
     <ConsistencyContainer>
       <SummaryContainer>
-        <DateSummary>
-          {/* <p>Day {consistencyOfTheWeek.dayOfTheYear}</p> */}
-          <p>Week {consistencyOfTheWeek.weekOfTheYear}</p>
-        </DateSummary>
-        <DateSummary>
-          <p>{formattedDate(consistencyOfTheWeek.todayDate)}</p>
-          <p>{consistencyOfTheWeek.year}</p>
-        </DateSummary>
+        <p>Week {consistencyOfTheWeek.weekOfTheYear}</p>
+        <span>|</span>
+        <p>{formattedDate(consistencyOfTheWeek.todayDate)}</p>
       </SummaryContainer>
       <DayBoxContainer>
         {consistencyOfTheWeek.weekConsistency.map((day, index) => (

@@ -19,7 +19,9 @@ export function Header() {
         return 'Timer'
       case '/reports':
         return 'Reports'
-      case '/goals':
+      case '/goals/active':
+        return 'Goals and Tasks'
+      case '/goals/past':
         return 'Goals and Tasks'
       case '/user-settings':
         return 'User Settings'

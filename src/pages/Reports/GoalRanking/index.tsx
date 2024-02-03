@@ -1,7 +1,6 @@
 import {
   GoalRankingContainer,
   GoalContainer,
-  ProgressBar,
   InfoContainer,
   LabelsContainer,
   SessionTitle,
@@ -9,7 +8,7 @@ import {
   RankingNumber,
 } from './styles'
 import { DomainProgressBar } from './../../../domain-components/ProgressBar/index'
-import { differenceInDays, formatDistanceToNow } from 'date-fns'
+import { formatDistanceToNow } from 'date-fns'
 const goalRanking = [
   {
     id: 121,

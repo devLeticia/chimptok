@@ -1,9 +1,16 @@
 import { Button } from '../../../../components/Button'
 import Select from '../../../../components/Select'
-import { Container, NewCycleCTA, MinutesOptionsContainer } from './styles'
+import {
+  Container,
+  CtaContainer,
+  MinutesOptionsContainer,
+  UnlimitedDisclaimer,
+} from './styles'
 import { Radio } from './../../../../components/RadioButton/index'
 import { useState } from 'react'
 import { useCycles } from '../../../../contexts/CyclesContext'
+
+import ChimpLogoFlag from '../../../../../public/chimp_flag_logo.svg'
 
 type Task = {
   id: string
@@ -168,7 +175,10 @@ export function NewTaskCycleForm() {
 
   return (
     <Container>
-      <NewCycleCTA>Time to Put Your Butt to Work!</NewCycleCTA>
+      <CtaContainer>
+        <img src={ChimpLogoFlag} alt="" />
+        <h1>START NEW TASK</h1>
+      </CtaContainer>
       <Select
         placeholder="Choose a goal"
         options={activeGoals}
@@ -202,7 +212,9 @@ export function NewTaskCycleForm() {
           />
         ))}
       </MinutesOptionsContainer>
-      <p>*Work for as long as you need, set to Done when you finish</p>
+      <UnlimitedDisclaimer>
+        *Work for as long as you need, set to Done when you finish
+      </UnlimitedDisclaimer>
       <Button
         color="blue"
         fullWidth

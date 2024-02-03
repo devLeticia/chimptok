@@ -13,7 +13,7 @@ export const ListsContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  gap: 2rem;
+  gap: 1.5rem;
   // *:not(hr) {
   //   flex-grow: 1;
   // }

@@ -5,7 +5,8 @@ import { useCycles } from './../../../../contexts/CyclesContext'
 import { Button } from './../../../../components/Button/index'
 
 export function Countdown() {
-  const { activeCycle, markCurrentCycleAsFinished } = useCycles()
+  const { activeCycle, markCurrentCycleAsFinished, abandonCurrentCycle } =
+    useCycles()
 
   const calculateRemainingTime = useCallback(() => {
     if (activeCycle) {
@@ -50,6 +51,9 @@ export function Countdown() {
     }
   }, [remainingTime, activeCycle, markCurrentCycleAsFinished])
 
+  function handleAbandonCurrentCycle() {
+    abandonCurrentCycle()
+  }
   return (
     <>
       <ActiveCycleDescription>
@@ -64,7 +68,9 @@ export function Countdown() {
         <span>{seconds[0]}</span>
         <span>{seconds[1]}</span>
       </CountdownContainer>
-      <Button color="dark">Interrupt</Button>
+      <Button color="dark" onClick={handleAbandonCurrentCycle}>
+        Interrupt
+      </Button>
     </>
   )
 }

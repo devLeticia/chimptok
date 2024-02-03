@@ -33,7 +33,7 @@ img {
 }
 
 body {
-    background: ${(props) => props.theme['gray-100']};
+    background: ${(props) => props.theme['gray-150']};
     color: ${(props) => props.theme['dark-900']};
     -webkit-font-smoothing: antialiased;
     font-size: 0.85rem;
