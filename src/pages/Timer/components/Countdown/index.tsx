@@ -1,8 +1,15 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import { differenceInSeconds } from 'date-fns'
-import { ActiveCycleDescription, CountdownContainer, Separator } from './styles'
+import {
+  ActiveCycleDescription,
+  CountdownContainer,
+  Separator,
+  CycleCountdownContainer,
+  TaskInProgressDisclaimer,
+} from './styles'
 import { useCycles } from './../../../../contexts/CyclesContext'
 import { Button } from './../../../../components/Button/index'
+import { PersonSimpleRun, Timer } from 'phosphor-react'
 
 export function Countdown() {
   const { activeCycle, markCurrentCycleAsFinished, abandonCurrentCycle } =
@@ -55,11 +62,15 @@ export function Countdown() {
     abandonCurrentCycle()
   }
   return (
-    <>
+    <CycleCountdownContainer>
       <ActiveCycleDescription>
-        Working for <span>{activeCycle?.minutesAmount} minutes</span> on{' '}
+        <TaskInProgressDisclaimer>
+          <PersonSimpleRun size={28} weight="fill" />
+          <h1>TASK IN PROGRESS</h1>
+        </TaskInProgressDisclaimer>
         <span>{activeCycle?.taskName}</span> towards{' '}
         <span>{activeCycle?.goalName}</span>
+        <br /> for <span>{activeCycle?.minutesAmount} minutes</span>
       </ActiveCycleDescription>
       <CountdownContainer>
         <span>{minutes[0]}</span>
@@ -68,9 +79,9 @@ export function Countdown() {
         <span>{seconds[0]}</span>
         <span>{seconds[1]}</span>
       </CountdownContainer>
-      <Button color="dark" onClick={handleAbandonCurrentCycle}>
+      <Button fullWidth color="dark" onClick={handleAbandonCurrentCycle}>
         Interrupt
       </Button>
-    </>
+    </CycleCountdownContainer>
   )
 }
