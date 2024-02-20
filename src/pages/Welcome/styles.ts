@@ -28,7 +28,7 @@ export const SuperHeader = styled.h1`
   font-style: italic;
   font-family: 'Barlow Semi Condensed', sans-serif;
   font-weight: 900;
-  font-size: 10rem;
+  font-size: 7rem;
   line-height: 90%;
 `
 export const Subtitle = styled.h3`

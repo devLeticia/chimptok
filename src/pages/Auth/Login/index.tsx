@@ -14,7 +14,15 @@ import { useNavigate } from 'react-router-dom'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { useState } from 'react'
+import accountService from '../../../http/requests/accounts/account.service'
+import { loading } from '../../../components/Loading'
+import { toast } from './../../../components/Toast/index'
+// import { jwtDecode } from 'jwt-decode'
+
+type UserLoginRequest = {
+  email: string
+  password: string
+}
 
 const LoginFormSchema = z.object({
   email: z.string().email().toLowerCase(),
@@ -35,7 +43,6 @@ const LoginFormSchema = z.object({
 type LoginFormData = z.infer<typeof LoginFormSchema>
 
 export function Login() {
-  const [output, setOutput] = useState('')
   const {
     register,
     handleSubmit,
@@ -55,13 +62,37 @@ export function Login() {
     navigate('/forgot-password')
   }
 
-  function logUserIn(data: unknown) {
-    setOutput(JSON.stringify(data, null, 2))
+  function logUserIn(user: UserLoginRequest) {
+    loading.open()
+    accountService
+      .LogIn(user)
+      .then((resp: any) => {
+        console.log(resp)
+        setAccessToken(resp.accessToken)
+      })
+      .catch((err) => {
+        console.log('esntrou no erro', err)
+        toast.show(
+          `Erro ao criar conta:${err.response.data.message}`,
+          'danger',
+          10000,
+        )
+      })
+      .finally(() => {
+        setTimeout(() => {
+          loading.close()
+        }, 3000)
+      })
+  }
+
+  function setAccessToken(accessToken: string) {
+    localStorage.setItem('access_token', accessToken)
+    // const userInfo = jwtDecode(accessToken) --> I wont need it now.
+    // console.log('userInfo', userInfo)
   }
 
   return (
     <>
-      <pre>{output}</pre>
       <AuthTitle>Log in</AuthTitle>
       <AuthSubtitle>Welcome back!</AuthSubtitle>
       <FormContainer>
@@ -87,7 +118,7 @@ export function Login() {
           </Button>
         </form>
       </FormContainer>
-      <Button color="dark">
+      <Button color="dark" fullWidth>
         <img
           src={GoogleLogo}
           width={20}

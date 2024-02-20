@@ -11,7 +11,6 @@ import { Welcome } from './pages/Welcome/index'
 import { Onboarding } from './pages/Onboarding/index'
 import { ActiveGoals } from './pages/Goals/ActiveGoals'
 import { PastGoals } from './pages/Goals/PastGoals'
-import { NewGoalForm } from './pages/Goals/NewGoalForm'
 
 export function Router() {
   return (
@@ -32,6 +31,10 @@ export function Router() {
         <Route path="/signup" element={<Auth />} />
         <Route path="/forgot-password" element={<Auth />} />
         <Route path="/reset-password" element={<Auth />} />
+        <Route
+          path="/account-confirmation/:confirmationCode"
+          element={<Auth />}
+        />
         <Route path="/welcome" element={<Welcome />} />
         <Route path="/onboarding" element={<Onboarding />} />
       </Route>

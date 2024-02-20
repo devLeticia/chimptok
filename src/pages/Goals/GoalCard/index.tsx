@@ -18,7 +18,6 @@ import { Button } from '../../../components/Button'
 import { ConfirmDialog } from '../../../components/Dialog'
 import { useState } from 'react'
 import { Loading } from '../../../components/Loading'
-import { Toast } from '../../../components/Toast'
 
 type Goal = {
   goalName: string
@@ -70,7 +69,6 @@ export function GoalCard({ goal }: GoalCardProps) {
   }
   return (
     <GoalContainer>
-      <Toast message="Operation successful!" type="success" />
       <CardContainer>
         {isPastGoal(goal.status) && (
           <StatusBadge>
@@ -128,7 +126,6 @@ export function GoalCard({ goal }: GoalCardProps) {
           title={'Are you sure?'}
           text={`All goals and tasks, as well as its history will be deleted.`}
         ></ConfirmDialog>
-        <Loading isLoading={isLoading} />
       </CardContainer>
     </GoalContainer>
   )

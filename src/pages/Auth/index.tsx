@@ -1,34 +1,39 @@
 import { Login } from './Login/index'
 import { RegisterNewAccount } from './Register'
-import { FlagBanner } from 'phosphor-react'
 import {
   Container,
   AuthSecondaryContainer,
   AuthCard,
-  ChimptokLogotype,
   ContentContainer,
 } from './styles'
 import { ForgotPassword } from './ForgotPassword'
 import { ResetPassword } from './Reset Password/index'
 
-// import { useNavigate } from "react-router-dom";
-
-const getAuthComponent = (pathname: string) => {
-  switch (pathname) {
-    case '/login':
-      return <Login />
-    case '/signup':
-      return <RegisterNewAccount />
-    case '/forgot-password':
-      return <ForgotPassword />
-    case '/reset-password':
-      return <ResetPassword />
-    default:
-      return <Login />
-  }
-}
+// import ChimpLogoFlag from '../../../public/chimp_flag_logo.svg'
+import { AccountConfirmation } from './AccountConfirmation'
+import { useParams } from 'react-router-dom'
 
 export function Auth() {
+  const { confirmationCode } = useParams()
+  const code: string = confirmationCode || ''
+
+  const getAuthComponent = (pathname: string) => {
+    switch (pathname) {
+      case '/login':
+        return <Login />
+      case '/signup':
+        return <RegisterNewAccount />
+      case `/account-confirmation/${code}`:
+        return <AccountConfirmation confirmationCode={code} />
+      case '/forgot-password':
+        return <ForgotPassword />
+      case '/reset-password':
+        return <ResetPassword />
+      default:
+        return <Login />
+    }
+  }
+
   return (
     <Container>
       <AuthSecondaryContainer>
@@ -36,8 +41,6 @@ export function Auth() {
       </AuthSecondaryContainer>
       <AuthCard>
         <ContentContainer>
-          <FlagBanner size={36} color="#342d2d" weight="fill" />
-          <ChimptokLogotype>CHIMPTOK</ChimptokLogotype>
           {getAuthComponent(location.pathname)}
         </ContentContainer>
       </AuthCard>

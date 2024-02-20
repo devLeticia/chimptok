@@ -1,11 +1,12 @@
+import { EnvelopeSimple } from 'phosphor-react'
 import styled from 'styled-components'
 
-export const AuthTitle = styled.h1`
+export const Title = styled.h1`
   font-size: 1rem;
   color: ${(props) => props.theme['dark-900']};
   font-weight: 800;
 `
-export const AuthSubtitle = styled.h1`
+export const Subtitle = styled.h1`
   font-size: 0.85rem;
   color: ${(props) => props.theme['dark-900']};
   font-weight: 600;
@@ -18,24 +19,7 @@ export const FormContainer = styled.div`
     gap: 1rem;
   }
 `
-export const CreateAccountButton = styled.button`
-  border: solid 2px ${(props) => props.theme['yellow-500']};
-  width: 100%;
-  border-radius: 8px;
-  font-size: 0.85rem;
-  font-weight: 700;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  cursor: pointer;
-  background-color: ${(props) => props.theme['yellow-500']};
-  color: ${(props) => props.theme['dark-900']};
-  padding: 1rem 2rem;
-  white-space: nowrap;
 
-  :hover {
-    background-color: ${(props) => props.theme['yellow-600']};
-    cursor: pointer;
-  }
-`
 export const ConnectWithGoogleButton = styled.button`
   display: flex;
   gap: 1rem;
@@ -55,28 +39,6 @@ export const ConnectWithGoogleButton = styled.button`
 
   :hover {
     background-color: ${(props) => props.theme['dark-800']};
-    cursor: pointer;
-  }
-`
-export const LogInButton = styled.button`
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  align-items: center;
-  border: solid 2px ${(props) => props.theme['dark-900']};
-  width: 100%;
-  border-radius: 8px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  cursor: pointer;
-  background-color: ${(props) => props.theme['dark-900']};
-  color: white;
-  padding: 1rem 2rem;
-  white-space: nowrap;
-
-  :hover {
-    background-color: solid 2px ${(props) => props.theme['gray-700']};
     cursor: pointer;
   }
 `
@@ -134,4 +96,14 @@ export const MinorText = styled.p`
       cursor: pointer;
     }
   }
+`
+export const RegistrationSuccessContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  text-align: center;
+  align-items: center;
+`
+export const StyledEmailIcon = styled(EnvelopeSimple)`
+  color: ${(props) => props.theme['dark-900']};
 `

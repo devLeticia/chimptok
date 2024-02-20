@@ -59,7 +59,7 @@ export function ForgotPassword() {
           </Button>
         </form>
       </FormContainer>
-      <Button color="dark" onClick={handleRedirectLoginIn}>
+      <Button fullWidth color="dark" onClick={handleRedirectLoginIn}>
         Go Back to Login
       </Button>
       <MinorText>

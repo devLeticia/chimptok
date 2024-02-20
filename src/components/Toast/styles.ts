@@ -21,10 +21,9 @@ export const ToastContainer = styled.div<ToastContainerProps>`
   left: 50%;
   transform: translateX(-50%);
   min-width: 600px;
-  padding: 1.25rem;
+  padding: 2rem;
   border-radius: 4px;
-  z-index: 1000;
   animation: ${slideIn} 0.9s ease-in-out;
-  color: ${(props) => props.theme.white};
-  background-color: ${(props) => props.theme['green-700']};
+  color: white;
+  background-color: red;
 `
