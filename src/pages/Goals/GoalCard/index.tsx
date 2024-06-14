@@ -17,11 +17,18 @@ import { DomainProgressBar } from './../../../domain-components/ProgressBar/inde
 import { Button } from '../../../components/Button'
 import { ConfirmDialog } from '../../../components/Dialog'
 import { useState } from 'react'
-import { Loading } from '../../../components/Loading'
+import goalsService from '../../../http/requests/goals/goals.service'
+
+type Task = {
+  id?: string | null
+  taskName: string
+  isCompleted?: boolean | null
+}
 
 type Goal = {
+  id: string
   goalName: string
-  tasks: Array<string>
+  tasks: Task[]
   createdAt: Date
   deadline: Date
   hoursPerWeek: number
@@ -31,9 +38,10 @@ type Goal = {
 }
 interface GoalCardProps {
   goal: Goal
+  getUserGoals: () => void
 }
 
-export function GoalCard({ goal }: GoalCardProps) {
+export function GoalCard({ goal, getUserGoals }: GoalCardProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
 
@@ -61,12 +69,21 @@ export function GoalCard({ goal }: GoalCardProps) {
     }, 2000)
   }
 
-  function handleConfirmDeletion(goal: Goal) {
-    // Handle deletion logic here
-    setIsLoading(true)
-    // Close the dialog after deletion
-    handleCloseDialog()
+  function handleConfirmDeletion(goalId: string) {
+    goalsService
+      .deleteGoal(goalId)
+      .then((resp) => {
+        console.log('salvou com sucesso')
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+      .finally(() => {
+        handleCloseDialog()
+        getUserGoals()
+      })
   }
+
   return (
     <GoalContainer>
       <CardContainer>
@@ -81,13 +98,13 @@ export function GoalCard({ goal }: GoalCardProps) {
             {goal.hoursPerWeek} {goal.hoursPerWeek === 1 ? 'hour' : 'hours'} per
             week
             <p
-              title={goal.deadline.toLocaleDateString('en-US', {
+              title={new Date(goal.deadline).toLocaleDateString('en-US', {
                 day: 'numeric',
                 month: 'long',
                 year: 'numeric',
               })}
             >
-              up to {goal.deadline.toLocaleDateString('en-US')}
+              up to {new Date(goal.deadline).toLocaleDateString('en-US')}
             </p>
           </LabelRow>
         )}
@@ -101,7 +118,7 @@ export function GoalCard({ goal }: GoalCardProps) {
               return (
                 <TaskDescriptionWrapper key={index}>
                   <TaskIndex>{index + 1}.</TaskIndex>
-                  <TaskDescription>{task}</TaskDescription>
+                  <TaskDescription>{task.taskName}</TaskDescription>
                 </TaskDescriptionWrapper>
               )
             })}
@@ -122,7 +139,7 @@ export function GoalCard({ goal }: GoalCardProps) {
           confirmationText="Delete"
           isOpen={isDialogOpen}
           onClose={handleCloseDialog}
-          onConfirm={() => handleConfirmDeletion(goal)}
+          onConfirm={() => handleConfirmDeletion(goal.id)}
           title={'Are you sure?'}
           text={`All goals and tasks, as well as its history will be deleted.`}
         ></ConfirmDialog>

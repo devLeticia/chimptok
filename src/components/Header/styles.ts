@@ -53,3 +53,17 @@ export const RouteTitle = styled.h3`
   font-weight: 900;
   letter-spacing: 0.05rem;
 `
+
+export const SignOutContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-left: 2rem;
+  color: ${(props) => props.theme['gray-500']};
+  :hover {
+    cursor: pointer;
+    color: ${(props) => props.theme['red-500']};
+  }
+`

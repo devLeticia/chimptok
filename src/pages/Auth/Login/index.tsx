@@ -10,18 +10,22 @@ import { Input } from '../../../components/Input'
 import { At, Keyhole } from 'phosphor-react'
 import GoogleLogo from './../../../../public/logos/google_logo.svg'
 import { Button } from '../../../components/Button'
-import { useNavigate } from 'react-router-dom'
+import { redirect, useNavigate } from 'react-router-dom'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import accountService from '../../../http/requests/accounts/account.service'
 import { loading } from '../../../components/Loading'
 import { toast } from './../../../components/Toast/index'
+import { jwtDecode } from 'jwt-decode'
 // import { jwtDecode } from 'jwt-decode'
 
 type UserLoginRequest = {
   email: string
   password: string
+}
+interface UserInfo {
+  userId: string
 }
 
 const LoginFormSchema = z.object({
@@ -65,10 +69,12 @@ export function Login() {
   function logUserIn(user: UserLoginRequest) {
     loading.open()
     accountService
-      .LogIn(user)
+      .login(user)
       .then((resp: any) => {
         console.log(resp)
         setAccessToken(resp.accessToken)
+        setUserInfo(resp.accessToken)
+        redirectToHome()
       })
       .catch((err) => {
         console.log('esntrou no erro', err)
@@ -81,20 +87,32 @@ export function Login() {
       .finally(() => {
         setTimeout(() => {
           loading.close()
-        }, 3000)
+        }, 2000)
       })
   }
 
-  function setAccessToken(accessToken: string) {
+  function setAccessToken(accessToken: string): void {
     localStorage.setItem('access_token', accessToken)
-    // const userInfo = jwtDecode(accessToken) --> I wont need it now.
-    // console.log('userInfo', userInfo)
+  }
+
+  function setUserInfo(accessToken: string): void {
+    const userInfo: UserInfo | null = jwtDecode(accessToken)
+
+    if (userInfo) {
+      localStorage.setItem('user_id', userInfo.userId)
+    } else {
+      console.error('Unable to decode user information from the access token.')
+    }
+  }
+
+  function redirectToHome() {
+    navigate('/timer')
   }
 
   return (
     <>
       <AuthTitle>Log in</AuthTitle>
-      <AuthSubtitle>Welcome back!</AuthSubtitle>
+      <AuthSubtitle>Welcome B ack!</AuthSubtitle>
       <FormContainer>
         <form onSubmit={handleSubmit(logUserIn)}>
           <Input
@@ -111,7 +129,7 @@ export function Login() {
             icon={<Keyhole weight="duotone" size={24} />}
           />
           <ForgotPasswordLink onClick={handleRedirectToForgotPassword}>
-            Forgot passoword?
+            Forgot Password?
           </ForgotPasswordLink>
           <Button type="submit" disabled={!isValid}>
             Login

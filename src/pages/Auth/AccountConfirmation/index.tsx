@@ -17,7 +17,7 @@ export function AccountConfirmation({
 
   function confirmEmail(confirmationCode: string) {
     accountService
-      .ConfirmEmailAccount(confirmationCode)
+      .confirmEmailAccount(confirmationCode)
       .then((resp) => {
         console.log('conta confirmada', resp)
         setConfirmationStatus('success')

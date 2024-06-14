@@ -4,7 +4,8 @@ interface ProgressBarProps {
   progress: number
 }
 
-const calculateWidth = (progress: number) => `${progress}%`
+const calculateWidth = (progress: number) =>
+  progress === 0 ? `2%` : `${progress}%` // will show a 2% when user has
 
 const progressAnimation = (progress: number) => keyframes`
   0% {

@@ -1,50 +1,58 @@
+import { useEffect, useState } from 'react'
+import goalsService from '../../../http/requests/goals/goals.service'
 import { GoalCard } from '../GoalCard'
-import { Container } from './styles'
+import { Container, HeaderCTA, TextCTA } from './styles'
+import { loading } from '../../../components/Loading'
 
 export function PastGoals() {
-  const pastGoals = [
-    {
-      createdAt: new Date('2024-03-10T14:45:00'),
-      deadline: new Date('2024-10-15T23:59:59'),
-      status: 2,
-      hoursPerWeek: 1,
-      totalHoursSpent: 12,
-      progressPercentage: 20,
-      goalName: 'Read the Full Old Testament',
-      tasks: [
-        'Read Genesis and Exodus',
-        'Study the Psalms and Proverbs',
-        'Read the historical books (Joshua, Judges, etc.)',
-        'Explore the major prophets (Isaiah, Jeremiah, etc.)',
-        'Read the minor prophets (Hosea, Joel, etc.)',
-        'Study the Gospels (Matthew, Mark, Luke, John)',
-        'Read the Acts of the Apostles',
-      ],
-    },
-    {
-      createdAt: new Date('2024-04-05T17:15:00'),
-      deadline: new Date('2024-12-31T23:59:59'),
-      status: 3,
-      hoursPerWeek: 2,
-      totalHoursSpent: 12,
-      progressPercentage: 90,
-      goalName: 'Complete IxDF Courses',
-      tasks: [
-        'Take a course on UX design fundamentals',
-        'Learn about user research and usability testing',
-        'Study interaction design principles',
-        'Explore visual design and user interface (UI) principles',
-        'Complete a course on prototyping and wireframing',
-        'Learn about design thinking and problem-solving',
-        'Study responsive web design principles',
-      ],
-    },
-  ]
+  const [pastGoals, setPastGoals] = useState([])
+
+  async function getUserGoals() {
+    const userId = localStorage.getItem('user_id')
+    if (userId !== null) {
+      try {
+        const resp = await goalsService.getGoalsHistory(userId)
+        if (resp.data.length > 0) {
+          const userPastGoals = resp.data
+          setPastGoals(userPastGoals)
+        } else {
+          setPastGoals([])
+        }
+      } catch (err) {
+        console.error(err)
+      } finally {
+        loading.close()
+      }
+    }
+  }
+  useEffect(() => {
+    getUserGoals() // Call getUserGoals directly inside useEffect
+  }, [])
   return (
-    <Container>
-      {pastGoals.map((goal, index) => {
-        return <GoalCard key={index} goal={goal}></GoalCard>
-      })}
-    </Container>
+    <>
+      {pastGoals.length === 0 ? (
+        <Container>
+          <HeaderCTA>{`No goals completed yet!`}</HeaderCTA>
+          <TextCTA>
+            {`But hey, that just means you're still in the race.!`}
+            <br />
+            {`Keep pushing forward, and before you know it, victory will be yours!`}
+          </TextCTA>
+          <TextCTA></TextCTA>
+        </Container>
+      ) : (
+        <Container>
+          {pastGoals.map((goal, index) => {
+            return (
+              <GoalCard
+                key={index}
+                goal={goal}
+                getUserGoals={getUserGoals}
+              ></GoalCard>
+            )
+          })}
+        </Container>
+      )}
+    </>
   )
 }

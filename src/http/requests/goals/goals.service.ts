@@ -1,24 +1,33 @@
 import axios from 'axios'
 import authConfig from '../../../../auth.config.json'
-const baseURL = `${authConfig.api_url}/auth`
+const baseURL = `${authConfig.api_url}/goals`
 
-type RegisterNewUserRequest = {
-  email: string
-  password: string
-  username: string
+type Task = {
+  id?: string | null
+  taskName: string
+  isCompleted?: boolean | null
 }
 
-type UserLoginRequest = {
-  email: string
-  password: string
+type Goal = {
+  goalId: string | null
+  userId: string
+  goalName: string
+  deadline: Date
+  weeklyHours: number
+  tasks: Task[]
+}
+
+type BaseGoalRequest = {
+  goalId: string
+  userId: string
 }
 
 export default {
-  registerNewUser(payload: RegisterNewUserRequest) {
-    // console.log('entrou pra fazer a request', payload)
+  // register a new goal or edit a goal that already exists
+  registerGoal(payload: Goal) {
     return new Promise((resolve, reject) => {
       axios
-        .post(`${baseURL}/register`, payload)
+        .post(baseURL, payload)
         .then((response) => {
           if (response.status === 200) {
             resolve(response.data)
@@ -32,11 +41,11 @@ export default {
     })
   },
 
-  confirmEmailAccount(confirmationCode: string) {
-    const encodedConfirmationCode = encodeURIComponent(confirmationCode)
+  // return all goals of a given user with it's associated tasks
+  getGoalsHistory(userId: string) {
     return new Promise((resolve, reject) => {
       axios
-        .get(`${baseURL}/confirm/${encodedConfirmationCode}`)
+        .get(`${baseURL}/${userId}`)
         .then((response) => {
           if (response.status === 200) {
             resolve(response.data)
@@ -50,11 +59,11 @@ export default {
     })
   },
 
-  login(payload: UserLoginRequest) {
-    // console.log('entrou pra fazer a request', payload)
+  // will delete user's goal
+  deleteGoal(goalId: string) {
     return new Promise((resolve, reject) => {
       axios
-        .post(`${baseURL}/login`, payload)
+        .delete(`${baseURL}/${goalId}`)
         .then((response) => {
           if (response.status === 200) {
             resolve(response.data)
@@ -68,27 +77,11 @@ export default {
     })
   },
 
-  logOut(userId: string) {
+  // will a goal as complete, no matter how much
+  setGoalAsCompleted(payload: BaseGoalRequest) {
     return new Promise((resolve, reject) => {
       axios
-        .post(`${baseURL}/logout/${userId}`)
-        .then((response) => {
-          if (response.status === 200) {
-            resolve(response.data)
-          } else {
-            reject(response)
-          }
-        })
-        .catch((error) => {
-          reject(error)
-        })
-    })
-  },
-
-  cancelAccount(userId: string) {
-    return new Promise((resolve, reject) => {
-      axios
-        .post(`${baseURL}/cancel/${userId}`)
+        .post(`${baseURL}/complete`, payload)
         .then((response) => {
           if (response.status === 200) {
             resolve(response.data)

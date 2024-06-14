@@ -35,6 +35,7 @@ export function Router() {
         <Route path="/signup" element={<Auth />} />
         <Route path="/forgot-password" element={<Auth />} />
         <Route path="/reset-password" element={<Auth />} />
+        <Route path="/coming-soon" element={<Auth />} />
         <Route
           path="/account-confirmation/:confirmationCode"
           element={<Auth />}
@@ -44,25 +45,23 @@ export function Router() {
           <Route path="/onboarding" element={<Onboarding />} />
         </Route>
       </Route>
-      <Route path="*" element={<NotFoundPage />} />
+      {/* <Route path="*" element={<NotFoundPage />} /> */}
+      <Route path="*" element={<Auth />} />
     </Routes>
   )
 }
 
 const PrivateRoutes = () => {
-  function tokenExpired(): boolean {
+  function validToken(): boolean {
     const token: string | null = localStorage.getItem('access_token')
     if (token) {
       let tokenInfo
       try {
         tokenInfo = jwtDecode(token) as { exp: number }
-        console.log('jwt token info', tokenInfo)
         const currentTime: number = new Date().getTime() / 1000
-        if (currentTime > tokenInfo.exp) {
-          return false
-        } else {
-          return true
-        }
+        const validTokenDate = currentTime < tokenInfo.exp
+        console.log('validTokenDate', validTokenDate)
+        return validTokenDate
       } catch (e) {
         console.error(e)
         return true
@@ -76,28 +75,17 @@ const PrivateRoutes = () => {
     if (token) {
       const tokenInfo = jwtDecode(token) as { userId: string }
       const userId = tokenInfo.userId.trim()
-      console.log(
-        'oiii',
-        userId !== null &&
-          userId !== undefined &&
-          userId !== '' &&
-          typeof userId !== 'number' &&
-          isNaN(parseInt(userId)),
-      )
-      return (
+      const validUserId =
         userId !== null &&
         userId !== undefined &&
         userId !== '' &&
-        typeof userId !== 'number' &&
-        isNaN(parseInt(userId))
-      )
+        typeof userId !== 'number'
+      console.log('USUARIO VALIDO', validUserId)
+      return validUserId
     }
     return false
   }
 
-  return !tokenExpired() && validUserId() ? (
-    <Outlet />
-  ) : (
-    <Navigate to="/login" />
-  )
+  // console.log('!tokenExpired', !tokenExpired(), 'validUserId', validUserId())
+  return validToken() && validUserId() ? <Outlet /> : <Navigate to="/login" />
 }

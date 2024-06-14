@@ -17,6 +17,7 @@ export function Goals() {
   const closeModal = () => {
     setIsModalOpen(false)
   }
+
   return (
     <>
       <Card>
@@ -36,7 +37,7 @@ export function Goals() {
             </Button>
           </nav>
           <Modal isOpen={isModalOpen} onClose={closeModal}>
-            <NewGoalForm />
+            <NewGoalForm closeModal={closeModal} />
           </Modal>
           <Outlet />
         </GoalsContainer>

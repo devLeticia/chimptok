@@ -6,89 +6,59 @@ import {
   DayLabel,
 } from './styles'
 
-const consistencyOfTheWeek = {
-  year: 2023,
-  weekOfTheYear: 22,
-  dayOfTheYear: 235,
-  todayDate: '2024-01-26T00:00:00.000Z',
-  weekConsistency: [
-    {
-      day: 1,
-      name: 'Mon',
-      date: '2024-01-22T00:00:00.000Z',
-      intensity: 0,
-      totalHoursInTasks: 2,
-      expectedHours: 4,
-    },
-    {
-      day: 2,
-      name: 'Tue',
-      date: '2024-01-22T00:00:00.000Z',
-      totalHoursInTasks: 2,
-      intensity: 1,
-      expectedHours: 4,
-    },
-    {
-      day: 3,
-      name: 'Wed',
-      date: '2024-01-23T00:00:00.000Z',
-      totalHoursInTasks: 2,
-      intensity: 3,
-      totalTaskCycles: 2,
-      totalGoals: 1,
-      expectedHours: 4,
-    },
-    {
-      day: 4,
-      name: 'Thu',
-      date: '2024-01-24T00:00:00.000Z',
-      totalHoursInTasks: 2,
-      totalTaskCycles: 2,
-      intensity: 2,
-      totalGoals: 1,
-      expectedHours: 4,
-    },
-    {
-      day: 5,
-      name: 'Fri',
-      date: '2024-01-26T00:00:00.000Z',
-      totalHoursInTasks: 2,
-      intensity: 2,
-      totalTaskCycles: 2,
-      totalGoals: 1,
-      expectedHours: 4,
-    },
-    {
-      day: 6,
-      name: 'Sat',
-      date: '2024-01-27T00:00:00.000Z',
-      intensity: 0,
-      totalHoursInTasks: 2,
-      totalTaskCycles: 2,
-      totalGoals: 1,
-      expectedHours: 4,
-    },
-    {
-      day: 7,
-      name: 'Sun',
-      date: '2024-01-28T00:00:00.000Z',
-      intensity: 2,
-      totalHoursInTasks: 2,
-      totalTaskCycles: 2,
-      totalGoals: 1,
-      expectedHours: 4,
-    },
-  ],
+type DayConsistency = {
+  day: number
+  name: string
+  date: string
+  intensity: number
+  totalHoursInTasks: number
+  expectedHours: number
 }
 
-export function ConsistencyOfTheWeek() {
+type ConsistencyOfTheWeek = {
+  year: number
+  weekOfTheYear: number
+  dayOfTheYear: number
+  todayDate: string
+  weekConsistency: DayConsistency[]
+}
+
+interface ConsistencyOfTheWeekProps {
+  consistencyOfTheWeek: ConsistencyOfTheWeek
+}
+
+export function ConsistencyOfTheWeek({
+  consistencyOfTheWeek,
+}: ConsistencyOfTheWeekProps) {
+  function getOrdinalSuffix(day) {
+    if (day > 3 && day < 21) return 'th'
+    switch (day % 10) {
+      case 1:
+        return 'st'
+      case 2:
+        return 'nd'
+      case 3:
+        return 'rd'
+      default:
+        return 'th'
+    }
+  }
+
   function formattedDate(date: string) {
     const ddate = new Date(date)
-    return new Intl.DateTimeFormat('en-US', {
+    const day = ddate.getDate()
+    const ordinalSuffix = getOrdinalSuffix(day)
+
+    const formattedDay = new Intl.DateTimeFormat('en-US', {
       day: 'numeric',
+    }).format(ddate)
+
+    const formattedDateWithoutDay = new Intl.DateTimeFormat('en-US', {
       month: 'long',
       year: 'numeric',
     }).format(ddate)
+
+    return `${formattedDay}${ordinalSuffix} ${formattedDateWithoutDay}`
   }
 
   function isFutureDay(date: string) {

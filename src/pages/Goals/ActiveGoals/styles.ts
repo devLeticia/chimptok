@@ -5,6 +5,7 @@ export const Container = styled.div`
   flex-direction: column;
   gap: 1rem;
   margin-top: 2rem;
+  min-height: 60vh;
 `
 
 export const GoalWrapper = styled.div`
@@ -22,4 +23,21 @@ export const GoalIndex = styled.h1`
   color: ${(props) => props.theme['dark-900']};
   font-weight: 900;
   margin-top: 0.5rem;
+`
+
+export const HeaderCTA = styled.h1`
+  text-align: center;
+  text-transform: uppercase;
+  color: ${(props) => props.theme['dark-900']};
+  font-style: italic;
+  font-family: 'Barlow Semi Condensed', sans-serif;
+  font-weight: 900;
+  color: ${(props) => props.theme['dark-900']};
+  line-height: 90%;
+`
+export const TextCTA = styled.p`
+  text-align: center;
+  font-size: 1rem;
+  line-height: 150%;
+  color: ${(props) => props.theme['dark-800']};
 `

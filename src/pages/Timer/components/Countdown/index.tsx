@@ -20,7 +20,7 @@ export function Countdown() {
       const totalSeconds = activeCycle.minutesAmount * 60
       const secondsDifference = differenceInSeconds(
         new Date(),
-        new Date(activeCycle.startDate),
+        new Date(activeCycle.createdAt),
       )
       return Math.max(0, totalSeconds - secondsDifference)
     }
@@ -30,7 +30,7 @@ export function Countdown() {
   const [remainingTime, setRemainingTime] = useState(calculateRemainingTime())
 
   useEffect(() => {
-    console.log('activeCycle:', activeCycle)
+    // console.log('activeCycle:', activeCycle)
 
     setRemainingTime(calculateRemainingTime())
 
@@ -68,8 +68,8 @@ export function Countdown() {
           <PersonSimpleRun size={28} weight="fill" />
           <h1>TASK IN PROGRESS</h1>
         </TaskInProgressDisclaimer>
-        <span>{activeCycle?.taskName}</span> towards{' '}
-        <span>{activeCycle?.goalName}</span>
+        <span>{activeCycle?.task.taskName}</span> towards{' '}
+        <span>{activeCycle?.task.goal.goalName}</span>
         <br /> for <span>{activeCycle?.minutesAmount} minutes</span>
       </ActiveCycleDescription>
       <CountdownContainer>

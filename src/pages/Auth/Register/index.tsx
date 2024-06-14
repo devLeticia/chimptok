@@ -63,14 +63,13 @@ export function RegisterNewAccount() {
   async function createUser(data: CreateUserFormData) {
     loading.open()
     accountService
-      .RegisterNewUserRequest(data)
+      .registerNewUser(data)
       .then((resp) => {
         const response = resp
         console.log('response', response)
         setRegistrationIsSuccessful(true)
       })
       .catch((_err) => {
-        sHW
         console.log(_err)
       })
       .finally(() => {

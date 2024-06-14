@@ -11,10 +11,16 @@ import { useState } from 'react'
 import { useCycles } from '../../../../contexts/CyclesContext'
 
 import ChimpLogoFlag from '../../../../../public/chimp_flag_logo.svg'
+import cyclesService from '../../../../http/requests/cycles/cycles.service'
 
 type Task = {
+  createdAt: string
+  goalId: string
   id: string
-  description: string
+  isCompleted: boolean
+  taskName: string
+  updatedAt: string
+  userId: string
 }
 
 type Goal = {
@@ -26,77 +32,77 @@ type Goal = {
   totalHoursSpent: number
   progressPercentage: number
   goalName: string
-  tasks: Array<Task>
+  tasks: Task[]
 }
 
-const activeGoals = [
-  {
-    id: 'gbrbgerb',
-    createdAt: new Date('2024-04-05T17:15:00'),
-    deadline: new Date('2024-12-31T23:59:59'),
-    hoursPerWeek: 2,
-    status: 1,
-    totalHoursSpent: 12,
-    progressPercentage: 90,
-    goalName: 'Complete IxDF Courses',
-    tasks: [
-      {
-        id: 'gbgergerbgerb',
-        description: 'Take a course on UX design fundamentals',
-      },
-      {
-        id: 'gbrrwebgerb',
-        description: 'Learn about user research and usability testing',
-      },
-      {
-        id: 'gbrbgnherb',
-        description: 'Study interaction design principles',
-      },
-      {
-        id: 'gbrqewrgerb',
-        description: 'Explore visual design and user interface (UI) principles',
-      },
-      {
-        id: 'gbrghfgbgerb',
-        description: 'Complete a course on prototyping and wireframing',
-      },
-      {
-        id: 'gbrbtergerb',
-        description: 'Learn about design thinking and problem-solving',
-      },
-      {
-        id: 'gbrbgergregerb',
-        description: 'Study responsive web design principles',
-      },
-    ],
-  },
-  {
-    id: 'newGoalId',
-    createdAt: new Date(),
-    deadline: new Date('2024-12-31T23:59:59'),
-    hoursPerWeek: 3,
-    status: 0, // Assuming 0 represents a new goal with no progress
-    totalHoursSpent: 0,
-    progressPercentage: 0,
-    goalName: 'Learn React and Redux', // Your new goal name
-    tasks: [
-      {
-        id: 'newTaskId1',
-        description: 'Complete a React tutorial',
-      },
-      {
-        id: 'newTaskId2',
-        description: 'Build a simple React application',
-      },
-      {
-        id: 'newTaskId3',
-        description: 'Learn Redux basics',
-      },
-    ],
-  },
-]
+// const activeGoals = [
+//   {
+//     id: 'gbrbgerb',
+//     createdAt: new Date('2024-04-05T17:15:00'),
+//     deadline: new Date('2024-12-31T23:59:59'),
+//     hoursPerWeek: 2,
+//     status: 1,
+//     totalHoursSpent: 12,
+//     progressPercentage: 90,
+//     goalName: 'Complete IxDF Courses',
+//     tasks: [
+//       {
+//         id: 'gbgergerbgerb',
+//         description: 'Take a course on UX design fundamentals',
+//       },
+//       {
+//         id: 'gbrrwebgerb',
+//         description: 'Learn about user research and usability testing',
+//       },
+//       {
+//         id: 'gbrbgnherb',
+//         description: 'Study interaction design principles',
+//       },
+//       {
+//         id: 'gbrqewrgerb',
+//         description: 'Explore visual design and user interface (UI) principles',
+//       },
+//       {
+//         id: 'gbrghfgbgerb',
+//         description: 'Complete a course on prototyping and wireframing',
+//       },
+//       {
+//         id: 'gbrbtergerb',
+//         description: 'Learn about design thinking and problem-solving',
+//       },
+//       {
+//         id: 'gbrbgergregerb',
+//         description: 'Study responsive web design principles',
+//       },
+//     ],
+//   },
+//   {
+//     id: 'newGoalId',
+//     createdAt: new Date(),
+//     deadline: new Date('2024-12-31T23:59:59'),
+//     hoursPerWeek: 3,
+//     status: 0, // Assuming 0 represents a new goal with no progress
+//     totalHoursSpent: 0,
+//     progressPercentage: 0,
+//     goalName: 'Learn React and Redux', // Your new goal name
+//     tasks: [
+//       {
+//         id: 'newTaskId1',
+//         description: 'Complete a React tutorial',
+//       },
+//       {
+//         id: 'newTaskId2',
+//         description: 'Build a simple React application',
+//       },
+//       {
+//         id: 'newTaskId3',
+//         description: 'Learn Redux basics',
+//       },
+//     ],
+//   },
+// ]
 export function NewTaskCycleForm() {
-  const { startNewCycle } = useCycles()
+  const { startNewCycle, userGoals } = useCycles()
 
   const minutesAmountOptions = [
     {
@@ -121,11 +127,9 @@ export function NewTaskCycleForm() {
     },
   ]
 
-  const [selectedGoal, setSelectedGoal] = useState<Goal>(activeGoals[0])
+  const [selectedGoal, setSelectedGoal] = useState<Goal>()
 
-  const [selectedTask, setSelectedTask] = useState<Task>(
-    activeGoals[0].tasks[0],
-  )
+  const [selectedTask, setSelectedTask] = useState<Task>()
 
   const [selectedMinutesAmount, setSelectedMinutesAmount] = useState<number>(30)
 
@@ -160,28 +164,41 @@ export function NewTaskCycleForm() {
   }
 
   function handleSumbmitNewTaskCycle() {
-    const requestBody = {
-      // userId,
-      goalName: selectedGoal.goalName,
-      taskName: selectedTask.description,
-      startDate: new Date(),
-      goalId: selectedGoal.id,
-      taskId: selectedTask.id,
-      minutesAmount: selectedMinutesAmount,
+    const userId = localStorage.getItem('user_id')
+    if (selectedTask && userId) {
+      const payload = {
+        userId,
+        startDate: new Date(),
+        taskId: selectedTask.id,
+        minutesAmount: selectedMinutesAmount,
+      }
+      // send request to start a new cycle
+      cyclesService
+        .registerNewCycle(payload)
+        .then((resp) => {
+          // console.log(resp)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+        .finally(() => {
+          console.log('finalizou')
+        })
+
+      // startNewCycle(requestBody)
     }
-    console.log(requestBody)
-    startNewCycle(requestBody)
   }
 
   return (
     <Container>
       <CtaContainer>
         <img src={ChimpLogoFlag} alt="" />
-        <h1>START NEW TASK</h1>
+        <h1>Start A New Task</h1>
       </CtaContainer>
+
       <Select
         placeholder="Choose a goal"
-        options={activeGoals}
+        options={userGoals}
         getLabel={(goal) => goal.goalName}
         onSelect={handleGoalSelect}
         initialValue={selectedGoal}
@@ -191,7 +208,7 @@ export function NewTaskCycleForm() {
           key={JSON.stringify(selectedGoal)}
           placeholder="Choose a Task"
           options={selectedGoal.tasks}
-          getLabel={(task) => task.description}
+          getLabel={(task) => task.taskName}
           onSelect={handleTaskSelect}
           initialValue={selectedTask}
         />

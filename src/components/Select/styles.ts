@@ -4,6 +4,10 @@ export const CustomDropdown = styled.div`
   text-align: left;
   position: relative;
   width: 100%;
+
+  span {
+    color: ${(props) => props.theme['dark-900']};
+  }
 `
 
 export const StyledSelect = styled.div`

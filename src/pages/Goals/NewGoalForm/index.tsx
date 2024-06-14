@@ -19,13 +19,24 @@ import {
   Clock,
   CheckSquareOffset,
   Plus,
-  CheckCircle,
 } from 'phosphor-react'
 
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { useState } from 'react'
+import goalsService from '../../../http/requests/goals/goals.service'
+
+type Goal = {
+  goalName: string | string
+  tasks: Array<string>
+  createdAt: Date
+  deadline: Date
+  hoursPerWeek: number
+  totalHoursSpent: number
+  progressPercentage: number
+  status: number
+}
 
 const NewGoalFormSchema = z.object({
   goalName: z.string().min(6).max(54),
@@ -34,9 +45,13 @@ const NewGoalFormSchema = z.object({
   tasks: z.string().min(5).max(40).array().nonempty().min(1),
 })
 
+interface NewGoalFormProps {
+  closeModal: () => void
+}
+
 type NewGoalFormData = z.infer<typeof NewGoalFormSchema>
 
-export function NewGoalForm() {
+export function NewGoalForm({ closeModal }: NewGoalFormProps) {
   const [output, setOutput] = useState('')
   const [tasks, setTasks] = useState<string[]>(['']) // Initial task input
 
@@ -49,14 +64,40 @@ export function NewGoalForm() {
     mode: 'onChange',
   })
 
-  function saveNewGoal(data: unknown) {
-    setOutput(JSON.stringify(data, null, 2))
-    console.log(errors)
+  function saveNewGoal(data: NewGoalFormData) {
+    console.log('disparou')
+    const userId = localStorage.getItem('user_id')
+    console.log('entrou pra salvar novo goal')
+    const tasksArray = data.tasks.map((task) => {
+      return {
+        id: '',
+        taskName: task,
+        isCompleted: false,
+      }
+    })
+    console.log(tasksArray)
+    if (userId) {
+      const payload = {
+        goalId: null,
+        userId,
+        goalName: data.goalName,
+        deadline: data.deadline,
+        weeklyHours: data.hoursPerWeek,
+        tasks: tasksArray,
+      }
+
+      goalsService
+        .registerGoal(payload)
+        .then((resp) => {
+          console.log('salvou com sucesso')
+          closeModal()
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
   }
 
-  function logErrors() {
-    console.log(errors)
-  }
   function addNewTask() {
     setTasks((prevTasks) => [...prevTasks, '']) // Add an empty task
   }
@@ -175,12 +216,11 @@ export function NewGoalForm() {
             <Plus size={16} weight="bold" color="white" />
             Add another Task
           </Button>
+          <Button fullWidth type="submit">
+            Save Goal
+          </Button>
         </ColWrapper>
-        <Button fullWidth type="submit" disabled={!isValid}>
-          Save
-        </Button>
       </form>
-      {/* <Skip>Skip Onboarding</Skip> */}
     </Container>
   )
 }

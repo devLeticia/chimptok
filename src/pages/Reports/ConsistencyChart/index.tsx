@@ -10,36 +10,20 @@ interface CustomTooltipProps {
 }
 
 const data = [
-  { day: 'Day 1', hoursSpent: 2, expectedHoursSpent: 8 },
-  { day: 'Day 1', hoursSpent: 3, expectedHoursSpent: 8 },
-  { day: 'Day 1', hoursSpent: 0, expectedHoursSpent: 8 },
-  { day: 'Day 1', hoursSpent: 4, expectedHoursSpent: 8 },
-  { day: 'Day 1', hoursSpent: 2, expectedHoursSpent: 8 },
-  { day: 'Day 1', hoursSpent: 1, expectedHoursSpent: 8 },
-  { day: 'Day 1', hoursSpent: 1, expectedHoursSpent: 8 },
-  { day: 'Day 1', hoursSpent: 0, expectedHoursSpent: 8 },
-  { day: 'Day 1', hoursSpent: 0, expectedHoursSpent: 8 },
-  { day: 'Day 1', hoursSpent: 5, expectedHoursSpent: 8 },
-  { day: 'Day 1', hoursSpent: 0, expectedHoursSpent: 8 },
-  { day: 'Day 1', hoursSpent: 5, expectedHoursSpent: 8 },
-  { day: 'Day 1', hoursSpent: 2, expectedHoursSpent: 8 },
-  { day: 'Day 1', hoursSpent: 3, expectedHoursSpent: 8 },
-  { day: 'Day 1', hoursSpent: 5, expectedHoursSpent: 8 },
-  { day: 'Day 1', hoursSpent: 0, expectedHoursSpent: 8 },
-  { day: 'Day 1', hoursSpent: 0, expectedHoursSpent: 8 },
-  { day: 'Day 1', hoursSpent: 5, expectedHoursSpent: 8 },
-  { day: 'Day 1', hoursSpent: 5, expectedHoursSpent: 8 },
-  { day: 'Day 1', hoursSpent: 3, expectedHoursSpent: 8 },
-  { day: 'Day 1', hoursSpent: 2, expectedHoursSpent: 8 },
-  { day: 'Day 1', hoursSpent: 0, expectedHoursSpent: 8 },
-  { day: 'Day 1', hoursSpent: 2, expectedHoursSpent: 8 },
-  { day: 'Day 1', hoursSpent: 7, expectedHoursSpent: 8 },
-  { day: 'Day 1', hoursSpent: 0, expectedHoursSpent: 8 },
-  { day: 'Day 1', hoursSpent: 2, expectedHoursSpent: 8 },
-  { day: 'Day 1', hoursSpent: 1, expectedHoursSpent: 8 },
-  { day: 'Day 1', hoursSpent: 2, expectedHoursSpent: 8 },
-  { day: 'Day 1', hoursSpent: 1, expectedHoursSpent: 8 },
-  { day: 'Day 1', hoursSpent: 1, expectedHoursSpent: 8 },
+  { day: 'Day 1', hoursSpent: 2, expectedHoursSpent: 5 },
+  { day: 'Day 1', hoursSpent: 3, expectedHoursSpent: 5 },
+  { day: 'Day 1', hoursSpent: 0, expectedHoursSpent: 5 },
+  { day: 'Day 1', hoursSpent: 0, expectedHoursSpent: 5 },
+  { day: 'Day 1', hoursSpent: 2, expectedHoursSpent: 5 },
+  { day: 'Day 1', hoursSpent: 1, expectedHoursSpent: 5 },
+  { day: 'Day 1', hoursSpent: 1, expectedHoursSpent: 5 },
+  { day: 'Day 1', hoursSpent: 0, expectedHoursSpent: 5 },
+  { day: 'Day 1', hoursSpent: 0, expectedHoursSpent: 5 },
+  { day: 'Day 1', hoursSpent: 5, expectedHoursSpent: 5 },
+  { day: 'Day 1', hoursSpent: 0, expectedHoursSpent: 5 },
+  { day: 'Day 1', hoursSpent: 2, expectedHoursSpent: 5 },
+  { day: 'Day 1', hoursSpent: 2, expectedHoursSpent: 5 },
+  { day: 'Day 1', hoursSpent: 3, expectedHoursSpent: 5 },
 ]
 const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
   if (active && payload && payload.length) {
@@ -68,7 +52,7 @@ const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
 export function ConsistencyChart() {
   return (
     <ChartSectionContainer>
-      <ResponsiveContainer width="100%" height={100}>
+      <ResponsiveContainer width="100%" height={120}>
         <BarChart data={data}>
           <XAxis
             dataKey="name"
@@ -80,8 +64,8 @@ export function ConsistencyChart() {
             name="Dedicated hours"
             dataKey="hoursSpent"
             fill="#a9a8fc"
-            barSize={30}
-            radius={[3, 3, 0, 0]}
+            barSize={60}
+            radius={[6, 6, 6, 6]}
           />
         </BarChart>
       </ResponsiveContainer>
