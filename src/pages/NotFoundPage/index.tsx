@@ -1,26 +1,39 @@
-import { NotFoundContainer, FourOFourContainer } from './styles'
+import { Button } from './../../components/Button/index'
+import {
+  ConfirmationContainer,
+  HeaderContainer,
+  CallToActionContainer,
+  TextContainer,
+} from './styles'
+
 import { useNavigate } from 'react-router-dom'
-import ChimpRelaxing from '../../../public/chimp_relaxing.svg'
 
 export function NotFoundPage() {
   const navigate = useNavigate()
 
-  function handleGoToHome() {
+  function handleRedirectToHome() {
     navigate('/')
   }
+
   return (
-    <NotFoundContainer>
-      <FourOFourContainer>
-        <span>4</span>
-        <span>0</span>
-        <span>4</span>
-      </FourOFourContainer>
-      <img src={ChimpRelaxing} alt="Coolest Chimp logo smiling to you" />
-      <h1>
-        There's a lot of fun here.... but none's for you! <br /> Go back to
-        work.
-      </h1>
-      <button onClick={handleGoToHome}>Go to Tasks</button>
-    </NotFoundContainer>
+    <>
+      <ConfirmationContainer>
+        <CallToActionContainer></CallToActionContainer>
+        <HeaderContainer>
+          <h2>{`404 `}</h2>
+          <h4>{`Page not Found`}</h4>
+          <h1>{`Whooooops`}</h1>
+        </HeaderContainer>
+        <TextContainer>
+          <p>{`🙈Looks like you're swinging in the wrong direction!`}</p>
+          <p>{`Let's monkey around and find your goals together! 🌿🐒`}</p>
+        </TextContainer>
+        <CallToActionContainer>
+          <Button fullWidth color="yellow" onClick={handleRedirectToHome}>
+            Go Back to Goals
+          </Button>
+        </CallToActionContainer>
+      </ConfirmationContainer>
+    </>
   )
 }

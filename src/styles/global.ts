@@ -5,10 +5,10 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;  
+    font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 img {
-  user-drag: none;
   user-select: none;
   -moz-user-select: none;
   -webkit-user-drag: none;
@@ -19,12 +19,12 @@ img {
   ::-moz-selection {
   /* Code for Firefox */
   color: white;
-  background-color:  ${(props) => props.theme['green-500']};
+  background-color:  ${(props) => props.theme['yellow-500']};
 }
 
 ::selection {
-  color: white;
-  background-color: ${(props) => props.theme['green-500']};
+  color: ${(props) => props.theme['dark-900']};
+  background-color: ${(props) => props.theme['yellow-500']};
 }
 
 :focus {
@@ -33,14 +33,28 @@ img {
 }
 
 body {
-    background: ${(props) => props.theme['gray-100']};
-    color: ${(props) => props.theme['brown-800']};
+    background: ${(props) => props.theme['gray-150']};
+    color: ${(props) => props.theme['dark-900']};
     -webkit-font-smoothing: antialiased;
+    font-size: 0.85rem;
+  color: ${(props) => props.theme['dark-900']};
+  font-weight: 600;
 }
 
 body, input, textarea, button {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 1rem;
+  font-size: 0.85rem;
+  color: ${(props) => props.theme['dark-900']};
+  font-weight: 600;
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-text-fill-color: ${(props) => props.theme['dark-900']};
+    font-weight: 600;
+    transition: background-color 5000s ease-in-out 0s;
+    box-shadow: none
+}
 }
 
 
@@ -60,6 +74,6 @@ body, input, textarea, button {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #a8bbbf;
+  background-color:  ${(props) => props.theme['gray-500']};
 }
 `

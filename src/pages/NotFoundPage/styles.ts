@@ -1,57 +1,65 @@
 import styled from 'styled-components'
 
-export const NotFoundContainer = styled.div`
-  h1 {
-    font-size: 1.25rem;
-    color: ${(props) => props.theme['brown-700']};
-  }
-
-  img {
-    margin-top: 2rem;
-    height: 16rem;
-  }
-
+export const ConfirmationContainer = styled.div`
   width: 100%;
   height: 100vh;
   display: flex;
   text-align: center;
   flex-direction: column;
-  justify-items: center;
-  align-items: center;
   justify-content: center;
-  gap: 2rem;
+  align-items: center;
 
-  button {
-    border: 0;
-    border-radius: 8px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.5rem;
-    font-weight: bold;
-    cursor: pointer;
-    color: ${(props) => props.theme.white};
-    background-color: ${(props) => props.theme['green-500']};
-    padding: 1rem 1.75rem;
+  gap: 4rem;
+`
 
-    :hover {
-      background-color: ${(props) => props.theme['green-300']};
-      cursor: pointer;
-    }
+export const Subtitle = styled.h3`
+  color: ${(props) => props.theme['dark-900']};
+  margin: 1rem 0rem;
+`
+
+export const CallToActionContainer = styled.div`
+  text-align: center;
+`
+
+export const TextContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  p {
+    color: ${(props) => props.theme['dark-900']};
+    font-size: 1rem;
   }
 `
 
-export const FourOFourContainer = styled.div`
-  font-family: 'Roboto Mono', monospace;
-  font-size: 3rem;
-  line-height: 1rem;
-  color: ${(props) => props.theme['gray-100']};
+export const HeaderContainer = styled.div`
   display: flex;
+  flex-direction: column;
   gap: 1rem;
+  h1,
+  h2,
+  h4 {
+    text-transform: uppercase;
+    text-align: center;
+    color: ${(props) => props.theme['dark-900']};
+    font-style: italic;
+    font-family: 'Barlow Semi Condensed', sans-serif;
+    font-weight: 900;
 
-  span {
-    background: ${(props) => props.theme['brown-800']};
-    padding: 2rem 1rem;
-    border-radius: 8px;
+    line-height: 90%;
+  }
+
+  h1 {
+    color: ${(props) => props.theme['dark-900']};
+    font-size: 7rem;
+  }
+
+  h2 {
+    color: ${(props) => props.theme['gray-500']};
+    font-size: 4rem;
+  }
+
+  h4 {
+    color: ${(props) => props.theme['gray-500']};
+    font-size: 2rem;
   }
 `

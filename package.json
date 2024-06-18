@@ -12,14 +12,18 @@
   "dependencies": {
     "@babel/core": "^7.22.10",
     "@hookform/resolvers": "^2.9.11",
+    "axios": "^1.6.7",
     "date-fns": "^2.29.3",
     "firebase": "^10.3.0",
     "immer": "^9.0.19",
+    "jwt-decode": "^4.0.0",
     "phosphor-react": "^1.4.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.43.5",
     "react-router-dom": "^6.9.0",
+    "react-tooltip": "^5.25.0",
+    "recharts": "^2.10.3",
     "styled-components": "^5.3.8",
     "zod": "^3.21.4"
   },

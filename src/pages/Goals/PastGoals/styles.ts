@@ -1,0 +1,24 @@
+import styled from 'styled-components'
+
+export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 2rem;
+`
+export const HeaderCTA = styled.h1`
+  text-align: center;
+  text-transform: uppercase;
+  color: ${(props) => props.theme['dark-900']};
+  font-style: italic;
+  font-family: 'Barlow Semi Condensed', sans-serif;
+  font-weight: 900;
+  color: ${(props) => props.theme['dark-900']};
+  line-height: 90%;
+`
+export const TextCTA = styled.p`
+  text-align: center;
+  font-size: 1rem;
+  line-height: 150%;
+  color: ${(props) => props.theme['dark-800']};
+`
