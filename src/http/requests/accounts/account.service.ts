@@ -85,10 +85,10 @@ export default {
     })
   },
 
-  cancelAccount(userId: string) {
+  cancelAccount(feedbackData: any) {
     return new Promise((resolve, reject) => {
       axios
-        .post(`${baseURL}/cancel/${userId}`)
+        .post(`${baseURL}/cancel/${feedbackData.userId}`)
         .then((response) => {
           if (response.status === 200) {
             resolve(response.data)

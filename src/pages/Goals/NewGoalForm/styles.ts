@@ -1,10 +1,18 @@
-import { TrashSimple, CheckCircle } from 'phosphor-react'
+import { TrashSimple, CheckCircle } from '@phosphor-icons/react'
 import styled from 'styled-components'
 export const Container = styled.div`
   min-width: 500px;
   hr {
     margin-bottom: 2rem;
     border: 1px solid ${(props) => props.theme['gray-200']};
+  }
+  h2 {
+    text-align: left;
+    margin-top: 1rem;
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: ${(props) => props.theme['dark-900']};
+
   }
 `
 export const SuperHeader = styled.h1`
@@ -94,6 +102,9 @@ export const TaskDisclaimerWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  p {
+    color: ${(props) => props.theme['dark-900']} !important;
+  }
 `
 
 export const StyledCheckCircle = styled(CheckCircle)`

@@ -3,7 +3,7 @@ import styled, { keyframes } from 'styled-components'
 export const HomeContainer = styled.main`
   display: flex;
   flex-direction: column;
-
+  gap: 1rem;
   p,
   span {
     font-weight: 600;

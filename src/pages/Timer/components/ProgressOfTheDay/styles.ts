@@ -3,18 +3,18 @@ import styled from 'styled-components'
 export const ProgressBarContainer = styled.div`
   width: 100%;
   display: flex;
-  flex-direction: row;
-  justify-items: space-between;
+  flex-direction: column;
   align-items: center;
   gap: 1rem;
-  margin-bottom: 2rem;
   margin-top: 2rem;
-  p {
-    display: block;
-    white-space: nowrap;
-    font-size: 0.8rem;
-    color: ${(props) => props.theme['gray-500']};
-  }
+
+`
+
+export const LabelContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex: 1;
 `
 
 export const ProgressBar = styled.div`

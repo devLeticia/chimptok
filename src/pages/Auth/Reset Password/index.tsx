@@ -8,7 +8,7 @@ import {
 } from './styles'
 
 import { Input } from '../../../components/Input'
-import { Keyhole, CheckCircle } from 'phosphor-react'
+import { Keyhole, CheckCircle } from '@phosphor-icons/react'
 import { Button } from '../../../components/Button'
 import { useNavigate } from 'react-router-dom'
 import { z } from 'zod'

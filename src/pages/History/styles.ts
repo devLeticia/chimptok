@@ -48,7 +48,7 @@ export const EmptyHistoryContainer = styled.div`
     padding: 1rem 1.75rem;
 
     :hover {
-      background-color: ${(props) => props.theme['green-300']};
+      background-color: ${(props) => props.theme['green-500']};
       cursor: pointer;
     }
   }

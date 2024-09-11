@@ -7,37 +7,37 @@ import { CyclesProvider } from '../../contexts/CyclesContext'
 import { TaskAndTimer } from './components/TaskAndTimer'
 import { useEffect, useState } from 'react'
 import homeService from '../../http/requests/home/home.service'
+import { GoalsPanel } from './components/GoalsPanel/index';
+import { Countdown } from './components/Countdown'
+interface HomeData {
+  consistencyOfTheWeek: any; // Adjust types according to your API response
+  progressOfTheDay: any;
+  userGoals: any[];
+  activeCycle: any;
+}
 
-// Home
 export function Timer() {
-  const [consistencyOfTheWeek, setConsistencyOfTheWeek] = useState(null)
-  const [progressOfTheDay, setProgressOfTheDay] = useState(null)
-  const [userGoals, setUserGoals] = useState(null)
-  const [activeCycle, seActiveCycle] = useState(null)
+  const [consistencyOfTheWeek, setConsistencyOfTheWeek] = useState<any>(null);
+  const [progressOfTheDay, setProgressOfTheDay] = useState<any>(null);
+  const [activeGoals, setActiveGoals] = useState<any[]>([]);
+  const [activeCycle, setActiveCycle] = useState<any>(null);
+  const [userActiveGoals, setUserActiveGoals] = useState<any>([])
 
   async function getHomeData() {
-    // loading.open()
-    const userId = localStorage.getItem('user_id')
-    if (userId !== null) {
+    const userId = localStorage.getItem('user_id');
+    if (userId) {
       try {
-        const resp = await homeService.getHomeData(userId)
-        if (resp.data) {
-          const {
-            consistencyOfTheWeek,
-            progressOfTheDay,
-            activeGoals,
-            activeCycle,
-          } = resp.data
-          setConsistencyOfTheWeek(consistencyOfTheWeek)
-          setProgressOfTheDay(progressOfTheDay)
-          setUserGoals(activeGoals)
-          seActiveCycle(activeCycle)
+        const resp = await homeService.getHomeData(userId);
+        if (resp && typeof resp === 'object' && 'data' in resp) {
+          const data = resp.data as HomeData;
+          setConsistencyOfTheWeek(data.consistencyOfTheWeek);
+          setProgressOfTheDay(data.progressOfTheDay);
+          setUserActiveGoals(data.userGoals);
+          setActiveCycle(data.activeCycle);
         }
-        //  console.log(resp)
       } catch (err) {
-        console.error(err)
+        console.error('Error fetching home data:', err);
       } finally {
-        // loading.close()
       }
     }
   }
@@ -46,20 +46,22 @@ export function Timer() {
   }, [])
   return (
     <>
+          <CyclesProvider>
       <HomeContainer>
         <Card>
           {consistencyOfTheWeek && (
             <ConsistencyOfTheWeek consistencyOfTheWeek={consistencyOfTheWeek} />
           )}
+          
           {progressOfTheDay && (
             <ProgressOfTheDay progressOfTheDay={progressOfTheDay} />
           )}
-          <hr />
-          <CyclesProvider>
-            <TaskAndTimer />
-          </CyclesProvider>
         </Card>
+        {activeCycle ? <Countdown /> : <GoalsPanel userActiveGoals={userActiveGoals}/>}
+          
+       
       </HomeContainer>
+      </CyclesProvider>
     </>
   )
 }

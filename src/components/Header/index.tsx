@@ -8,7 +8,7 @@ import {
   FlagBanner,
   UserCircle,
   SignOut,
-} from 'phosphor-react'
+} from '@phosphor-icons/react'
 import { loading } from '../Loading'
 import AccountService from '../../http/requests/accounts/account.service'
 import { toast } from './../Toast/index'
@@ -48,7 +48,7 @@ export function Header() {
       AccountService.logOut(userId)
         .then((resp) => {
           const response = resp
-          console.log('response', response)
+          // console.log('response', response)
           concludeUILogOut()
         })
         .catch((_err) => {

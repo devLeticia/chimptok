@@ -7,10 +7,10 @@ import {
 } from './styles'
 
 import { Input } from '../../../components/Input'
-import { At, Keyhole } from 'phosphor-react'
+import { At, Keyhole } from '@phosphor-icons/react'
 import GoogleLogo from './../../../../public/logos/google_logo.svg'
 import { Button } from '../../../components/Button'
-import { redirect, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
@@ -79,15 +79,13 @@ export function Login() {
       .catch((err) => {
         console.log('esntrou no erro', err)
         toast.show(
-          `Erro ao criar conta:${err.response.data.message}`,
+          `${err.response.data.message} Try again.`,
           'danger',
-          10000,
+          5000,
         )
       })
       .finally(() => {
-        setTimeout(() => {
           loading.close()
-        }, 2000)
       })
   }
 
@@ -112,7 +110,7 @@ export function Login() {
   return (
     <>
       <AuthTitle>Log in</AuthTitle>
-      <AuthSubtitle>Welcome B ack!</AuthSubtitle>
+      <AuthSubtitle>Welcome Back!</AuthSubtitle>
       <FormContainer>
         <form onSubmit={handleSubmit(logUserIn)}>
           <Input
@@ -125,7 +123,7 @@ export function Login() {
           <Input
             type="password"
             {...register('password')}
-            placeholder="Create password"
+            placeholder="Password"
             icon={<Keyhole weight="duotone" size={24} />}
           />
           <ForgotPasswordLink onClick={handleRedirectToForgotPassword}>

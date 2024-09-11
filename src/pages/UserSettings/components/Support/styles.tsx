@@ -23,7 +23,7 @@ export const SupportContainer = styled.div`
   gap: 2rem;
 `
 
-export const SaveButton = styled.button`
+export const ReportButton = styled.button`
   align-self: flex-end;
   border: 0;
   border-radius: 8px;

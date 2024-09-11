@@ -1,4 +1,4 @@
-import { CheckCircle } from 'phosphor-react'
+import { CheckCircle } from '@phosphor-icons/react'
 import styled from 'styled-components'
 
 export const InputContainer = styled.div`
@@ -33,10 +33,7 @@ export const Label = styled.p`
   margin-bottom: 0.5rem;
   text-align: left;
   font-weight: 700;
-  span {
-    margin-left: 0.25rem;
-    color: ${(props) => props.theme['gray-500']};
-  }
+  color:${(props) => props.theme['dark-900']} !important;
 `
 export const IconWrapper = styled.div`
   position: absolute;
@@ -72,4 +69,16 @@ export const StyledValidatorIcon = styled(CheckCircle)`
   right: 1rem;
   transform: translateY(-50%);
   color: ${(props) => props.theme['green-500']};
+`
+
+export const InputVisibility = styled.div`
+  position: absolute;
+  padding-left: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  bottom: 5%;
+  right: 1rem;
+  font-weight: 700;
+  transition: color 0.3s ease; /* Add transition for color property */
+  cursor: pointer;
 `

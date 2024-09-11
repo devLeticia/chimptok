@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { CheckCircle } from 'phosphor-react'
+import { CheckCircle } from '@phosphor-icons/react'
 
 export const ConfirmationContainer = styled.div`
   width: 100%;

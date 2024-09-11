@@ -24,5 +24,5 @@ export const Spinner = styled.div`
   border-radius: 50%;
   width: 3rem;
   height: 3rem;
-  animation: ${spinAnimation} 0.7s linear infinite;
+  animation: ${spinAnimation} 0.4s linear infinite;
 `

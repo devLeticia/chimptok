@@ -6,7 +6,7 @@ import {
   StyledOption,
   CaretDownIcon,
 } from './styles'
-import { CaretDown } from 'phosphor-react'
+import { CaretDown } from "@phosphor-icons/react";
 
 interface SelectProps<T> {
   label?: string

@@ -16,7 +16,7 @@ import {
   Clock,
   CheckSquareOffset,
   Plus,
-} from 'phosphor-react'
+} from '@phosphor-icons/react'
 
 export function NewGoalForm() {
   return (

@@ -7,7 +7,7 @@ import {
   DiscriptionWrapper,
 } from './styles'
 
-import { ArrowLeft } from 'phosphor-react'
+import { ArrowLeft } from '@phosphor-icons/react'
 
 import TimerImg from '../../../../public/Timer.png'
 

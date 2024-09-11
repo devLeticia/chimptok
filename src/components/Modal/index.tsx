@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { ModalOverlay, ModalContent, CloseButton } from './styles'
-import { XCircle } from 'phosphor-react'
+import { XCircle } from '@phosphor-icons/react'
 
 interface ModalProps {
   isOpen: boolean

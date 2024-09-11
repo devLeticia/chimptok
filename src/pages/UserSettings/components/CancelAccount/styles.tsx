@@ -28,6 +28,10 @@ export const Container = styled.h1`
     font-weight: 500;
     line-height: 1.5;
   }
+
+  TextArea {
+    height: 10vh;
+  }
 `
 export const Subtitle = styled.h2`
   font-size: 0.85rem;
@@ -43,7 +47,7 @@ export const ButtonsContainer = styled.div`
   gap: 1rem;
   margin-top: 1rem;
 `
-export const DeleteAccountButton = styled.button`
+export const NeverMindButton = styled.button`
   align-self: flex-end;
   border: 0;
   border-radius: 8px;
@@ -62,7 +66,7 @@ export const DeleteAccountButton = styled.button`
     cursor: pointer;
   }
 `
-export const NeverMindButton = styled.button`
+export const DeleteAccountButton = styled.button`
   align-self: flex-end;
   border: 0;
   border-radius: 8px;

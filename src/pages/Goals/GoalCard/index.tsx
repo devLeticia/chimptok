@@ -12,7 +12,7 @@ import {
   ActionsContainer,
 } from './styles'
 
-import { CheckCircle, Pencil, Trash } from 'phosphor-react'
+import { CheckCircle, Pencil, Trash } from '@phosphor-icons/react'
 import { DomainProgressBar } from './../../../domain-components/ProgressBar/index'
 import { Button } from '../../../components/Button'
 import { ConfirmDialog } from '../../../components/Dialog'

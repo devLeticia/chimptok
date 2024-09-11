@@ -15,7 +15,7 @@ export function Reports() {
         <ConsistencyChart />
         <ListsContainer>
           <GoalRanking />
-          <hr />
+
           <TaskHistory />
         </ListsContainer>
       </ReportsContainer>

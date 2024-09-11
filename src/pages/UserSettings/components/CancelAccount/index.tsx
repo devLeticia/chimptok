@@ -1,4 +1,8 @@
+import { ChangeEvent } from 'react'
+import { loading } from '../../../../components/Loading'
 import { TextArea } from '../../../../components/Textarea'
+import { toast } from '../../../../components/Toast'
+import accountService from '../../../../http/requests/accounts/account.service'
 import { CheckBox } from './../../../../components/Checkbox/index'
 import {
   Card,
@@ -14,16 +18,51 @@ interface CancelAccountProps {
   onCancelClick: () => void // Assuming onCancelClick is a function with no parameters
 }
 export function CancelAccount({ onCancelClick }: CancelAccountProps) {
+
+  function handleCancelAccount (): void {
+    
+    const userId: string | null = localStorage.getItem('user_id')
+    
+    if (userId !== null) {
+      loading.open()
+      accountService.cancelAccount(userId)
+        .then((resp) => {
+          const response = resp
+          // console.log('response', response)
+          concludeAccountCancelation()
+        })
+        .catch((_err) => {
+          console.log(_err)
+          toast.show(`Erro ao deslogar:`, 'danger', 10000)
+        })
+        .finally(() => {
+          loading.close()
+        })
+    }
+  }
+
+  function concludeAccountCancelation () {
+    navigate('/forgot-password')
+  }
+
   return (
     <div>
       <Card>
         <CardTitle>Cancel Account</CardTitle>
         <Container>
           <Subtitle>{`Changing paths? Let us know why Chimp isn't swinging your way:`}</Subtitle>
-          <CheckBox label={'Found a better solution elsewhere'}></CheckBox>
-          <CheckBox label={`Features didn't meet my needs`}></CheckBox>
-          <CheckBox label={'User interface is confusing'}></CheckBox>
-          <CheckBox label={`I'm not feeling it`}></CheckBox>
+          <CheckBox label={'Found a better solution elsewhere'} checked={false} onChange={function (e: ChangeEvent<HTMLInputElement>): void {
+            throw new Error('Function not implemented.')
+          } }></CheckBox>
+          <CheckBox label={`Features didn't meet my needs`} checked={false} onChange={function (e: ChangeEvent<HTMLInputElement>): void {
+            throw new Error('Function not implemented.')
+          } }></CheckBox>
+          <CheckBox label={'User interface is confusing'} checked={false} onChange={function (e: ChangeEvent<HTMLInputElement>): void {
+            throw new Error('Function not implemented.')
+          } }></CheckBox>
+          <CheckBox label={`I'm not feeling it`} checked={false} onChange={function (e: ChangeEvent<HTMLInputElement>): void {
+            throw new Error('Function not implemented.')
+          } }></CheckBox>
         </Container>
         <Container>
           <Subtitle>
@@ -42,10 +81,10 @@ export function CancelAccount({ onCancelClick }: CancelAccountProps) {
           </p>
         </Container>
         <ButtonsContainer>
-          <DeleteAccountButton onClick={onCancelClick}>
-            Never Mind
+          <NeverMindButton>Never Mind</NeverMindButton>
+          <DeleteAccountButton onClick={handleCancelAccount}>
+          Delete Account
           </DeleteAccountButton>
-          <NeverMindButton>Delete Account</NeverMindButton>
         </ButtonsContainer>
       </Card>
     </div>

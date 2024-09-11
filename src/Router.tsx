@@ -60,7 +60,6 @@ const PrivateRoutes = () => {
         tokenInfo = jwtDecode(token) as { exp: number }
         const currentTime: number = new Date().getTime() / 1000
         const validTokenDate = currentTime < tokenInfo.exp
-        console.log('validTokenDate', validTokenDate)
         return validTokenDate
       } catch (e) {
         console.error(e)
@@ -80,7 +79,6 @@ const PrivateRoutes = () => {
         userId !== undefined &&
         userId !== '' &&
         typeof userId !== 'number'
-      console.log('USUARIO VALIDO', validUserId)
       return validUserId
     }
     return false

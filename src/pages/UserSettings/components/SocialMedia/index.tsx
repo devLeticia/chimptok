@@ -1,4 +1,4 @@
-import { CheckCircle, InstagramLogo } from 'phosphor-react'
+import { CheckCircle, InstagramLogo } from '@phosphor-icons/react'
 import {
   Card,
   CardTitle,

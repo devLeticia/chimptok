@@ -1,4 +1,4 @@
-import { CheckCircle } from 'phosphor-react'
+import { CheckCircle } from '@phosphor-icons/react'
 import styled from 'styled-components'
 
 export const OnboardingContainer = styled.div`

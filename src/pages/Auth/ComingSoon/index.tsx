@@ -6,7 +6,7 @@ import {
   CustomDisclaimer,
   SocialMediaContainer,
 } from './styles'
-import { InstagramLogo, TwitterLogo } from 'phosphor-react'
+import { InstagramLogo, TwitterLogo } from '@phosphor-icons/react'
 
 const socialMediaLinks = {
   instagram: 'https://www.instagram.com/chimptok',

@@ -9,7 +9,7 @@ import {
   StyledEmailIcon,
 } from './styles'
 import { Input } from '../../../components/Input'
-import { At, IdentificationBadge, Keyhole, CheckCircle } from 'phosphor-react'
+import { At, IdentificationBadge, Keyhole, CheckCircle, XCircle } from '@phosphor-icons/react'
 import GoogleLogo from './../../../../public/logos/google_logo.svg'
 import { Button } from '../../../components/Button'
 import { useNavigate } from 'react-router-dom'
@@ -42,22 +42,37 @@ const createUserFormSchema = z.object({
 type CreateUserFormData = z.infer<typeof createUserFormSchema>
 
 export function RegisterNewAccount() {
-  const [registrationIsSuccessful, setRegistrationIsSuccessful] =
-    useState(false)
+  const [registrationIsSuccessful, setRegistrationIsSuccessful] = useState(false)
+  const [passwordValidations, setPasswordValidations] = useState({
+    minLength: false,
+    hasUpperLower: false,
+    hasNumberOrSpecialChar: false,
+  })
 
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
+    watch,
   } = useForm<CreateUserFormData>({
     resolver: zodResolver(createUserFormSchema),
     mode: 'onChange',
   })
 
+  const passwordValue = watch('password', '')
+
   const navigate = useNavigate()
 
-  function handleRedirectToLogin() {
+  const handleRedirectToLogin = () => {
     navigate('/login')
+  }
+
+  const validatePassword = (password: string) => {
+    setPasswordValidations({
+      minLength: password.length >= 6,
+      hasUpperLower: /[A-Z]/.test(password) && /[a-z]/.test(password),
+      hasNumberOrSpecialChar: /[0-9!@#$%^&*()_+{}[\]:;<>,.?~\\/-]/.test(password),
+    })
   }
 
   async function createUser(data: CreateUserFormData) {
@@ -65,8 +80,6 @@ export function RegisterNewAccount() {
     accountService
       .registerNewUser(data)
       .then((resp) => {
-        const response = resp
-        console.log('response', response)
         setRegistrationIsSuccessful(true)
       })
       .catch((_err) => {
@@ -79,6 +92,7 @@ export function RegisterNewAccount() {
         }, 3000)
       })
   }
+
   return (
     <>
       {!registrationIsSuccessful ? (
@@ -92,7 +106,6 @@ export function RegisterNewAccount() {
                 type="text"
                 placeholder="Name or nickname"
                 errorMessage={errors.username?.message?.toString() ?? null}
-                // isValid={!errors.username}
                 icon={<IdentificationBadge weight="duotone" size={24} />}
               />
               <Input
@@ -104,41 +117,61 @@ export function RegisterNewAccount() {
               />
               <Input
                 type="password"
-                {...register('password')}
+                {...register('password', { onChange: (e) => validatePassword(e.target.value) })}
                 placeholder="Create password"
                 icon={<Keyhole weight="duotone" size={24} />}
               />
+
               <ValidationsListWrapper>
                 <PasswordValidations>
-                  <CheckCircle size={14} weight="fill" />
-                  <p>At least 6 characters</p>
+                  {passwordValidations.minLength ? (
+                    <CheckCircle size={14} weight="fill" color="green" />
+                  ) : (
+                    <XCircle size={14} weight="fill"  />
+                  )}
+                  <p style={{ color: passwordValidations.minLength ? '#61a949' : '' }}>
+                    At least 6 characters
+                  </p>
                 </PasswordValidations>
                 <PasswordValidations>
-                  <CheckCircle size={14} weight="fill" />
-                  <p>At lest one uppercase and one lowercase</p>
+                  {passwordValidations.hasUpperLower ? (
+                    <CheckCircle size={14} weight="fill" color="green" />
+                  ) : (
+                    <XCircle size={14} weight="fill" />
+                  )}
+                  <p style={{ color: passwordValidations.hasUpperLower ? '#61a949' : '' }}>
+                    At least one uppercase and one lowercase letter
+                  </p>
                 </PasswordValidations>
                 <PasswordValidations>
-                  <CheckCircle size={14} weight="fill" />
-                  <p>At lest one number or special character</p>
+                  {passwordValidations.hasNumberOrSpecialChar ? (
+                    <CheckCircle size={14} weight="fill" color="green" />
+                  ) : (
+                    <XCircle size={14} weight="fill"  />
+                  )}
+                  <p style={{ color: passwordValidations.hasNumberOrSpecialChar ? '#61a949' : '' }}>
+                    At least one number or special character
+                  </p>
                 </PasswordValidations>
               </ValidationsListWrapper>
+
               <Button type="submit" disabled={!isValid}>
                 Create Account
               </Button>
             </form>
           </FormContainer>
-          {/* <DividerWithText>Or</DividerWithText> */}
+
           <Button color="dark" fullWidth>
             <img
               src={GoogleLogo}
               width={20}
-              alt="Coolest Chimp logo smiling to you"
+              alt="Google logo"
             />
             Connect with Google
           </Button>
+
           <MinorText>
-            Already have an account? Just{' '}
-            <span onClick={handleRedirectToLogin}>log in</span>
+            Already have an account? Just <span onClick={handleRedirectToLogin}>log in</span>
           </MinorText>
         </>
       ) : (

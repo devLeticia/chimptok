@@ -1,4 +1,4 @@
-import { EnvelopeSimple } from 'phosphor-react'
+import { EnvelopeSimple } from '@phosphor-icons/react'
 import styled from 'styled-components'
 
 export const Title = styled.h1`

@@ -43,6 +43,10 @@ type Cycle = {
   task: Task
 }
 
+interface CyclesHistoryResponse {
+  data: Cycle[];
+}
+
 export function TaskHistory() {
   const [userTaskHistory, setUserTaskHistory] = useState<Cycle[]>([])
 
@@ -54,20 +58,26 @@ export function TaskHistory() {
     return formattedResult
   }
 
-  function getTaskHistory() {
-    const userId = localStorage.getItem('user_id')
-    if (userId) {
-      cyclesService
-        .getCyclesHistory(userId)
-        .then((resp) => {
-          if (resp.data.length > 0) setUserTaskHistory(resp.data)
-          // console.log('pegou historico de cycles com sucesso')
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-    }
+ 
+function getTaskHistory() {
+  const userId = localStorage.getItem('user_id');
+  if (userId) {
+    cyclesService
+      .getCyclesHistory(userId)
+      .then((resp) => {
+        // Type assertion to inform TypeScript about the shape of resp
+        const responseData = resp as CyclesHistoryResponse;
+
+        if (responseData.data.length > 0) {
+          setUserTaskHistory(responseData.data);
+          // console.log('Successfully retrieved cycle history')
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
+}
 
   useEffect(() => {
     getTaskHistory()

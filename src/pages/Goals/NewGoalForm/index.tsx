@@ -19,7 +19,7 @@ import {
   Clock,
   CheckSquareOffset,
   Plus,
-} from 'phosphor-react'
+} from '@phosphor-icons/react'
 
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -151,8 +151,8 @@ export function NewGoalForm({ closeModal }: NewGoalFormProps) {
       {output && <SuccessMessage />}{' '}
       <form onSubmit={handleSubmit(saveNewGoal)}>
         <ColWrapper>
+        <h2>What do you wanna achieve?</h2>
           <Input
-            label="What do you wanna achieve?"
             type="text"
             placeholder="Goal to Achieve"
             icon={<FlagBanner weight="duotone" size={24} />}

@@ -1,12 +1,14 @@
-import { IdentificationBadge, At } from 'phosphor-react'
+import { IdentificationBadge, At } from '@phosphor-icons/react'
 import { Input } from '../../../../components/Input'
 import { Card, CardTitle, InputsWrapper, SaveButton } from './styles'
+import { ProfileInfo } from '../profileInfo'
 
 export function AccountInfo() {
   return (
     <Card>
       <CardTitle>Account info</CardTitle>
-      <InputsWrapper>
+      <ProfileInfo/>
+      {/* <InputsWrapper>
         <Input
           type="text"
           placeholder={'Your name or Nickname'}
@@ -20,8 +22,8 @@ export function AccountInfo() {
           value={'leticiagoncalves@gmail.lcom'}
           icon={<At weight="duotone" size={24} />}
         ></Input>
-      </InputsWrapper>
-      <SaveButton disabled>Save</SaveButton>
+      </InputsWrapper> */}
+      {/* <SaveButton disabled>Save</SaveButton> */}
     </Card>
   )
 }

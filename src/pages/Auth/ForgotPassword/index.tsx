@@ -1,7 +1,7 @@
 import { AuthTitle, AuthSubtitle, MinorText, FormContainer } from './styles'
 
 import { Input } from '../../../components/Input'
-import { At } from 'phosphor-react'
+import { At } from '@phosphor-icons/react'
 import { Button } from '../../../components/Button'
 
 import { useNavigate } from 'react-router-dom'

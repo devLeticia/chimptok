@@ -44,12 +44,21 @@ type CycleContextProps = {
   userGoals: Goal[] | undefined
 }
 
-const CyclesContext = createContext<CycleContextProps | undefined>(undefined)
+interface HomeDataResponse {
+  activeCycle: any;
+  userGoals: any;  
+  data: {
+    activeCycle: any;
+    userGoals: any;  
+  };
+}
+
+export const CyclesContext = createContext<CycleContextProps | undefined>(undefined)
 
 export function useCycles() {
   const context = useContext(CyclesContext)
   if (!context) {
-    throw new Error('useCycles must be used within a CyclesProvider')
+    throw new Error('----->>> useCycles must be used within a CyclesProvider')
   }
   return context
 }
@@ -89,12 +98,14 @@ export const CyclesProvider: React.FC<CyclesProviderProps> = ({ children }) => {
     if (userId !== null) {
       try {
         const resp = await homeService.getHomeData(userId)
-        if (resp.data) {
-          // console.log('dentro do context:', resp.data)
-          setActiveCycle(resp.data.activeCycle)
-          setUserGoals(resp.data.userGoals)
+        // Type assertion to tell TypeScript the type of resp
+        const responseData = resp as HomeDataResponse;
+  
+        if (responseData.data) {
+          setActiveCycle(responseData.data.activeCycle)
+          setUserGoals(responseData.data.userGoals)
         }
-        // console.log(resp)
+        // console.log(responseData)
       } catch (err) {
         console.error(err)
       } finally {

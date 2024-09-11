@@ -1,33 +1,56 @@
-import { useEffect, useState } from 'react'
-import goalsService from '../../../http/requests/goals/goals.service'
-import { GoalCard } from '../GoalCard'
-import { Container, HeaderCTA, TextCTA } from './styles'
-import { loading } from '../../../components/Loading'
+import { useEffect, useState } from 'react';
+import goalsService from '../../../http/requests/goals/goals.service';
+import { GoalCard } from '../GoalCard';
+import { Container, HeaderCTA, TextCTA } from './styles';
+import { loading } from '../../../components/Loading';
+
+type Task = {
+  id?: string | null
+  taskName: string
+  isCompleted?: boolean | null
+}
+interface Goal {
+  id: string
+  goalName: string
+  tasks: Task[]
+  createdAt: Date
+  deadline: Date
+  hoursPerWeek: number
+  totalHoursSpent: number
+  progressPercentage: number
+  status: number
+}
+interface GoalsHistoryResponse {
+  data: Goal[];
+}
 
 export function PastGoals() {
-  const [pastGoals, setPastGoals] = useState([])
+  const [pastGoals, setPastGoals] = useState<Goal[]>([]);
 
   async function getUserGoals() {
-    const userId = localStorage.getItem('user_id')
+    const userId = localStorage.getItem('user_id');
     if (userId !== null) {
       try {
-        const resp = await goalsService.getGoalsHistory(userId)
-        if (resp.data.length > 0) {
-          const userPastGoals = resp.data
-          setPastGoals(userPastGoals)
+        const resp = await goalsService.getGoalsHistory(userId);
+        const responseData = resp as GoalsHistoryResponse;
+        if (responseData.data.length > 0) {
+          const userPastGoals = responseData.data;
+          setPastGoals(userPastGoals);
         } else {
-          setPastGoals([])
+          setPastGoals([]);
         }
       } catch (err) {
-        console.error(err)
+        console.error(err);
       } finally {
-        loading.close()
+        loading.close();
       }
     }
   }
+
   useEffect(() => {
-    getUserGoals() // Call getUserGoals directly inside useEffect
-  }, [])
+    getUserGoals(); // Call getUserGoals directly inside useEffect
+  }, []);
+
   return (
     <>
       {pastGoals.length === 0 ? (
@@ -42,17 +65,11 @@ export function PastGoals() {
         </Container>
       ) : (
         <Container>
-          {pastGoals.map((goal, index) => {
-            return (
-              <GoalCard
-                key={index}
-                goal={goal}
-                getUserGoals={getUserGoals}
-              ></GoalCard>
-            )
-          })}
+          {pastGoals.map((goal, index) => (
+            <GoalCard key={goal.id} goal={goal} getUserGoals={getUserGoals} />
+          ))}
         </Container>
       )}
     </>
-  )
+  );
 }

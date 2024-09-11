@@ -1,5 +1,5 @@
 {
-  "name": "pomo-kids",
+  "name": "chimptok",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -12,12 +12,12 @@
   "dependencies": {
     "@babel/core": "^7.22.10",
     "@hookform/resolvers": "^2.9.11",
+    "@phosphor-icons/react": "^2.1.7",
     "axios": "^1.6.7",
     "date-fns": "^2.29.3",
     "firebase": "^10.3.0",
     "immer": "^9.0.19",
     "jwt-decode": "^4.0.0",
-    "phosphor-react": "^1.4.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.43.5",

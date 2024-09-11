@@ -8,7 +8,7 @@ import {
   StyledCheckCircle,
 } from './styles'
 
-import { InstagramLogo } from 'phosphor-react'
+import { InstagramLogo } from '@phosphor-icons/react'
 
 export function StepThree() {
   return (

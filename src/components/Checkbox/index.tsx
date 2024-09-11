@@ -1,18 +1,22 @@
-import { CheckBoxWrapper, StyledInput, StyledLabel } from './styles'
+import { ChangeEvent, InputHTMLAttributes } from 'react';
+import { CheckBoxWrapper, StyledInput, StyledLabel } from './styles';
 
-interface CheckBoxProps {
-  label: string
+interface CheckBoxProps extends InputHTMLAttributes<HTMLInputElement> {
+  label: string;
+  checked: boolean;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void; // This will handle the event properly
 }
-export function CheckBox({ label }: CheckBoxProps) {
+
+export function CheckBox({ label, checked, onChange }: CheckBoxProps) {
   return (
     <CheckBoxWrapper>
       <StyledInput
         type="checkbox"
-        id="subscribeNews"
-        name="subscribe"
-        value="newsletter"
+        id={label}
+        checked={checked} // Bind checked value
+        onChange={onChange} // Pass the event correctly
       />
-      <StyledLabel htmlFor="subscribeNews">{label}</StyledLabel>
+      <StyledLabel htmlFor={label}>{label}</StyledLabel>
     </CheckBoxWrapper>
-  )
+  );
 }

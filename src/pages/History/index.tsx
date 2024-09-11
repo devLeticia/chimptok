@@ -9,7 +9,7 @@ import {
   Status,
 } from './styles'
 import { useNavigate } from 'react-router-dom'
-import { CheckCircle, XCircle, WarningCircle } from 'phosphor-react'
+import { CheckCircle, XCircle, WarningCircle } from '@phosphor-icons/react'
 import ChimpMeditating from '../../../public/chimp_meditating.svg'
 import { Button } from '../../components/Button'
 
