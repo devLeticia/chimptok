@@ -25,6 +25,16 @@ export const ToastContainer = styled.div<ToastContainerProps>`
   border-radius: 4px;
   animation: ${slideIn} 0.9s ease-in-out;
   color: white;
-  background-color: #fd5c63;
+  background-color: ${(props) => {
+    return props.type === 'success'
+      ? '#87D96C' // green-500
+      : props.type === 'danger'
+      ? '#f17171' // red-300
+      : props.type === 'neutral'
+      ? '#5C5B5B' 
+      : props.type === 'warning'
+      ? '#f3db88' // yellow-400
+      : '#5C5B5B'; // gray-700
+  }};
   box-shadow: 0px 1px 3px rgba(12, 3, 10, 0.2);
-`
+`;

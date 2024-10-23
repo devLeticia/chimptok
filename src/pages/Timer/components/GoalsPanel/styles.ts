@@ -88,9 +88,21 @@ export const EmptyGoalCard = styled.div`
     gap: 0.5rem;
     cursor: pointer;
     :hover {
-      background-color: ${(props) => props.theme['gray-300']};
+      background-color: ${(props) => props.theme['gray-100']};
     }
     h3 {
       color: ${(props) => props.theme['gray-700']};;
     }
+    div {
+      z-index: 10;
+    }
+`
+export const GoalIndex = styled.h1`
+  position: absolute;
+  z-index: 1;
+  font-size: 12rem;
+  color: ${(props) => props.theme['gray-300']};
+  font-weight: 900;
+  font-style: italic;
+  font-family: 'Barlow Semi Condensed', sans-serif;
 `

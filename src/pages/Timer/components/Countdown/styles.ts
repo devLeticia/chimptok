@@ -30,9 +30,10 @@ export const Separator = styled.div`
 export const ActiveCycleDescription = styled.h1`
   text-align: center;
   font-size: 0.95rem;
-  font-weight: 500;
-  span {
-    color: ${(props) => props.theme['dark-900']};
+  font-weight: 900;
+  span, p {
+    font-weight: 600;
+    color: ${(props) => props.theme['gray-800']};
   }
 `
 

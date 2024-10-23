@@ -13,7 +13,7 @@ import { useCycles } from './../../../../contexts/CyclesContext'
 import { Button } from './../../../../components/Button/index'
 import { Card } from '../../../../components/Card'
 import { DomainProgressBar } from '../../../../domain-components/ProgressBar'
-import { PaperPlaneRight, FlagBannerFold, Cherries, Orange} from '@phosphor-icons/react'
+import { PaperPlaneRight, FlagBannerFold, Cherries, Orange, PlayCircle} from '@phosphor-icons/react'
 
 const motivationalPhrases = [
   {
@@ -152,17 +152,12 @@ const motivationalPhrases = [
       <Card>
         <CycleCountdownContainer>
           <ActiveCycleDescription>
+            <PlayCircle  size={24} weight="duotone" color=''/>
+            <p>Work in Progress</p>
             <TaskInProgressDisclaimer>
-              <span>{phrase.title}</span>
-              <h1>{activeCycle?.task.taskName}</h1>
-              <span>{phrase.subtitle}</span>
+              <h1>{activeCycle?.task.taskName}</h1> in  <h1> {activeCycle?.task.goal.goalName}</h1>
             </TaskInProgressDisclaimer>
-            <TaskInProgressDisclaimer>
-              <h1>{activeCycle?.task.goal.goalName}</h1>
-            </TaskInProgressDisclaimer>
-            <TaskInProgressDisclaimer>
-              <span>{`${phrase.message} ${activeCycle?.minutesAmount} minutes!`} </span>
-            </TaskInProgressDisclaimer>
+              <p>{`${phrase.message} ${activeCycle?.minutesAmount} minutes!`} </p>
           </ActiveCycleDescription>
           <CountdownContainer>
             <span>{minutes[0]}</span>
@@ -172,18 +167,14 @@ const motivationalPhrases = [
             <span>{seconds[1]}</span>
           </CountdownContainer>
           <ProgressBarContainer>
-            <PaperPlaneRight weight="fill" size={24} color='babyblue' />
-            {/* <CheckPoint>
-              <Orange weight="fill" size={36} />
-            </CheckPoint> */}
-
+            <PaperPlaneRight weight="duotone" size={24} color='babyblue' />
             <DomainProgressBar progress={progress} animated={false}> 
-                <CheckPoint>
+                {/* <CheckPoint>
                   <Cherries weight="fill" size={22} color='gray' />
                   <div></div>
-                </CheckPoint>
+                </CheckPoint> */}
               </DomainProgressBar>
-            <FlagBannerFold  weight="fill" size={24} color='gray'/>
+            <FlagBannerFold  weight="duotone" size={24} color='gray'/>
           </ProgressBarContainer>
             <Button fullWidth color="dark" onClick={handleAbandonCurrentCycle}>
             Interrupt

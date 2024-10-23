@@ -39,19 +39,34 @@ type Goal = {
 }
 
 const NewGoalFormSchema = z.object({
-  goalName: z.string().min(6).max(54),
-  deadline: z.coerce.date(),
-  hoursPerWeek: z.coerce.number().int().min(1).max(40),
-  tasks: z.string().min(5).max(40).array().nonempty().min(1),
-})
+  goalName: z
+    .string()
+    .min(6, { message: "Min 6 chars" })
+    .max(54, { message: "Max 54 chars" }),
+  deadline: z.coerce
+    .date({ message: "Invalid date" }),
+  hoursPerWeek: z.coerce
+    .number()
+    .int({ message: "Must be a number" })
+    .min(1, { message: "Min 1 hour" })
+    .max(40, { message: "Max 40 hours" }),
+  tasks: z
+    .string()
+    .min(5, { message: "Min 5 chars" })
+    .max(40, { message: "Max 40 chars" })
+    .array()
+    .nonempty({ message: "At least 1 task" })
+    .min(1, { message: "At least 1 task" }),
+});
 
 interface NewGoalFormProps {
-  closeModal: () => void
+  closeModal: () => void,
+  getHomeData: () => void
 }
 
 type NewGoalFormData = z.infer<typeof NewGoalFormSchema>
 
-export function NewGoalForm({ closeModal }: NewGoalFormProps) {
+export function NewGoalForm({ closeModal, getHomeData }: NewGoalFormProps) {
   const [output, setOutput] = useState('')
   const [tasks, setTasks] = useState<string[]>(['']) // Initial task input
 
@@ -65,9 +80,7 @@ export function NewGoalForm({ closeModal }: NewGoalFormProps) {
   })
 
   function saveNewGoal(data: NewGoalFormData) {
-    console.log('disparou')
     const userId = localStorage.getItem('user_id')
-    console.log('entrou pra salvar novo goal')
     const tasksArray = data.tasks.map((task) => {
       return {
         id: '',
@@ -75,7 +88,6 @@ export function NewGoalForm({ closeModal }: NewGoalFormProps) {
         isCompleted: false,
       }
     })
-    console.log(tasksArray)
     if (userId) {
       const payload = {
         goalId: null,
@@ -85,12 +97,12 @@ export function NewGoalForm({ closeModal }: NewGoalFormProps) {
         weeklyHours: data.hoursPerWeek,
         tasks: tasksArray,
       }
-
       goalsService
         .registerGoal(payload)
         .then((resp) => {
-          console.log('salvou com sucesso')
+          console.log('salvou com sucesso', resp)
           closeModal()
+          getHomeData() // melhorar depois essa props que está sendo passa dois componentes de cima
         })
         .catch((err) => {
           console.log(err)
@@ -151,8 +163,8 @@ export function NewGoalForm({ closeModal }: NewGoalFormProps) {
       {output && <SuccessMessage />}{' '}
       <form onSubmit={handleSubmit(saveNewGoal)}>
         <ColWrapper>
-        <h2>What do you wanna achieve?</h2>
           <Input
+            label="What do you wanna achieve?"
             type="text"
             placeholder="Goal to Achieve"
             icon={<FlagBanner weight="duotone" size={24} />}

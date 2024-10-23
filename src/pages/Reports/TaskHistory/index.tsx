@@ -4,8 +4,11 @@ import {
   TaskDataContainer,
   TaskContainer,
   StyledCheckCircle,
+  StyledPlayCircle,
+  StyledXCircle,
   GoalDescription,
   TaskListContainer,
+  SessionTitle,
 } from './styles'
 import { formatDistanceToNow } from 'date-fns'
 import { useEffect, useState } from 'react'
@@ -54,51 +57,61 @@ export function TaskHistory() {
     const formattedResult = formatDistanceToNow(dealineDate, {
       addSuffix: true,
     })
-
     return formattedResult
   }
 
- 
-function getTaskHistory() {
-  const userId = localStorage.getItem('user_id');
-  if (userId) {
-    cyclesService
-      .getCyclesHistory(userId)
-      .then((resp) => {
-        // Type assertion to inform TypeScript about the shape of resp
-        const responseData = resp as CyclesHistoryResponse;
-
-        if (responseData.data.length > 0) {
-          setUserTaskHistory(responseData.data);
-          // console.log('Successfully retrieved cycle history')
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+  function getTaskHistory() {
+    const userId = localStorage.getItem('user_id');
+    if (userId) {
+      cyclesService
+        .getCyclesHistory(userId)
+        .then((resp) => {
+          const responseData = resp as CyclesHistoryResponse;
+          if (responseData.data.length > 0) {
+            setUserTaskHistory(responseData.data);
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
   }
-}
 
   useEffect(() => {
-    getTaskHistory()
+    getTaskHistory();
   }, [])
+
+  function getTaskStatus(cycle: Cycle) {
+    const now = new Date();
+    const taskStart = new Date(cycle.createdAt);
+    const taskEnd = new Date(taskStart.getTime() + cycle.minutesAmount * 60000); // Calculate end time
+
+    if (cycle.interruptedAt) {
+      return { icon: <StyledXCircle size={18} weight="fill" />, color: 'red' };
+    } else if (now >= taskEnd) {
+      return { icon: <StyledCheckCircle size={18} weight="fill" />, color: 'green' };
+    } else {
+      return { icon: <StyledPlayCircle size={18} weight="fill" />, color: 'orange' };
+    }
+  }
 
   return (
     <TaskHistoryContainer>
-      <h1>Task History</h1>
+      <SessionTitle>Task History</SessionTitle>
       <TaskListContainer>
         {userTaskHistory.map((cycle, index) => {
+          const { icon, color } = getTaskStatus(cycle);
+
           return (
             <TaskContainer key={index}>
-              <IconContainer>
-                <StyledCheckCircle size={18} weight="fill" />
+              <IconContainer style={{ color }}>
+                {icon}
               </IconContainer>
               <TaskDataContainer>
                 <span>{getDistanceToNow(new Date(cycle.createdAt))}</span>
                 <h1>{cycle.task.taskName}</h1>
                 <GoalDescription>
-                  in {''}
-                  <span>{cycle.task.goal.goalName}</span>
+                  in <span>{cycle.task.goal.goalName}</span>
                 </GoalDescription>
               </TaskDataContainer>
             </TaskContainer>

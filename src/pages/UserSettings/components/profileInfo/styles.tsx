@@ -29,7 +29,7 @@ export const ContactContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 1rem;
+  gap: 0.5rem;
 `
 
 export const Name = styled.h1`
@@ -38,10 +38,11 @@ export const Name = styled.h1`
   font-family: 'Barlow Semi Condensed', sans-serif;
   color: ${(props) => props.theme['dark-900']};
   font-weight: 900;
+  text-transform: uppercase;
 `
 export const Email = styled.span`
   font-size: 0.85rem;
-  color: ${(props) => props.theme['gray-500']};
+  color: ${(props) => props.theme['dark-900']};
   font-weight: 600;
 `
 
@@ -49,18 +50,18 @@ export const MembershipDataContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 1rem;
+  gap: 0.5rem;
   text-align: right;
   width: 100%;
 `
 export const SignUpDate = styled.div`
   font-size: 0.85rem;
-  color: ${(props) => props.theme['gray-500']};
+  color: ${(props) => props.theme['dark-900']};
   font-weight: 600;
 `
 export const MembershipCount = styled.div`
   font-size: 0.85rem;
-  color: ${(props) => props.theme['gray-500']};
+  color: ${(props) => props.theme['dark-900']};
   font-weight: 600;
 
   span {

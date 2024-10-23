@@ -1,16 +1,31 @@
 import styled from 'styled-components'
 
 export const AuthTitle = styled.h1`
-  font-size: 1rem;
+  font-size: 2rem;
+  text-transform: uppercase;
+  font-style: italic;
   color: ${(props) => props.theme['dark-900']};
-  font-weight: 800;
+  font-weight: 900;
+  font-family: 'Barlow Semi Condensed', sans-serif;
 `
 export const AuthSubtitle = styled.h1`
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   color: ${(props) => props.theme['dark-900']};
   font-weight: 600;
   margin-bottom: 2rem;
 `
+export const ConfirmationText = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+  font-size: 0.95rem;
+  color: ${(props) => props.theme['dark-900']};
+  font-weight: 600;
+  margin-bottom: 2rem;
+  text-align: center;
+`
+
 export const FormContainer = styled.div`
   width: 100%;
   form {

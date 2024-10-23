@@ -41,7 +41,8 @@ type CycleContextProps = {
   startNewCycle: (newCycleData: NewCycle) => void
   markCurrentCycleAsFinished: () => void
   abandonCurrentCycle: () => void
-  userGoals: Goal[] | undefined
+  userGoals: Goal[] | undefined,
+  getHomeData: () => void
 }
 
 interface HomeDataResponse {
@@ -83,36 +84,35 @@ export const CyclesProvider: React.FC<CyclesProviderProps> = ({ children }) => {
   function abandonCurrentCycle() {
     setActiveCycle(undefined)
   }
-
+  async function getHomeData() {
+    console.log('getHome entrou no CycleContext')
+    const userId = localStorage.getItem('user_id')
+    if (userId !== null) {
+      try {
+        const resp = await homeService.getHomeData(userId)
+        const responseData = resp as HomeDataResponse;
+  
+        if (responseData.data) {
+          console.log('foi setar active cycle', responseData.data.activeCycle)
+          setActiveCycle(responseData.data.activeCycle)
+          setUserGoals(responseData.data.userGoals)
+        }
+      } catch (err) {
+        console.error(err)
+      } finally {
+      }
+    }
+  }
   const contextValue: CycleContextProps = {
     activeCycle,
     startNewCycle,
     markCurrentCycleAsFinished,
     abandonCurrentCycle,
     userGoals,
+    getHomeData
   }
 
-  async function getHomeData() {
-    // loading.open()
-    const userId = localStorage.getItem('user_id')
-    if (userId !== null) {
-      try {
-        const resp = await homeService.getHomeData(userId)
-        // Type assertion to tell TypeScript the type of resp
-        const responseData = resp as HomeDataResponse;
-  
-        if (responseData.data) {
-          setActiveCycle(responseData.data.activeCycle)
-          setUserGoals(responseData.data.userGoals)
-        }
-        // console.log(responseData)
-      } catch (err) {
-        console.error(err)
-      } finally {
-        // loading.close()
-      }
-    }
-  }
+
   useEffect(() => {
     getHomeData()
   }, [])

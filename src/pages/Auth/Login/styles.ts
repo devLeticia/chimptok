@@ -1,9 +1,12 @@
 import styled from 'styled-components'
 
 export const AuthTitle = styled.h1`
-  font-size: 1rem;
+  font-size: 2rem;
+  text-transform: uppercase;
+  font-style: italic;
   color: ${(props) => props.theme['dark-900']};
-  font-weight: 800;
+  font-weight: 900;
+  font-family: 'Barlow Semi Condensed', sans-serif;
 `
 export const AuthSubtitle = styled.h1`
   font-size: 0.85rem;

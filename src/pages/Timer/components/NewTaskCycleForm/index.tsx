@@ -34,7 +34,12 @@ type Goal = {
   tasks: Task[];
 };
 
-export function NewTaskCycleForm() {
+interface NewTaskCycleFormProps {
+  closeNewCycleModal: () => void,
+  getHomeData: () => void
+}
+
+export function NewTaskCycleForm({closeNewCycleModal, getHomeData} : NewTaskCycleFormProps) {
   const { startNewCycle, userGoals } = useCycles()
 
   const minutesAmountOptions = [
@@ -101,11 +106,13 @@ export function NewTaskCycleForm() {
         taskId: selectedTask.id,
         minutesAmount: selectedMinutesAmount,
       }
-      // send request to start a new cycle
       cyclesService
         .registerNewCycle(payload)
         .then((resp) => {
-          // console.log(resp)
+          closeNewCycleModal()
+          setTimeout(() => {
+            getHomeData()
+          }, 3000);
         })
         .catch((err) => {
           console.log(err)
@@ -113,8 +120,6 @@ export function NewTaskCycleForm() {
         .finally(() => {
           console.log('finalizou')
         })
-
-      // startNewCycle(requestBody)
     }
   }
 

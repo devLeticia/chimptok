@@ -1,11 +1,17 @@
 import { useState } from 'react'
 import { Cloud, Target, Medal, PlusCircle, Flag } from '@phosphor-icons/react'; // Import Phosphor icons
 import { DomainProgressBar } from '../../../../domain-components/ProgressBar';
-import { GoalPanelContainer, GoalToPickCard, GoalTitle, InfoContainer, ProgressContainer, ProgressInfoContainer, TasksContainer, EmptyGoalCard } from './styles';
+import { GoalPanelContainer, GoalToPickCard, GoalTitle, InfoContainer, ProgressContainer, ProgressInfoContainer, TasksContainer, EmptyGoalCard, GoalIndex } from './styles';
 import { StyledCheckCircle } from './../../../Welcome/styles';
 import { NewGoalForm } from '../../../Goals/NewGoalForm';
 import Modal from '../../../../components/Modal';
 import { NewTaskCycleForm } from '../NewTaskCycleForm';
+
+
+interface GoalsPanelProps {
+    userActiveGoals: any,
+    getHomeData: any
+}
 
 const emptyCardCTAs = [
     {
@@ -40,7 +46,7 @@ const emptyCardCTAs = [
     // }
 ];
 
-export function GoalsPanel({ userActiveGoals }: { userActiveGoals: any[] }) {
+export function GoalsPanel({ userActiveGoals, getHomeData }: GoalsPanelProps) {
     const [isNewGoalModalOpen, setIsNewGoalModalOpen] = useState(false)
     const [isNewCyclelModalOpen, setIsNewCyclelModalOpen] = useState(false)
 
@@ -48,6 +54,7 @@ export function GoalsPanel({ userActiveGoals }: { userActiveGoals: any[] }) {
         setIsNewGoalModalOpen(true)
     }
     const closeModal = () => {
+        console.log('foi fechar o modal')
         setIsNewGoalModalOpen(false)
     }
 
@@ -105,6 +112,7 @@ export function GoalsPanel({ userActiveGoals }: { userActiveGoals: any[] }) {
     return (
         <>
         <GoalPanelContainer>
+        
             {userActiveGoals.slice(0, 4).map((goal, index) => (
                 <GoalToPickCard key={index} onClick={openNewCycleModal}>
                     <GoalTitle>{goal.goalName}</GoalTitle>
@@ -120,16 +128,16 @@ export function GoalsPanel({ userActiveGoals }: { userActiveGoals: any[] }) {
                     <ProgressContainer>
                         <ProgressInfoContainer>
                             <div>Today</div>
-                            <div>{(goal.dayProgress.inPercentage).toFixed(0)}%</div>
+                            <div>{(goal.dayProgress.dayExpectedHours / goal.dayProgress.dayAccomplisedHours).toFixed()}%</div>
                         </ProgressInfoContainer>
-                        <DomainProgressBar progress={goal.dayProgress.inPercentage} />
+                        <DomainProgressBar progress={(goal.dayProgress.dayExpectedHours / goal.dayProgress.dayAccomplisedHours).toFixed()} />
                     </ProgressContainer>
                     <ProgressContainer>
                         <ProgressInfoContainer>
                             <div>Overall</div>
-                            <div>{(goal.overallProgress.inPercentage).toFixed(0)}%</div>
+                            <div>{(goal.overallProgress.overallAccomplisedHours / goal.overallProgress.overallExpectedHours).toFixed()}%</div>
                         </ProgressInfoContainer>
-                        <DomainProgressBar progress={goal.overallProgress.inPercentage} />
+                        <DomainProgressBar progress={(goal.overallProgress.overallAccomplisedHours / goal.overallProgress.overallExpectedHours).toFixed()} />
                     </ProgressContainer>
                 </GoalToPickCard>
             ))}
@@ -139,19 +147,22 @@ export function GoalsPanel({ userActiveGoals }: { userActiveGoals: any[] }) {
                 return (
                     <EmptyGoalCard key={index} onClick={openModal}>
                         {/* <IconComponent size={42}  weight="duotone" color="#b0bac4"/> */}
-                        <h3>{cta1}</h3>
-                        <p>{cta2}</p>
-                        <PlusCircle size={36}  weight="fill" color="#c3c9ce"/>
+                        <GoalIndex>{index + 1}</GoalIndex>
+                        <div>
+                            <h3>{cta1}</h3>
+                            <p>{cta2}</p>
+                            <PlusCircle size={36}  weight="fill" color="#c3c9ce"/>
+                        </div>
                     </EmptyGoalCard >
                 );
             })}
         </GoalPanelContainer>
         <Modal isOpen={isNewGoalModalOpen} onClose={closeModal}>
-            <NewGoalForm closeModal={closeModal} />
+            <NewGoalForm closeModal={closeModal} getHomeData={getHomeData} />
         </Modal>
-        <Modal isOpen={isNewCyclelModalOpen} onClose={closeNewCycleModal}>
+        <Modal isOpen={isNewCyclelModalOpen} onClose={closeNewCycleModal} >
             {/* <NewCycleForm closeModal={closeNewCycleModal} /> */}
-            <NewTaskCycleForm />
+            <NewTaskCycleForm closeNewCycleModal={closeNewCycleModal} getHomeData={getHomeData}/>
         </Modal>
     </>
     )

@@ -15,7 +15,7 @@ export const CardTitle = styled.h1`
   font-size: 1rem;
   color: ${(props) => props.theme['dark-900']};
   font-weight: 800;
-  margin-bottom: 1rem;
+  margin-top: 3rem;
 `
 export const Container = styled.h1`
   display: flex;
@@ -66,22 +66,27 @@ export const NeverMindButton = styled.button`
     cursor: pointer;
   }
 `
-export const DeleteAccountButton = styled.button`
+export const DeleteAccountButton = styled.button<{ disabled: boolean }>`
   align-self: flex-end;
   border: 0;
   border-radius: 8px;
   font-size: 0.85rem;
   font-weight: 800;
   font-family: 'Plus Jakarta Sans', sans-serif;
-  cursor: pointer;
-  color: ${(props) => props.theme.white};
-  background-color: ${(props) => props.theme['red-500']};
-  color: ${(props) => props.theme['red-700']};
+  color: ${(props) => props.disabled ? props.theme['gray-300'] : 'white'};
+  background-color: ${(props) => props.disabled ? props.theme['gray-400'] : props.theme['red-500']};
   padding: 1rem 2rem;
   white-space: nowrap;
-
+  cursor: ${(props) => props.disabled ? 'not-allowed' : 'pointer'};
+  
   :hover {
-    background-color: ${(props) => props.theme['red-300']};
-    cursor: pointer;
+    background-color: ${(props) => props.disabled ? props.theme['gray-400'] : props.theme['red-300']};
   }
+`;
+
+export const BackButton = styled.div`
+  color: ${(props) => props.theme['gray-500']};
+  border: none;
+  cursor: pointer;
+  position: absolute;
 `

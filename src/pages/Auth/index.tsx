@@ -10,8 +10,9 @@ import { useParams } from 'react-router-dom'
 import PeaceCard from '../../../public/peace-card.svg'
 
 export function Auth() {
-  const { confirmationCode } = useParams()
+  const { confirmationCode, resetToken } = useParams()
   const code: string = confirmationCode || ''
+  const token: string = resetToken || ''
 
   const getAuthComponent = (pathname: string) => {
     switch (pathname) {
@@ -23,8 +24,8 @@ export function Auth() {
         return <AccountConfirmation confirmationCode={code} />
       case '/forgot-password':
         return <ForgotPassword />
-      case '/reset-password':
-        return <ResetPassword />
+      case `/reset-password/${token}`:
+        return <ResetPassword resetToken={token}/>
       case '/coming-soon':
         return <ComingSoon />
       default:

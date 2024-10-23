@@ -6,7 +6,7 @@ export const Card = styled.div`
   display: flex;
   flex-direction: column;
   padding: 2rem;
-  border: solid 2px ${(props) => props.theme['gray-300']};
+  border: solid 1px ${(props) => props.theme['gray-300']};
   border-radius: 9px;
   gap: 1rem;
 `

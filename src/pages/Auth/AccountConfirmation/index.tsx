@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import accountService from '../../../http/requests/accounts/account.service'
 import { Title, Subtitle, Container } from './styles'
 import { StyledCheckCircle } from './../../Welcome/styles'
@@ -77,12 +77,12 @@ function SuccessfulConfirmtion() {
   useEffect(() => {
     setTimeout(() => {
       handleRedirectTolLogin()
-    }, 3000)
+    }, 5000)
   }, [])
 
   return (
     <Container>
-      <StyledCheckCircle size={44} weight="fill" />
+      <StyledCheckCircle size={46} weight="fill" />
       <Title>Confirmation Succeeded!</Title>
       <Subtitle>
         Congratulations! Your email has been successfully confirmed. Time to

@@ -63,8 +63,23 @@ export function ConsistencyOfTheWeek({
     return `${formattedDay}${ordinalSuffix} ${formattedDateWithoutDay}`
   }
 
-  function isFutureDay(date: string) {
-    return new Date(consistencyOfTheWeek.todayDate) < new Date(date)
+  function isFutureDay(dateString: string, todayString?: string): boolean {
+    const todayDate = todayString ? new Date(todayString) : new Date();
+    const inputDate = new Date(dateString);
+
+    const today = new Date(
+      todayDate.getFullYear(),
+      todayDate.getMonth(),
+      todayDate.getDate()
+    );
+  
+    const compareDate = new Date(
+      inputDate.getFullYear(),
+      inputDate.getMonth(),
+      inputDate.getDate()
+    );
+  
+    return compareDate > today;
   }
 
   function isPastDay(dateString: string, todayString?: string): boolean {

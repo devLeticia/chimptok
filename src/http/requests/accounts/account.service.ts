@@ -13,6 +13,19 @@ type UserLoginRequest = {
   password: string
 }
 
+type CancelAccountRequest = {
+  userId: string
+  reasonsToCancel: SelectedReasons,
+  comments: string
+}
+
+type SelectedReasons = {
+  foundAlternative: boolean;
+  lackOfFeatures: boolean;
+  poorUserInterface: boolean;
+  notFeelingIt: boolean;
+};
+
 export default {
   registerNewUser(payload: RegisterNewUserRequest) {
     // console.log('entrou pra fazer a request', payload)
@@ -85,10 +98,10 @@ export default {
     })
   },
 
-  cancelAccount(feedbackData: any) {
+  cancelAccount(payload: CancelAccountRequest) {
     return new Promise((resolve, reject) => {
       axios
-        .post(`${baseURL}/cancel/${feedbackData.userId}`)
+        .post(`${baseURL}/cancel`, payload)
         .then((response) => {
           if (response.status === 200) {
             resolve(response.data)
@@ -101,4 +114,54 @@ export default {
         })
     })
   },
+
+  getCancelationReasons() {
+    return new Promise((resolve, reject) => {
+      axios
+        .get(`${baseURL}/cancellation-reasons`,)
+        .then((response) => {
+          if (response.status === 200) {
+            resolve(response.data)
+          } else {
+            reject(response)
+          }
+        })
+        .catch((error) => {
+          reject(error)
+        })
+    })
+  },
+  
+  forgotPassword(email: string) {
+    return new Promise((resolve, reject) => {
+      axios
+        .post(`${baseURL}/forgot-password`, {email})
+        .then((response) => {
+          if (response.status === 200) {
+            resolve(response.data)
+          } else {
+            reject(response)
+          }
+        })
+        .catch((error) => {
+          reject(error)
+        })
+    })
+  },
+  resetPassword(payload: any) {
+    return new Promise((resolve, reject) => {
+      axios
+        .post(`${baseURL}/reset-password`, payload)
+        .then((response) => {
+          if (response.status === 200) {
+            resolve(response.data)
+          } else {
+            reject(response)
+          }
+        })
+        .catch((error) => {
+          reject(error)
+        })
+    })
+  }
 }

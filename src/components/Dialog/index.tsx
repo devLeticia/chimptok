@@ -35,8 +35,8 @@ export function ConfirmDialog({
         <DialogText>{text}</DialogText>
         {children}
         <ButtonContainer>
-          <Button onClick={onConfirm}>{confirmationText}</Button>
           <Button onClick={onClose}>{cancelText}</Button>
+          <Button onClick={onConfirm}>{confirmationText}</Button>
         </ButtonContainer>
       </DialogBox>
     </DialogOverlay>

@@ -35,6 +35,7 @@ export const DialogTitle = styled.h1`
   font-weight: 900;
   font-style: italic;
   text-transform: uppercase;
+  text-align: left;
   font-family: 'Barlow Semi Condensed', sans-serif;
 `
 export const DialogText = styled.p``

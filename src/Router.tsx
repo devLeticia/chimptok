@@ -34,7 +34,7 @@ export function Router() {
         <Route path="/login" element={<Auth />} />
         <Route path="/signup" element={<Auth />} />
         <Route path="/forgot-password" element={<Auth />} />
-        <Route path="/reset-password" element={<Auth />} />
+        <Route path="/reset-password/:resetToken" element={<Auth />} />
         <Route path="/coming-soon" element={<Auth />} />
         <Route
           path="/account-confirmation/:confirmationCode"

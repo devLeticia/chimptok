@@ -68,4 +68,8 @@ export const SocialMediaItem = styled.div`
     font-size: 0.85rem;
     font-weight: 700;
   }
+  :hover {
+    cursor: pointer;
+    color: ${(props) => props.theme['yellow-500']};
+  }
 `

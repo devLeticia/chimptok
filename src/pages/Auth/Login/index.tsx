@@ -74,12 +74,12 @@ export function Login() {
         console.log(resp)
         setAccessToken(resp.accessToken)
         setUserInfo(resp.accessToken)
+        setUserDetails(resp.userInfo)
         redirectToHome()
       })
       .catch((err) => {
-        console.log('esntrou no erro', err)
         toast.show(
-          `${err.response.data.message} Try again.`,
+          'Error while loging in. Try again.',
           'danger',
           5000,
         )
@@ -96,11 +96,17 @@ export function Login() {
   function setUserInfo(accessToken: string): void {
     const userInfo: UserInfo | null = jwtDecode(accessToken)
 
+    console.log('informação do usuario', userInfo)
     if (userInfo) {
       localStorage.setItem('user_id', userInfo.userId)
     } else {
       console.error('Unable to decode user information from the access token.')
     }
+  }
+
+  function setUserDetails(userInfo: any): void {
+    console.log(userInfo)
+    localStorage.setItem('chimp_user', JSON.stringify(userInfo))
   }
 
   function redirectToHome() {
@@ -109,7 +115,7 @@ export function Login() {
 
   return (
     <>
-      <AuthTitle>Log in</AuthTitle>
+      <AuthTitle>Login</AuthTitle>
       <AuthSubtitle>Welcome Back!</AuthSubtitle>
       <FormContainer>
         <form onSubmit={handleSubmit(logUserIn)}>

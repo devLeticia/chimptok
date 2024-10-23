@@ -1,15 +1,13 @@
 import {
   Title,
-  Subtitle,
   PasswordValidations,
   ValidationsListWrapper,
   MinorText,
   FormContainer,
   RegistrationSuccessContainer,
-  StyledEmailIcon,
 } from './styles'
 import { Input } from '../../../components/Input'
-import { At, IdentificationBadge, Keyhole, CheckCircle, XCircle } from '@phosphor-icons/react'
+import { At, IdentificationBadge, Keyhole, CheckCircle, XCircle, Mailbox } from '@phosphor-icons/react'
 import GoogleLogo from './../../../../public/logos/google_logo.svg'
 import { Button } from '../../../components/Button'
 import { useNavigate } from 'react-router-dom'
@@ -21,10 +19,18 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import accountService from '../../../http/requests/accounts/account.service'
 import { loading } from '../../../components/Loading'
 import { toast } from './../../../components/Toast/index'
+import { Subtitle } from './../../Welcome/styles';
 
 const createUserFormSchema = z.object({
   email: z.string().email().toLowerCase(),
-  username: z.string().min(3, 'Too short').max(36, 'Too long'),
+  username: z
+  .string()
+  .min(1, 'Can’t be blank!')
+  .min(3, 'Too short')
+  .max(36, 'Too long')
+  .refine((value) =>  /^[a-zA-ZÀ-ÖØ-öø-ÿ\s]+$/.test(value), {
+    message: 'Letters only',
+  }),
   password: z
     .string()
     .min(6)
@@ -43,6 +49,7 @@ type CreateUserFormData = z.infer<typeof createUserFormSchema>
 
 export function RegisterNewAccount() {
   const [registrationIsSuccessful, setRegistrationIsSuccessful] = useState(false)
+  const [submittedEmail, setSubmittedEmail] = useState('leticiagoncalves.tech@gmail.com') 
   const [passwordValidations, setPasswordValidations] = useState({
     minLength: false,
     hasUpperLower: false,
@@ -80,15 +87,16 @@ export function RegisterNewAccount() {
     accountService
       .registerNewUser(data)
       .then((resp) => {
+        setSubmittedEmail(data.email)
         setRegistrationIsSuccessful(true)
       })
       .catch((_err) => {
         console.log(_err)
+        toast.show(`Erro ao criar conta. Tente novamente.`, 'danger', 10000)
       })
       .finally(() => {
         setTimeout(() => {
           loading.close()
-          toast.show(`Erro ao criar conta:`, 'danger', 10000)
         }, 3000)
       })
   }
@@ -175,20 +183,21 @@ export function RegisterNewAccount() {
           </MinorText>
         </>
       ) : (
-        <RegistrationSuccess />
+        <RegistrationSuccess email={submittedEmail} />
       )}
     </>
   )
 }
 
-function RegistrationSuccess() {
+function RegistrationSuccess({ email }: { email: string }) {
   return (
     <RegistrationSuccessContainer>
-      <StyledEmailIcon size={36} weight="duotone" />
-      <Title>Confirm Registration!</Title>
-      <Subtitle>
-        {`Check your inbox for our email and tap the confirmation button to get
-        started. It's time to unlock your goals!`}
+      <Mailbox size={46} weight="fill" color="#302D27" />
+      <Title>Confirm Your Email</Title>
+       <Subtitle>
+        {`${email}`}<br/>
+        {`Check your inbox and click the button to get started. 
+        Let's unlock your goals together!`}
       </Subtitle>
     </RegistrationSuccessContainer>
   )
