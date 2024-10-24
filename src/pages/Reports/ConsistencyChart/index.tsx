@@ -1,5 +1,5 @@
 import { Card } from '../../../components/Card'
-import { Title, ChartSectionContainer, SessionTitle } from './styles'
+import { Title, ChartSectionContainer, SessionTitle, BlurOverlay } from './styles'
 import { BarChart, Bar, Tooltip, XAxis, ResponsiveContainer } from 'recharts'
 
 interface CustomTooltipProps {
@@ -11,16 +11,16 @@ interface CustomTooltipProps {
 }
 
 interface ConsistencyChartProps {
-  lastTwoWeeksConsistency: Array<LastTwoWeeksConsistency>
+  lastTwoWeeksConsistency: Array<LastTwoWeeksConsistency>,
+  totalCycles: number
 }
 
 type LastTwoWeeksConsistency = {
-  date: number, // Assuming this is a timestamp (milliseconds)
+  date: number,
   totalHoursWorkedInTheDay: number,
   totalCyclesInTheDay: number 
 }
 
-// Format date to a short format, e.g., "Oct 14"
 const formatDate = (timestamp: number) => {
   const date = new Date(timestamp);
   return date.toLocaleDateString('en-US', {
@@ -29,14 +29,32 @@ const formatDate = (timestamp: number) => {
   });
 }
 
-export function ConsistencyChart({lastTwoWeeksConsistency}: ConsistencyChartProps) {
-  const data = lastTwoWeeksConsistency;
+export function ConsistencyChart({lastTwoWeeksConsistency, totalCycles}: ConsistencyChartProps) {
+  
+  function generateFakeConsistencyData(lastTwoWeeksConsistency: LastTwoWeeksConsistency[]) {
+    return lastTwoWeeksConsistency.map((day) => {
+      const fakeTotalHours = Math.floor(Math.random() * 8) + 1;  // Random hours between 1 and 8
+      const fakeTotalCycles = Math.floor(Math.random() * 4) + 1; // Random cycles between 1 and 4
+  
+      return {
+        ...day,
+        totalHoursWorkedInTheDay: fakeTotalHours,
+        totalCyclesInTheDay: fakeTotalCycles,
+      };
+    });
+  }
+
+  function consistencyData() {
+    const fakeConsistencyData = generateFakeConsistencyData(lastTwoWeeksConsistency);
+    return totalCycles > 0 ? lastTwoWeeksConsistency : fakeConsistencyData;
+  } 
   
   return (
     <ChartSectionContainer>
       <SessionTitle>Last 14 Days</SessionTitle>
       <ResponsiveContainer width="100%" height={120}>
-        <BarChart data={data}>
+        <BlurOverlay/>
+        <BarChart data={consistencyData()}>
           <XAxis
             dataKey="date"
             tickFormatter={formatDate}

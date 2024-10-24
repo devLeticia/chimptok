@@ -6,52 +6,58 @@ import {
   SessionTitle,
   ListContainer,
   RankingNumber,
+  BlurOverlay,
 } from './styles'
 import { DomainProgressBar } from './../../../domain-components/ProgressBar/index'
 import { formatDistanceToNow } from 'date-fns'
 
-
-interface goalRankingProps {
-  goalRanking: GoalRanking[]
+// Define the types for props and data
+interface GoalRankingProps {
+  goalRanking: GoalRanking[];
 }
 
 type GoalRanking = {
-  name: string,
-  totalExpectedHours: number,
-  totalHoursWorked: number,
-  progressPercentage: number,
-  deadline: Date
+  name: string;
+  totalExpectedHours: number;
+  totalHoursWorked: number;
+  progressPercentage: number;
+  deadline: Date;
+};
+
+// Function to generate fake goal ranking data
+function generateFakeGoalRankingData(count: number): GoalRanking[] {
+  return Array.from({ length: count }, (_, index) => ({
+    name: `Goal ${index + 1}`,
+    totalExpectedHours: Math.floor(Math.random() * 100) + 1,
+    totalHoursWorked: Math.floor(Math.random() * 100),
+    progressPercentage: Math.floor(Math.random() * 100),
+    deadline: new Date(Date.now() + Math.random() * 10000000000),
+  }));
 }
 
-function getTimeToComplete(deadline: Date) {
-  const deadlineDate = new Date(deadline)
-  const formattedResult = formatDistanceToNow(deadlineDate, { addSuffix: true })
+export function GoalRanking({ goalRanking }: GoalRankingProps) {
+  const dataToDisplay = goalRanking.length > 0 ? goalRanking : generateFakeGoalRankingData(4);
 
-  return formattedResult
-}
-
-export function GoalRanking({goalRanking}: goalRankingProps) {
   return (
     <GoalRankingContainer>
+      <BlurOverlay />
       <SessionTitle>Goal Ranking</SessionTitle>
       <ListContainer>
-        {goalRanking.map((goal, index) => {
+        {dataToDisplay.map((goal, index) => {
           return (
             <GoalContainer key={goal.name}>
               <RankingNumber>{index + 1}</RankingNumber>
               <InfoContainer>
                 <LabelsContainer>
                   <h1>{goal.name}</h1>
-                  <p>{getTimeToComplete(goal.deadline)}</p>
+                  <p>{formatDistanceToNow(goal.deadline, { addSuffix: true })}</p>
                 </LabelsContainer>
-                <DomainProgressBar
-                  progress={goal.progressPercentage}
-                />
+                <DomainProgressBar progress={goal.progressPercentage} />
               </InfoContainer>
             </GoalContainer>
           )
         })}
       </ListContainer>
     </GoalRankingContainer>
-  )
+  );
 }

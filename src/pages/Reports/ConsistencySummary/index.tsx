@@ -31,20 +31,30 @@ export function ConsistencySummary({ userStats }: ConsistencySummaryProps) {
     return `${hours}h ${minutes}min`;
   }
 
+  function getHoursOfWork (totalHours: number) {
+    return totalHours > 0 ? `${formattedTime(totalHours)} of work` : 'Log your first hour!'
+  }
+  function getTotalTasks (totalCycles: number) {
+    return totalCycles > 0 ? `${formattedTime(totalCycles)} tasks completed` : 'Start performing!'
+  }
+  function bestStrek (bestStrek: number) {
+    return bestStrek > 0 ? `${formattedTime(bestStrek)} consecutive days` : 'No streak.Let’s go!'
+  }
+  
   return (
     <>
       <ConsitencySummaryContainer>
         <Card>
           <p>Total Hours</p>
-          <h1>{formattedTime(userStats.totalHoursInTasks)} of work</h1>
+          <h1>{getHoursOfWork(userStats.totalHoursInTasks)}</h1>
         </Card>
         <Card>
           <p>Total tasks</p>
-          <h1>{userStats.totalCycles} tasks completed</h1>
+          <h1>{getTotalTasks(userStats.totalCycles)}</h1>
         </Card>
         <Card>
           <p>Best Streak</p>
-          <h1>{userStats.bestStreak} consecutive days</h1>
+          <h1>{bestStrek(userStats.bestStreak)} </h1>
         </Card>
       </ConsitencySummaryContainer>
     </>

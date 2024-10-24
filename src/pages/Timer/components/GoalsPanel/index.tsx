@@ -1,11 +1,12 @@
 import { useState } from 'react'
-import { Cloud, Target, Medal, PlusCircle, Flag } from '@phosphor-icons/react'; // Import Phosphor icons
+import { Cloud, Target, Medal, PlusCircle, Flag, Plus, Rabbit } from '@phosphor-icons/react'; // Import Phosphor icons
 import { DomainProgressBar } from '../../../../domain-components/ProgressBar';
 import { GoalPanelContainer, GoalToPickCard, GoalTitle, InfoContainer, ProgressContainer, ProgressInfoContainer, TasksContainer, EmptyGoalCard, GoalIndex } from './styles';
 import { StyledCheckCircle } from './../../../Welcome/styles';
 import { NewGoalForm } from '../../../Goals/NewGoalForm';
 import Modal from '../../../../components/Modal';
 import { NewTaskCycleForm } from '../NewTaskCycleForm';
+import { Button } from '../../../../components/Button';
 
 
 interface GoalsPanelProps {
@@ -15,20 +16,21 @@ interface GoalsPanelProps {
 
 const emptyCardCTAs = [
     {
-        cta1: "Got room for more dreams?",
-        cta2: "Add a new goal here!",
-        icon: Cloud // Pass the actual component reference
+        cta1: "Space reserved for your next big win.",
+        cta2: "Add a goal!",
+        icon: Medal
     },
     {
         cta1: "There’s a goal-sized hole here!",
         cta2: "Fill it up!",
         icon: Target
-    },
+    },    
     {
-        cta1: "Space reserved for your next big win.",
-        cta2: "Add a goal!",
-        icon: Medal
+        cta1: "Got room for more dreams?",
+        cta2: "Add a new goal here!",
+        icon: Cloud // Pass the actual component reference
     },
+
     {
         cta1: "More goals? Yes, please!",
         cta2: "Add your next big one here!",
@@ -39,11 +41,11 @@ const emptyCardCTAs = [
         cta2: "Here’s room for it right here!",
         icon: Flag
     },
-    // {
-    //     cta1: "Hop to your next goal!",
-    //     cta2: "Add a new one here!",
-    //     icon: Rabbit
-    // }
+    {
+        cta1: "Hop to your next goal!",
+        cta2: "Add a new one here!",
+        icon: Rabbit
+    }
 ];
 
 export function GoalsPanel({ userActiveGoals, getHomeData }: GoalsPanelProps) {
@@ -65,39 +67,6 @@ export function GoalsPanel({ userActiveGoals, getHomeData }: GoalsPanelProps) {
         setIsNewCyclelModalOpen(false)
     }
 
-    const userGoals = [
-        {
-            name: 'Become fluent in Japanese',
-            hoursAWeek: 7,
-            totalHours: 600,
-            todaysGoal: 5,
-            deadline: '2025-12-31T23:59:59.000Z',
-            todaysAchievementInHours: 1.5,
-            overallHoursAchieved: 150,
-            totalTasksDoneToday: 2,
-        },
-        {
-            name: 'Read the Bible',
-            hoursAWeek: 4,
-            totalHours: 200,
-            todaysGoal: 5,
-            deadline: '2024-06-01T23:59:59.000Z',
-            todaysAchievementInHours: 1,
-            overallHoursAchieved: 120,
-            totalTasksDoneToday: 1,
-        },
-        {
-            name: 'Complete Marathon Training',
-            hoursAWeek: 5,
-            totalHours: 300,
-            todaysGoal: 5,
-            deadline: '2024-10-15T23:59:59.000Z',
-            todaysAchievementInHours: 2,
-            overallHoursAchieved: 180,
-            totalTasksDoneToday: 3,
-        },
-    ];
-
     function formattedDate(dateString: string) {
         const date = new Date(dateString); 
         return new Intl.DateTimeFormat('en-US', {
@@ -112,7 +81,6 @@ export function GoalsPanel({ userActiveGoals, getHomeData }: GoalsPanelProps) {
     return (
         <>
         <GoalPanelContainer>
-        
             {userActiveGoals.slice(0, 4).map((goal, index) => (
                 <GoalToPickCard key={index} onClick={openNewCycleModal}>
                     <GoalTitle>{goal.goalName}</GoalTitle>

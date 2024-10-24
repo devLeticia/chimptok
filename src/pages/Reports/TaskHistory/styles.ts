@@ -1,5 +1,5 @@
-import styled from 'styled-components'
-import { CheckCircle, PlayCircle, XCircle } from '@phosphor-icons/react'
+import styled from 'styled-components';
+import { CheckCircle, PlayCircle, XCircle } from '@phosphor-icons/react';
 
 export const TaskHistoryContainer = styled.div`
   display: flex;
@@ -9,6 +9,7 @@ export const TaskHistoryContainer = styled.div`
   padding: 2rem;
   border: solid 1px ${(props) => props.theme['gray-300']};
   border-radius: 9px;
+  position: relative; 
 
   h1 {
     font-size: 1rem;
@@ -22,7 +23,7 @@ export const TaskHistoryContainer = styled.div`
     color: ${(props) => props.theme['gray-500']};
     font-weight: 700;
   }
-`
+`;
 
 export const TaskListContainer = styled.div`
   margin-top: 1rem;
@@ -31,14 +32,14 @@ export const TaskListContainer = styled.div`
   height: 244px;
   overflow: auto;
   gap: 1rem;
-`
+`;
 
 export const IconContainer = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 10; /* Make sure the icon stays above the line */
+  z-index: 10;
 
   &::after {
     content: '';
@@ -48,10 +49,9 @@ export const IconContainer = styled.div`
     background-color: ${(props) => props.theme['gray-300']};
     top: 100%;
     transform: translateY(-50%);
-    z-index: -10; /* Ensure the line appears behind the icon */
+    z-index: -10;
   }
 
-  /* Remove the line only for the last visible icon */
   &:not(:last-of-type)::after {
     display: block;
   }
@@ -61,46 +61,47 @@ export const IconContainer = styled.div`
   }
 `;
 
-
 export const SessionTitle = styled.h1`
   font-size: 1rem;
   color: ${(props) => props.theme['dark-900']};
   font-weight: 800;
-`
+  z-index: 100;
+`;
 
 export const TaskContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
   border-radius: 7px;
+
   h1 {
     font-size: 0.85rem;
     color: ${(props) => props.theme['gray-700']};
     font-weight: 800;
   }
-`
+`;
 
 export const TaskDataContainer = styled.div`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
   padding: 0.25rem 1rem;
-`
+`;
 
 export const StyledCheckCircle = styled(CheckCircle)`
   color: ${(props) => props.theme['green-500']};
   background-color: white;
-`
+`;
 
 export const StyledPlayCircle = styled(PlayCircle)`
   color: ${(props) => props.theme['orange-500']};
   background-color: white;
-`
+`;
 
 export const StyledXCircle = styled(XCircle)`
   color: ${(props) => props.theme['red-500']};
   background-color: white;
-`
+`;
 
 export const GoalDescription = styled.p`
   color: ${(props) => props.theme['gray-500']};
@@ -111,4 +112,16 @@ export const GoalDescription = styled.p`
   span {
     color: ${(props) => props.theme['gray-700']};
   }
-`
+`;
+
+export const BlurOverlay = styled.div`
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(3px);
+  border-radius: 3rem;
+  width: 100%;
+  height: 100%;
+  position: absolute; 
+  top: 0; 
+  left: 0;
+  z-index: 20;
+`;

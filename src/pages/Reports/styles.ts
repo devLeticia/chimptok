@@ -30,9 +30,9 @@ export const shimmer = keyframes`
 import styled from 'styled-components';
 
 
-export const StatsSkeleton = styled.div`
+export const GridWrapper = styled.div<{ cols: string }>`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: ${(props) => props.cols};
   gap: 1rem;
 `
 

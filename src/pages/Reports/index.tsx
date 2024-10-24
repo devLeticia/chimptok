@@ -3,7 +3,7 @@ import { ConsistencyChart } from './ConsistencyChart';
 import { ConsistencySummary } from './ConsistencySummary';
 import { GoalRanking } from './GoalRanking';
 import { TaskHistory } from './TaskHistory';
-import { ReportsContainer, ListsContainer, SkeletonWrapper, SpaceY, Box, StatsSkeleton } from './styles';
+import { ReportsContainer, ListsContainer, SkeletonWrapper, SpaceY, Box, GridWrapper } from './styles';
 import { useState, useEffect } from 'react';
 
 interface ReportData {
@@ -43,7 +43,7 @@ export function Reports() {
   const [userStatistics, setUserStatistics] = useState<UserStats | null>(null);
   const [lastTwoWeekConsistency, setLastTwoWeekConsistency] = useState<LastTwoWeeksConsistency[] | null>(null);
   const [goalRanking, setGoalRanking] = useState<GoalRanking[] | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(true); // Set correct type for `isLoading`
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   async function getUserReport() {
     const userId = localStorage.getItem('user_id');
@@ -71,50 +71,42 @@ export function Reports() {
   const Skeleton = () => {
     return (
       <>
-      <StatsSkeleton>
-        <SkeletonWrapper>
+      <GridWrapper cols="1fr 1fr 1fr">
+      {[...Array(3)].map((_, index) => (
+        <SkeletonWrapper key={index}>
           <SpaceY gap="0.25rem">
-            <Box height="1rem" bgColor="rgba(0, 0, 0, 0.05)" /> 
-            <Box height="2rem" bgColor="rgba(0, 0, 0, 0.05)" />
+            <Box height="1rem" bgColor="rgba(0, 0, 0, 0.05)" />
+            <Box height="2rem" bgColor="rgba(0, 0, 0, 0.1)" />
+          </SpaceY>
+        </SkeletonWrapper>
+      ))}
+    </GridWrapper>
+      <SkeletonWrapper>
+      <SpaceY gap="12px">
+            <Box height="2rem" width="40%" bgColor="rgba(0, 0, 0, 0.05)" /> {/* Slightly darker gray */}
+          <GridWrapper cols="1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr">
+            {[...Array(12)].map((_, index) => (
+              <Box height="4rem" bgColor="rgba(0, 0, 0, 0.1)" />
+            ))}
+          </GridWrapper>
           </SpaceY>
       </SkeletonWrapper>
-      <SkeletonWrapper>
-          <SpaceY gap="0.25rem">
-            <Box height="1rem" bgColor="rgba(0, 0, 0, 0.05)" /> 
-            <Box height="2rem" bgColor="rgba(0, 0, 0, 0.05)" />
-          </SpaceY>
-      </SkeletonWrapper>
-      <SkeletonWrapper>
-          <SpaceY gap="0.25rem">
-            <Box height="1rem" bgColor="rgba(0, 0, 0, 0.05)" /> 
-            <Box height="2rem" bgColor="rgba(0, 0, 0, 0.05)" />
-          </SpaceY>
-      </SkeletonWrapper>
-      </StatsSkeleton>
-      <SkeletonWrapper>
-        <SpaceY gap="20px">
+      <GridWrapper cols="1fr 1fr">
+        {[...Array(2)].map((_, index) => (
+              <SkeletonWrapper>
+                        <SpaceY gap="20px">
           {/* Main large skeleton box */}
-          <Box height="4rem" bgColor="rgba(0, 0, 0, 0.05)" /> {/* Light gray for main box */}
+          <Box height="2rem" width="50%" bgColor="rgba(0, 0, 0, 0.05)" /> {/* Light gray for main box */}
           <SpaceY gap="12px">
             {/* Smaller skeleton bars */}
-            <Box height="12px" width="60%" bgColor="rgba(0, 0, 0, 0.05)" /> {/* Light gray */}
-            <Box height="12px" width="80%" bgColor="rgba(0, 0, 0, 0.1)" /> {/* Slightly darker gray */}
-            <Box height="12px" width="40%" bgColor="rgba(0, 0, 0, 0.1)" /> {/* Slightly darker gray */}
+            <Box height="4rem" bgColor="rgba(0, 0, 0, 0.1)" /> {/* Light gray */}
+            <Box height="4rem" bgColor="rgba(0, 0, 0, 0.1)" /> {/* Slightly darker gray */}
+            <Box height="4rem" bgColor="rgba(0, 0, 0, 0.1)" /> {/* Slightly darker gray */}
           </SpaceY>
         </SpaceY>
       </SkeletonWrapper>
-      <SkeletonWrapper>
-        <SpaceY gap="20px">
-          {/* Main large skeleton box */}
-          <Box height="4rem" bgColor="rgba(0, 0, 0, 0.05)" /> {/* Light gray for main box */}
-          <SpaceY gap="12px">
-            {/* Smaller skeleton bars */}
-            <Box height="12px" width="60%" bgColor="rgba(0, 0, 0, 0.05)" /> {/* Light gray */}
-            <Box height="12px" width="80%" bgColor="rgba(0, 0, 0, 0.1)" /> {/* Slightly darker gray */}
-            <Box height="12px" width="40%" bgColor="rgba(0, 0, 0, 0.1)" /> {/* Slightly darker gray */}
-          </SpaceY>
-        </SpaceY>
-      </SkeletonWrapper>
+            ))}
+      </GridWrapper>
       </>
     );
   };
@@ -130,7 +122,7 @@ export function Reports() {
               <>
                 <ConsistencySummary userStats={userStatistics} />
                 {lastTwoWeekConsistency && (
-                  <ConsistencyChart lastTwoWeeksConsistency={lastTwoWeekConsistency} />
+                  <ConsistencyChart lastTwoWeeksConsistency={lastTwoWeekConsistency} totalCycles={userStatistics.totalCycles} />
                 )}
               </>
             )}
