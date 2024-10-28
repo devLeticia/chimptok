@@ -27,7 +27,9 @@ export function ConsistencySummary({ userStats }: ConsistencySummaryProps) {
     if (hours === 0) {
       return `${minutes}min `;
     }
-  
+    if (minutes === 0) {
+      return `${hours}h `;
+    }
     return `${hours}h ${minutes}min`;
   }
 
@@ -35,10 +37,10 @@ export function ConsistencySummary({ userStats }: ConsistencySummaryProps) {
     return totalHours > 0 ? `${formattedTime(totalHours)} of work` : 'Log your first hour!'
   }
   function getTotalTasks (totalCycles: number) {
-    return totalCycles > 0 ? `${formattedTime(totalCycles)} tasks completed` : 'Start performing!'
+    return totalCycles > 0 ? `${totalCycles} tasks completed` : 'Start performing!'
   }
   function bestStrek (bestStrek: number) {
-    return bestStrek > 0 ? `${formattedTime(bestStrek)} consecutive days` : 'No streak.Let’s go!'
+    return bestStrek > 0 ? `${bestStrek} consecutive days` : 'No streak.Let’s go!'
   }
   
   return (

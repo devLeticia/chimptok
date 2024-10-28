@@ -68,7 +68,7 @@ const motivationalPhrases = [
   }]
   const phrase = motivationalPhrases[Math.floor(Math.random() * motivationalPhrases.length)];
   export function Countdown() {
-    const { activeCycle, markCurrentCycleAsFinished, abandonCurrentCycle } =
+    const { activeCycle, markCurrentCycleAsFinished, interruptCycle } =
       useCycles()
   
     const calculateRemainingTime = useCallback(() => {
@@ -142,8 +142,13 @@ const motivationalPhrases = [
       }
     }, [remainingTime, activeCycle, markCurrentCycleAsFinished])
   
-    function handleAbandonCurrentCycle() {
-      abandonCurrentCycle()
+    function handleInterruptCycle() {
+      const payload = {
+        cycleId: activeCycle?.id,
+        userId: localStorage.getItem('user_id')
+      }
+      console.log('payload', payload)
+      interruptCycle(payload)
     }
   
    
@@ -176,7 +181,7 @@ const motivationalPhrases = [
               </DomainProgressBar>
             <FlagBannerFold  weight="duotone" size={24} color='gray'/>
           </ProgressBarContainer>
-            <Button fullWidth color="dark" onClick={handleAbandonCurrentCycle}>
+            <Button fullWidth color="dark" onClick={handleInterruptCycle}>
             Interrupt
           </Button>
         </CycleCountdownContainer>

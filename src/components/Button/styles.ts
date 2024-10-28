@@ -29,6 +29,8 @@ export const ButtonWrapper = styled.button<ButtonWrapperProps>`
       ? props.theme[`${props.color}-500`] || props.theme['yellow-500']
       : props.color === 'blue'
       ? props.theme[`${props.color}-500`] || props.theme['blue-500']
+      : props.color === 'red'
+      ? props.theme[`${props.color}-500`] || props.theme['red-500']
       : props.color === 'dark'
       ? props.theme['dark-900']
       : props.theme[
@@ -48,7 +50,9 @@ export const ButtonWrapper = styled.button<ButtonWrapperProps>`
         : props.color === 'yellow'
         ? props.theme[`${props.color}-400`] || props.theme['yellow-400']
         : props.color === 'blue'
-        ? props.theme[`${props.color}-400`] || props.theme['blue-400']
+        ? props.theme[`${props.color}-300`] || props.theme['blue-300']
+        : props.color === 'red'
+        ? props.theme[`${props.color}-300`] || props.theme['red-300']
         : props.color === 'dark'
         ? props.theme['dark-800']
         : props.theme['yellow-400']}; // Adjust the tint level as needed

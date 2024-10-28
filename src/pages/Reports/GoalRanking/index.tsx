@@ -40,7 +40,7 @@ export function GoalRanking({ goalRanking }: GoalRankingProps) {
 
   return (
     <GoalRankingContainer>
-      <BlurOverlay />
+      {!goalRanking.length > 0 && (<BlurOverlay />)}
       <SessionTitle>Goal Ranking</SessionTitle>
       <ListContainer>
         {dataToDisplay.map((goal, index) => {
@@ -50,9 +50,9 @@ export function GoalRanking({ goalRanking }: GoalRankingProps) {
               <InfoContainer>
                 <LabelsContainer>
                   <h1>{goal.name}</h1>
-                  <p>{formatDistanceToNow(goal.deadline, { addSuffix: true })}</p>
+                  <p>{formatDistanceToNow(new Date(goal.deadline), { addSuffix: true })}</p>
                 </LabelsContainer>
-                <DomainProgressBar progress={goal.progressPercentage} />
+                <DomainProgressBar progress={goal.progressPercentage < 100 ? goal.progressPercentage : 100} />
               </InfoContainer>
             </GoalContainer>
           )

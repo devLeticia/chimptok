@@ -10,7 +10,7 @@ import { Button } from '../../../../components/Button';
 
 
 interface GoalsPanelProps {
-    userActiveGoals: any,
+    activeGoals: any,
     getHomeData: any
 }
 
@@ -48,7 +48,7 @@ const emptyCardCTAs = [
     }
 ];
 
-export function GoalsPanel({ userActiveGoals, getHomeData }: GoalsPanelProps) {
+export function GoalsPanel({ activeGoals, getHomeData }: GoalsPanelProps) {
     const [isNewGoalModalOpen, setIsNewGoalModalOpen] = useState(false)
     const [isNewCyclelModalOpen, setIsNewCyclelModalOpen] = useState(false)
 
@@ -64,6 +64,7 @@ export function GoalsPanel({ userActiveGoals, getHomeData }: GoalsPanelProps) {
         setIsNewCyclelModalOpen(true)
     }
     const closeNewCycleModal = () => {
+        console.log('fechar modal')
         setIsNewCyclelModalOpen(false)
     }
 
@@ -75,13 +76,16 @@ export function GoalsPanel({ userActiveGoals, getHomeData }: GoalsPanelProps) {
             day: 'numeric',
         }).format(date); 
     }
+    function getProgressPercentage(expectedHours: number, accomplishedHours: number) {
+        return accomplishedHours === 0 ? 0 : (accomplishedHours / expectedHours) ;
+    }
 
-    const cardsSlots = 4 - userActiveGoals.length;
+    const cardsSlots = 4 - activeGoals.length;
 
     return (
         <>
         <GoalPanelContainer>
-            {userActiveGoals.slice(0, 4).map((goal, index) => (
+            {activeGoals.slice(0, 4).map((goal, index) => (
                 <GoalToPickCard key={index} onClick={openNewCycleModal}>
                     <GoalTitle>{goal.goalName}</GoalTitle>
                     <InfoContainer>
@@ -96,16 +100,16 @@ export function GoalsPanel({ userActiveGoals, getHomeData }: GoalsPanelProps) {
                     <ProgressContainer>
                         <ProgressInfoContainer>
                             <div>Today</div>
-                            <div>{(goal.dayProgress.dayExpectedHours / goal.dayProgress.dayAccomplisedHours).toFixed()}%</div>
+                            <div>{getProgressPercentage(goal.dayProgress.dayExpectedHours, goal.dayProgress.dayAccomplisedHours)}%</div>
                         </ProgressInfoContainer>
-                        <DomainProgressBar progress={(goal.dayProgress.dayExpectedHours / goal.dayProgress.dayAccomplisedHours).toFixed()} />
+                        <DomainProgressBar progress={getProgressPercentage(goal.dayProgress.dayExpectedHours, goal.dayProgress.dayAccomplisedHours)} />
                     </ProgressContainer>
                     <ProgressContainer>
                         <ProgressInfoContainer>
                             <div>Overall</div>
-                            <div>{(goal.overallProgress.overallAccomplisedHours / goal.overallProgress.overallExpectedHours).toFixed()}%</div>
+                            <div>{getProgressPercentage(goal.overallProgress.overallExpectedHours, goal.overallProgress.overallAccomplisedHours)}%</div>
                         </ProgressInfoContainer>
-                        <DomainProgressBar progress={(goal.overallProgress.overallAccomplisedHours / goal.overallProgress.overallExpectedHours).toFixed()} />
+                        <DomainProgressBar progress={getProgressPercentage( goal.overallProgress.overallExpectedHours, goal.overallProgress.overallAccomplisedHours)} />
                     </ProgressContainer>
                 </GoalToPickCard>
             ))}

@@ -91,7 +91,7 @@ export const InfoContainer = styled.div`
 
 export const BlurOverlay = styled.div`
   background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(3px);
+  backdrop-filter: blur(2px);
   border-radius: 3rem;
   width: 100%;
   height: 100%;

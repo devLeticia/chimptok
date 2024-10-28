@@ -3,6 +3,7 @@ import { loading } from '../../../components/Loading'
 import goalsService from '../../../http/requests/goals/goals.service'
 import { GoalCard } from '../GoalCard'
 import { Container, GoalWrapper, GoalIndex, HeaderCTA, TextCTA } from './styles'
+import { useCycles } from '../../../contexts/CyclesContext'
 
 type Task = {
   id?: string | null
@@ -25,36 +26,19 @@ interface GoalsHistoryResponse {
   data: Goal[];
 }
 export function ActiveGoals() {
-  const [activeGoals, setActiveGoals] = useState<Goal[]>([]);
-
-  async function getUserGoals() {
-    const userId = localStorage.getItem('user_id');
-    if (userId !== null) {
-      try {
-        const resp = await goalsService.getGoalsHistory(userId);
-        const responseData = resp as GoalsHistoryResponse; // Type assertion
-
-        if (responseData.data.length > 0) {
-          const userGoals = responseData.data;
-          setActiveGoals(userGoals);
-        } else {
-          setActiveGoals([]);
-        }
-      } catch (err) {
-        console.error(err);
-      } finally {
-        loading.close();
-      }
-    }
-  }
+  const {
+    userGoals,
+    getHomeData
+  } = useCycles()
 
   useEffect(() => {
-    getUserGoals(); // Call getUserGoals directly inside useEffect
+    console.log(userGoals); // Call getUserGoals directly inside useEffect
+    if (userGoals === undefined || userGoals.length === 0) getHomeData()
   }, []);
 
   return (
     <>
-      {activeGoals.length === 0 ? (
+      {userGoals.length === 0 ? (
         <Container>
           <HeaderCTA>{`Psst... Heard about goal-setting?`}</HeaderCTA>
           <TextCTA>
@@ -66,10 +50,10 @@ export function ActiveGoals() {
         </Container>
       ) : (
         <Container>
-          {activeGoals.map((goal, index) => (
+          {userGoals.map((goal, index) => (
             <GoalWrapper key={goal.id}>
               <GoalIndex>{index + 1}</GoalIndex>
-              <GoalCard goal={goal} getUserGoals={getUserGoals}></GoalCard>
+              <GoalCard goal={goal} getUserGoals={getHomeData}></GoalCard>
             </GoalWrapper>
           ))}
         </Container>

@@ -50,10 +50,11 @@ export default {
     })
   },
 
-  setCycleAsAbandoned(payload: AbandonCycleRequest) {
+  interruptCycle(payload: any) {
+    console.log('payload dentro', payload)
     return new Promise((resolve, reject) => {
       axios
-        .post(`${baseURL}/abandon`, payload)
+        .patch(`${baseURL}/interrupt/${payload.cycleId}`, payload.userId)
         .then((response) => {
           if (response.status === 200) {
             resolve(response.data)

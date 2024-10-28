@@ -31,7 +31,7 @@ export function SocialMedia() {
           <WhyToFollowContainer>
             <h1>Why should I follow?</h1>
             <p>
-            {`Get tips, motivation, and sneak peeks! Stay ahead on your goal-smashing journey with updates and exclusive content. Let’s make progress together!`}
+            {`Get tips, motivation, and sneak peeks! Stay ahead on your goal-smashing journey with updates and exclusive content.`}
             </p>
           </WhyToFollowContainer>
         </SocialMediaContainer>

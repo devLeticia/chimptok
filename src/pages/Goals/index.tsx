@@ -28,7 +28,7 @@ export function Goals() {
                 Active Goals
               </NavLink>
               <NavLink to="/goals/past" title="Past Goals">
-                Past Goals
+              Trophy Shelf
               </NavLink>
             </div>
             <Button onClick={openModal}>

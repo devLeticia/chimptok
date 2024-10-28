@@ -24,6 +24,12 @@ export const CardContainer = styled.div`
     width: 100%;
   }
 `
+export const TitleContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+`
+
 export const LabelRow = styled.div`
   width: 100%;
   display: flex;

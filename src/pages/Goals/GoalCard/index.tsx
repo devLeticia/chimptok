@@ -10,6 +10,7 @@ import {
   TaskDescription,
   StatusBadge,
   ActionsContainer,
+  TitleContainer
 } from './styles'
 
 import { CheckCircle, Pencil, Trash } from '@phosphor-icons/react'
@@ -18,6 +19,8 @@ import { Button } from '../../../components/Button'
 import { ConfirmDialog } from '../../../components/Dialog'
 import { useState } from 'react'
 import goalsService from '../../../http/requests/goals/goals.service'
+import Modal from '../../../components/Modal'
+import { NewGoalForm } from '../NewGoalForm'
 
 type Task = {
   id?: string | null
@@ -44,13 +47,23 @@ interface GoalCardProps {
 export function GoalCard({ goal, getUserGoals }: GoalCardProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const openModal = () => {
+    setIsModalOpen(true)
+  }
+
+  const closeModal = () => {
+    setIsModalOpen(false)
+  }
+
 
   function isPastGoal(status: number) {
     return status === 2 || status === 3
   }
 
   function handleOpenGoalEdition(goal: Goal) {
-    console.log(goal)
+    openModal()
   }
 
   function handleDeleteGoal(goal: Goal) {
@@ -83,6 +96,9 @@ export function GoalCard({ goal, getUserGoals }: GoalCardProps) {
         getUserGoals()
       })
   }
+  function getProgressPercentage(expectedHours: number, accomplishedHours: number) {
+    return accomplishedHours === 0 ? 0 : (accomplishedHours / expectedHours) ;
+}
 
   return (
     <GoalContainer>
@@ -109,8 +125,11 @@ export function GoalCard({ goal, getUserGoals }: GoalCardProps) {
           </LabelRow>
         )}
         <hr />
-        <CardTitle>{goal.goalName}</CardTitle>
-        <DomainProgressBar progress={goal.progressPercentage} />
+        <TitleContainer>
+          <CardTitle>{goal.goalName}</CardTitle>
+          <div>{getProgressPercentage(goal.overallProgress.overallExpectedHours,goal.overallProgress.overallAccomplisedHours)}%</div>
+        </TitleContainer>
+        <DomainProgressBar progress={getProgressPercentage(goal.overallProgress.overallExpectedHours,goal.overallProgress.overallAccomplisedHours)} />
         <TaskDetails>
           <summary>{goal.tasks.length} tasks</summary>
           <TasksContainer>
@@ -124,7 +143,7 @@ export function GoalCard({ goal, getUserGoals }: GoalCardProps) {
             })}
           </TasksContainer>
           <ActionsContainer>
-            <Button onClick={() => handleOpenDialog(goal)}>
+            <Button onClick={() => handleOpenDialog(goal)} color='red' >
               <Trash weight="bold" size={18} />
               Delete
             </Button>
@@ -144,6 +163,9 @@ export function GoalCard({ goal, getUserGoals }: GoalCardProps) {
           text={`All goals and tasks, as well as its history will be deleted.`}
         ></ConfirmDialog>
       </CardContainer>
+      <Modal isOpen={isModalOpen} onClose={closeModal}>
+            <NewGoalForm closeModal={closeModal} goalData={goal}  />
+          </Modal>
     </GoalContainer>
   )
 }

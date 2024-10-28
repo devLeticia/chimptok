@@ -19,6 +19,7 @@ interface Goal {
   totalHoursSpent: number
   progressPercentage: number
   status: number
+  isCompleted: boolean
 }
 interface GoalsHistoryResponse {
   data: Goal[];
@@ -34,7 +35,8 @@ export function PastGoals() {
         const resp = await goalsService.getGoalsHistory(userId);
         const responseData = resp as GoalsHistoryResponse;
         if (responseData.data.length > 0) {
-          const userPastGoals = responseData.data;
+          const userGoals = responseData.data;
+          const userPastGoals = userGoals.filter(goal => goal.isCompleted);
           setPastGoals(userPastGoals);
         } else {
           setPastGoals([]);
@@ -57,7 +59,7 @@ export function PastGoals() {
         <Container>
           <HeaderCTA>{`No goals completed yet!`}</HeaderCTA>
           <TextCTA>
-            {`But hey, that just means you're still in the race.!`}
+            {`But hey, that just means you're still in the race.`}
             <br />
             {`Keep pushing forward, and before you know it, victory will be yours!`}
           </TextCTA>

@@ -3,7 +3,7 @@ import { ButtonWrapper } from './styles'
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode
-  color?: 'yellow' | 'blue' | 'dark'
+  color?: 'yellow' | 'blue' | 'dark' | 'red'
   buttonType?: 'filled' | 'border' | 'flat'
   fullWidth?: boolean
 }

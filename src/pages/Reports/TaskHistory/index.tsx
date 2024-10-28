@@ -86,6 +86,7 @@ function generateFakeTaskHistoryData(count: number): Cycle[] {
 
 export function TaskHistory() {
   const [userTaskHistory, setUserTaskHistory] = useState<Cycle[]>([]);
+  const [hasNoHistory, setHasNoHistory] = useState(false)
 
   function getDistanceToNow(deadlineDate: Date) {
     const formattedResult = formatDistanceToNow(deadlineDate, {
@@ -104,6 +105,7 @@ export function TaskHistory() {
           if (responseData.data.length > 0) {
             setUserTaskHistory(responseData.data);
           } else {
+            setHasNoHistory(true)
             setUserTaskHistory(generateFakeTaskHistoryData(5)); // Change 5 to desired fake data count
           }
         })
@@ -133,7 +135,7 @@ export function TaskHistory() {
 
   return (
     <TaskHistoryContainer>
-      <BlurOverlay />
+       {hasNoHistory && (<BlurOverlay />)}
       <SessionTitle>Task History</SessionTitle>
       <TaskListContainer>
         {userTaskHistory.map((cycle, index) => {

@@ -53,7 +53,7 @@ export function ConsistencyChart({lastTwoWeeksConsistency, totalCycles}: Consist
     <ChartSectionContainer>
       <SessionTitle>Last 14 Days</SessionTitle>
       <ResponsiveContainer width="100%" height={120}>
-        <BlurOverlay/>
+        {!totalCycles && (<BlurOverlay />)}
         <BarChart data={consistencyData()}>
           <XAxis
             dataKey="date"
