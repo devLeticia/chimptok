@@ -1,5 +1,6 @@
 import { TrashSimple, CheckCircle } from '@phosphor-icons/react'
 import styled from 'styled-components'
+
 export const Container = styled.div`
   min-width: 500px;
   hr {
@@ -109,4 +110,94 @@ export const TaskDisclaimerWrapper = styled.div`
 
 export const StyledCheckCircle = styled(CheckCircle)`
   color: ${(props) => props.theme['green-500']};
+`
+
+
+
+
+// Create a styled wrapper for DatePicker
+export const StyledDatePickerWrapper = styled.div`
+  .react-datepicker-wrapper {
+    width: 250px;
+  }
+
+  .react-datepicker__input-container input {
+
+
+    &:focus {
+      border-color: ${(props) => props.theme['yellow-500']};
+      box-shadow: 0 0 5px${(props) => props.theme['yellow-500']};
+      outline: none;
+    }
+  }
+
+  .react-datepicker__tab-loop {
+    background-color: #f9f9f9; /* Background color of the calendar */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .react-datepicker__header {
+    text-align: center;
+    color: white;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+  }
+
+  .react-datepicker__current-month {
+    text-align: center;
+  }
+
+  .react-datepicker__current-month {
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  .react-datepicker__day {
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2px;
+    border-radius: 50%; /* Makes days round */
+    color: #333;
+
+    &:hover {
+      background-color:  ${(props) => props.theme['gray-500']};; /* Hover color */
+      color: white;
+    }
+  }
+
+  .react-datepicker__day--selected {
+    background-color: ${(props) => props.theme['dark-900']};
+    color: white;
+    :hover {
+      background-color: ${(props) => props.theme['dark-900']};
+    }
+  }
+
+  .react-datepicker__navigation--previous,
+  .react-datepicker__navigation--next {
+    top: 10px;
+    font-size: 18px;
+    border: none;
+    background: none;
+    color: ${(props) => props.theme['dark-900']} !important;
+    padding: 4px;
+
+    .react-datepicker__navigation-icon::before {
+      border-color: ${(props) => props.theme['dark-900']} !important;
+    }
+    
+    &:hover {
+      color:  ${(props) => props.theme['dark-900']};
+    }
+  }
+
+  .react-datepicker__navigation-icon::before {
+    border-color: white;
+  }
 `

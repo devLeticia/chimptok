@@ -19,6 +19,7 @@
     "immer": "^9.0.19",
     "jwt-decode": "^4.0.0",
     "react": "^18.2.0",
+    "react-datepicker": "^7.5.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.43.5",
     "react-router-dom": "^6.9.0",

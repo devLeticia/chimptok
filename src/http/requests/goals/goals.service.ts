@@ -40,6 +40,23 @@ export default {
         })
     })
   },
+  updateGoal(payload: Goal) {
+    return new Promise((resolve, reject) => {
+      axios
+        .put(`${baseURL}/${payload.goalId}`, payload)
+        .then((response) => {
+          if (response.status === 200) {
+            resolve(response.data)
+          } else {
+            reject(response)
+          }
+        })
+        .catch((error) => {
+          reject(error)
+        })
+    })
+  },
+  
 
   // return all goals of a given user with it's associated tasks
   getGoalsHistory(userId: string) {
