@@ -52,10 +52,10 @@ export const ButtonWrapper = styled.button<ButtonWrapperProps>`
         : props.color === 'blue'
         ? props.theme[`${props.color}-300`] || props.theme['blue-300']
         : props.color === 'red'
-        ? props.theme[`${props.color}-300`] || props.theme['red-300']
+        ? props.theme[`${props.color}-500`] || props.theme['red-300']
         : props.color === 'dark'
         ? props.theme['dark-800']
-        : props.theme['yellow-400']}; // Adjust the tint level as needed
+        : props.theme['yellow-400']};
   }
 
   :disabled {

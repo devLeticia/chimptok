@@ -52,7 +52,7 @@ export function ProfileInfo() {
         <MembershipDataContainer>
           <SignUpDate>since {signUpDate}</SignUpDate>
           <MembershipCount>
-            <span>{daysChasingGoals > 1 ? daysChasingGoals : 'Day One:'}</span> {daysChasingGoals > 0 ? ('Days Chasing Your Goals')  : ('Goals in Motion!')}
+            <span>{daysChasingGoals > 1 ? daysChasingGoals : 'Day One:'}</span> {daysChasingGoals > 0 ? ('days chasing your goals')  : ('goals in motion!')}
           </MembershipCount>
         </MembershipDataContainer>
       </InfosContainer>

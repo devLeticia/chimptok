@@ -99,14 +99,18 @@ export const TaskIndex = styled.p`
   font-family: 'Roboto Mono', monospace;
   text-align: right;
   width: 30px;
-  font-weight: bold;
+  font-weight: 900;
   letter-spacing: -0.1rem;
+  font-size: 1.05rem;
+  font-style: italic;
+  font-family: 'Barlow Semi Condensed', sans-serif;
+  color: ${(props) => props.theme['gray-700']};
 `
 
 export const TaskDescription = styled.p`
-  font-size: 0.85rem;
-  color: ${(props) => props.theme['gray-700']};
-  font-weight: 500;
+  font-size: 1rem;
+
+  font-weight: 700;
   line-height: 1.5;
 `
 

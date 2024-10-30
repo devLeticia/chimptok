@@ -19,7 +19,8 @@ interface Goal {
   hoursPerWeek: number
   totalHoursSpent: number
   progressPercentage: number
-  status: number
+  status: number,
+  isCompleted: boolean
 }
 
 interface GoalsHistoryResponse {
@@ -31,6 +32,7 @@ export function ActiveGoals() {
     getHomeData
   } = useCycles()
 
+  const activeGoals = userGoals?.filter((goal) => goal.isCompleted === false)
   useEffect(() => {
     console.log(userGoals); // Call getUserGoals directly inside useEffect
     if (userGoals === undefined || userGoals.length === 0) getHomeData()
@@ -38,7 +40,7 @@ export function ActiveGoals() {
 
   return (
     <>
-      {userGoals.length === 0 ? (
+      {activeGoals.length === 0 ? (
         <Container>
           <HeaderCTA>{`Psst... Heard about goal-setting?`}</HeaderCTA>
           <TextCTA>
@@ -50,7 +52,7 @@ export function ActiveGoals() {
         </Container>
       ) : (
         <Container>
-          {userGoals.map((goal, index) => (
+          {activeGoals.map((goal, index) => (
             <GoalWrapper key={goal.id}>
               <GoalIndex>{index + 1}</GoalIndex>
               <GoalCard goal={goal} getUserGoals={getHomeData}></GoalCard>

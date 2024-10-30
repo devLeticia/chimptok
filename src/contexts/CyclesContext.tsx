@@ -13,6 +13,7 @@ type Task = {
   isCompleted?: boolean | null
 }
 type Goal = {
+  isCompleted: boolean
   id: string
   createdAt: Date 
   deadline: Date 

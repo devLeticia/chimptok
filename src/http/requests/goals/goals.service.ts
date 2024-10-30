@@ -94,21 +94,20 @@ export default {
     })
   },
 
-  // will a goal as complete, no matter how much
-  setGoalAsCompleted(payload: BaseGoalRequest) {
+  setGoalAsCompleted(payload: any) { 
     return new Promise((resolve, reject) => {
       axios
-        .post(`${baseURL}/complete`, payload)
+        .put(`${baseURL}/${payload.goalId}/completed`, { completed: payload.isCompleted }) // Ensure correct payload structure
         .then((response) => {
           if (response.status === 200) {
-            resolve(response.data)
+            resolve(response.data);
           } else {
-            reject(response)
+            reject(response);
           }
         })
         .catch((error) => {
-          reject(error)
-        })
-    })
-  },
+          reject(error);
+        });
+    });
+  }
 }

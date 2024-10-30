@@ -53,6 +53,7 @@ export const MembershipDataContainer = styled.div`
   gap: 0.5rem;
   text-align: right;
   width: 100%;
+  flex: 1; 
 `
 export const SignUpDate = styled.div`
   font-size: 0.85rem;
@@ -63,10 +64,11 @@ export const MembershipCount = styled.div`
   font-size: 0.85rem;
   color: ${(props) => props.theme['dark-900']};
   font-weight: 600;
-
   span {
-    margin-right: 0.25rem;
-    font-weight: 800;
+    font-family: 'Barlow Semi Condensed', sans-serif;
+    letter-spacing: 0.1rem;
+    font-size: 1.25rem;
+    font-weight: 900;
     color: ${(props) => props.theme['dark-900']};
   }
 `

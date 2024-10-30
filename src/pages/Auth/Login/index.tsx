@@ -18,7 +18,6 @@ import accountService from '../../../http/requests/accounts/account.service'
 import { loading } from '../../../components/Loading'
 import { toast } from './../../../components/Toast/index'
 import { jwtDecode } from 'jwt-decode'
-// import { jwtDecode } from 'jwt-decode'
 
 type UserLoginRequest = {
   email: string

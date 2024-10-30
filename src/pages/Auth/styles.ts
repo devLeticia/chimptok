@@ -10,6 +10,13 @@ export const Container = styled.div`
   & > * {
     flex: 1;
   }
+  `
+
+export const LogoContainer = styled.div`
+    position: absolute;
+    left: 5%;
+    top: 5%;
+    cursor: pointer;
 `
 
 export const AuthThemeCard = styled.div`

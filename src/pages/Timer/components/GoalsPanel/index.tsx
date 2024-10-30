@@ -77,7 +77,7 @@ export function GoalsPanel({ activeGoals, getHomeData }: GoalsPanelProps) {
         }).format(date); 
     }
     function getProgressPercentage(expectedHours: number, accomplishedHours: number) {
-        return accomplishedHours === 0 ? 0 : (accomplishedHours / expectedHours) ;
+        return accomplishedHours === 0 ? 0 : (accomplishedHours / expectedHours).toFixed(1) ;
     }
 
     const cardsSlots = 4 - activeGoals.length;
@@ -107,9 +107,9 @@ export function GoalsPanel({ activeGoals, getHomeData }: GoalsPanelProps) {
                     <ProgressContainer>
                         <ProgressInfoContainer>
                             <div>Overall</div>
-                            <div>{getProgressPercentage(goal.overallProgress.overallExpectedHours, goal.overallProgress.overallAccomplisedHours)}%</div>
+                            <div>{getProgressPercentage(goal.overallProgress.overallAccomplisedHours, goal.overallProgress.overallExpectedHours)}%</div>
                         </ProgressInfoContainer>
-                        <DomainProgressBar progress={getProgressPercentage( goal.overallProgress.overallExpectedHours, goal.overallProgress.overallAccomplisedHours)} />
+                        <DomainProgressBar progress={(goal.overallProgress.overallAccomplisedHours, goal.overallProgress.overallExpectedHours)} />
                     </ProgressContainer>
                 </GoalToPickCard>
             ))}

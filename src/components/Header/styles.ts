@@ -4,7 +4,7 @@ export const HeaderContainer = styled.header`
   z-index: 99;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
   gap: 10rem;
   background-color: white;
   width: 100%;
@@ -12,11 +12,13 @@ export const HeaderContainer = styled.header`
   border-bottom: solid 1px ${(props) => props.theme['gray-300']};
   position: fixed;
   // max-width: 900px;
-
+  img {
+    flex: 1; 
+  }
   nav {
+    flex: 1; 
     display: flex;
     gap: 0.5rem;
-
     a {
       border-radius: 6px;
       width: 3rem;
@@ -44,14 +46,15 @@ export const HeaderContainer = styled.header`
   }
 `
 
-export const RouteTitle = styled.h3`
+export const RouteTitle = styled.h1`
   text-transform: uppercase;
-  width: 500px;
   text-align: center;
   color: ${(props) => props.theme['dark-900']};
   font-family: 'Barlow Semi Condensed', sans-serif;
   font-weight: 900;
+  font-size: 1.35rem;
   letter-spacing: 0.05rem;
+  flex: 1; 
 `
 
 export const SignOutContainer = styled.div`
@@ -59,8 +62,7 @@ export const SignOutContainer = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
-  margin-left: 2rem;
+  gap: 0.5rem;
   color: ${(props) => props.theme['gray-500']};
   :hover {
     cursor: pointer;

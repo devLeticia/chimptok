@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useLocation, NavLink, useNavigate } from 'react-router-dom'
 import { HeaderContainer, RouteTitle, SignOutContainer } from './styles'
-import logotype from '../../../public/logotype_chimptok.svg'
+import logotype from '../../../public/logos/horizontal_logotype.svg'
 import {
   Timer,
   ChartBar,
@@ -35,7 +35,7 @@ export function Header() {
       case '/user-settings':
         return 'User Settings'
       default:
-        return 'Your Default Title'
+        return ''
     }
   }
 
@@ -72,6 +72,7 @@ export function Header() {
         src={logotype}
         alt="Coolest Chimp logo smiling to you"
         className="logo"
+        height={28} 
       />
       <RouteTitle>{getRouteTitle(location.pathname)}</RouteTitle>
       <nav>

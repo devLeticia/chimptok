@@ -9,8 +9,6 @@ import {
 
 import { ArrowLeft } from '@phosphor-icons/react'
 
-import TimerImg from '../../../../public/Timer.png'
-
 export function StepTwo() {
   return (
     <>
@@ -23,7 +21,7 @@ export function StepTwo() {
             <h1>GOALS & TASK</h1>
           </DiscriptionWrapper>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-          <img src={TimerImg} alt="fefwe" height={400} />
+          {/* <img src={TimerImg} alt="fefwe" height={400} /> */}
         </FeatureContainer>
         <Button>Got it!</Button>
         <Button color="dark">

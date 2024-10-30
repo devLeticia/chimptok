@@ -13,7 +13,7 @@ import {
   TitleContainer
 } from './styles'
 
-import { CheckCircle, Pencil, Trash } from '@phosphor-icons/react'
+import { CheckCircle, FlagBannerFold, Pencil, Trash } from '@phosphor-icons/react'
 import { DomainProgressBar } from './../../../domain-components/ProgressBar/index'
 import { Button } from '../../../components/Button'
 import { ConfirmDialog } from '../../../components/Dialog'
@@ -21,6 +21,7 @@ import { useState } from 'react'
 import goalsService from '../../../http/requests/goals/goals.service'
 import Modal from '../../../components/Modal'
 import { NewGoalForm } from '../NewGoalForm'
+import { useLocation } from 'react-router-dom'
 
 type Task = {
   id?: string | null
@@ -48,7 +49,10 @@ export function GoalCard({ goal, getUserGoals }: GoalCardProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
-
+  const [isCompleteConfirmationOpen, setIsCompleteConfirmationOpen] = useState(false)
+  const location = useLocation();
+  const isPastGoalsPage = location.pathname.includes('past');
+  
   const openModal = () => {
     setIsModalOpen(true)
   }
@@ -74,7 +78,12 @@ export function GoalCard({ goal, getUserGoals }: GoalCardProps) {
     console.log(goal)
     setIsDialogOpen(true)
   }
-
+  function handleOpenCompletionDialog(goal: Goal) {
+    setIsCompleteConfirmationOpen(true)
+  }
+  function handleCloseCompletionDialog() {
+    setIsCompleteConfirmationOpen(false)
+  }
   function handleCloseDialog() {
     setIsDialogOpen(false)
     setTimeout(() => {
@@ -96,9 +105,28 @@ export function GoalCard({ goal, getUserGoals }: GoalCardProps) {
         getUserGoals()
       })
   }
+
+  function handleSetGoalAsCompleted(goal: any){
+    const payload = {
+      goalId: goal.id,
+      isCompleted: isPastGoalsPage ? false : true
+    }
+    console.log('payload aqui', payload)
+    goalsService.setGoalAsCompleted(payload)
+    .then((resp) => {
+      console.log('salvou com sucesso')
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+    .finally(() => {
+      handleCloseCompletionDialog()
+      getUserGoals()
+    })
+  }
   function getProgressPercentage(expectedHours: number, accomplishedHours: number) {
-    return accomplishedHours === 0 ? 0 : (accomplishedHours / expectedHours) ;
-}
+    return accomplishedHours === 0 ? 0 : (accomplishedHours / expectedHours).toFixed(1) ;
+  }
 
   return (
     <GoalContainer>
@@ -136,23 +164,36 @@ export function GoalCard({ goal, getUserGoals }: GoalCardProps) {
             {goal.tasks.map((task, index) => {
               return (
                 <TaskDescriptionWrapper key={index}>
-                  <TaskIndex>{index + 1}.</TaskIndex>
+                  <TaskIndex>{index + 1} .</TaskIndex>
                   <TaskDescription>{task.taskName}</TaskDescription>
                 </TaskDescriptionWrapper>
               )
             })}
           </TasksContainer>
           <ActionsContainer>
-            <Button onClick={() => handleOpenDialog(goal)} color='red' >
+            <Button onClick={() => handleOpenDialog(goal)} color='red' buttonType="flat" >
               <Trash weight="bold" size={18} />
               Delete
             </Button>
-            <Button onClick={() => handleOpenGoalEdition(goal)}>
-              <Pencil weight="bold" size={18} />
+            {!isPastGoalsPage &&<Button onClick={() => handleOpenGoalEdition(goal)}>
+              <Pencil weight="fill" size={18} />
               Edit Goal
+            </Button>}
+            <Button color='dark'  onClick={() => handleOpenCompletionDialog(goal)}>
+              <FlagBannerFold weight="fill" size={18} />
+             { isPastGoalsPage ? 'Reactivate' : 'Set Completed'}
             </Button>
           </ActionsContainer>
         </TaskDetails>
+        <ConfirmDialog
+          cancelText="Not yet"
+          confirmationText="Completed"
+          isOpen={isCompleteConfirmationOpen}
+          onClose={handleCloseCompletionDialog}
+          onConfirm={() => handleSetGoalAsCompleted(goal)}
+          title={'Set Task as Completed!'}
+          text={`Confirm that you have completed the goal.`}
+        ></ConfirmDialog>
         <ConfirmDialog
           cancelText="Cancel"
           confirmationText="Delete"

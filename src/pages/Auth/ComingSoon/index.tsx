@@ -1,5 +1,5 @@
 import CommingSoon from '../../../../public/coming-soon.svg'
-import VerticalLogotype from '../../../../public/logos/vertical-logotype.svg'
+import VerticalLogotype from '../../../../public/logos/vertical_logotype.svg'
 import {
   ComingSoonContainer,
   CustomLogo,

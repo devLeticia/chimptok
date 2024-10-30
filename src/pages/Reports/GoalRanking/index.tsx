@@ -50,7 +50,7 @@ export function GoalRanking({ goalRanking }: GoalRankingProps) {
               <InfoContainer>
                 <LabelsContainer>
                   <h1>{goal.name}</h1>
-                  <p>{formatDistanceToNow(new Date(goal.deadline), { addSuffix: true })}</p>
+                  <p>ends {formatDistanceToNow(new Date(goal.deadline), { addSuffix: true })}</p>
                 </LabelsContainer>
                 <DomainProgressBar progress={goal.progressPercentage < 100 ? goal.progressPercentage : 100} />
               </InfoContainer>
