@@ -39,6 +39,10 @@ type Goal = {
   totalHoursSpent: number
   progressPercentage: number
   status: number
+    overallProgress?: {
+    overallExpectedHours: number;
+    overallAccomplisedHours: number;
+  };
 }
 interface GoalCardProps {
   goal: Goal
@@ -157,7 +161,7 @@ export function GoalCard({ goal, getUserGoals }: GoalCardProps) {
           <CardTitle>{goal.goalName}</CardTitle>
           <div>{getProgressPercentage(goal.overallProgress.overallExpectedHours,goal.overallProgress.overallAccomplisedHours)}%</div>
         </TitleContainer>
-        <DomainProgressBar progress={getProgressPercentage(goal.overallProgress.overallExpectedHours,goal.overallProgress.overallAccomplisedHours)} />
+        <DomainProgressBar animated={false} progress={Number(getProgressPercentage(goal.overallProgress.overallExpectedHours, goal.overallProgress.overallAccomplisedHours))} children={''} />
         <TaskDetails>
           <summary>{goal.tasks.length} tasks</summary>
           <TasksContainer>

@@ -36,7 +36,7 @@ export function HomeTimer() {
           {activeCycle ? (
             <Countdown />
           ) : (
-            <GoalsPanel activeGoals={activeGoals} getHomeData={getHomeData} />
+            <GoalsPanel activeGoals={activeGoals} />
           )}
         </HomeContainer>
       )}

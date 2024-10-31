@@ -3,7 +3,6 @@ import styled from 'styled-components'
 
 interface ModalConsistencyProps {
   status: 'current' | 'past' | 'future'
-  intensity: number
 }
 
 export const ConsistencyContainer = styled.div`
@@ -69,16 +68,16 @@ export const DayBox = styled.div<ModalConsistencyProps>`
       ? props.theme.white
       : props.status === 'future'
       ? props.theme['white']
-      : props.status === 'past' && props.intensity === 0
-      ? props.theme['gray-200']
-      : props.status === 'past' && props.intensity === 1
-      ? props.theme['yellow-300']
-      : props.status === 'past' && props.intensity === 2
-      ? props.theme['yellow-400']
-      : props.status === 'past' && props.intensity === 3
-      ? props.theme['yellow-500']
-      : props.status === 'past' && props.intensity >= 4
-      ? props.theme['yellow-600']
+      // : props.status === 'past' && props.intensity === 0
+      // ? props.theme['gray-200']
+      // : props.status === 'past' && props.intensity === 1
+      // ? props.theme['yellow-300']
+      // : props.status === 'past' && props.intensity === 2
+      // ? props.theme['yellow-400']
+      // : props.status === 'past' && props.intensity === 3
+      // ? props.theme['yellow-500']
+      // : props.status === 'past' && props.intensity >= 4
+      // ? props.theme['yellow-600']
       : props.theme['gray-300']};
   margin: auto;
   display: flex;

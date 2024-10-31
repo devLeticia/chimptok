@@ -3,9 +3,9 @@ import authConfig from '../../../../auth.config.json'
 const baseURL = `${authConfig.api_url}/auth`
 
 type RegisterNewUserRequest = {
-  email: string
-  password: string
-  username: string
+  email?: string
+  password?: string
+  username?: string
 }
 
 type UserLoginRequest = {

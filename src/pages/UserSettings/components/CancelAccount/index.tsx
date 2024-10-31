@@ -67,9 +67,16 @@ export function CancelAccount({ onHandleBack }: CancelAccountProps) {
 
   function handleCancelAccount(): void {
     const userId: string | null = localStorage.getItem('user_id');
+    const reasonsToCancel = {
+      foundAlternative: selectedReasons.includes('foundAlternative'),
+      lackOfFeatures: selectedReasons.includes('lackOfFeatures'),
+      poorUserInterface: selectedReasons.includes('poorUserInterface'),
+      notFeelingIt: selectedReasons.includes('notFeelingIt'),
+    };
+
     const payload = {
       userId,
-      reasonsToCancel: selectedReasons,
+      reasonsToCancel,
       comments: comment,
     };
 

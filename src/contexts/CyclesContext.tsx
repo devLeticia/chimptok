@@ -27,6 +27,7 @@ type Goal = {
 type UserGoals = Goal[]
 
 type NewCycle = {
+  task: any
   id: string
   goalName: string
   taskName: string
@@ -83,7 +84,7 @@ export const CyclesContext = createContext<CycleContextProps | undefined>(undefi
 export function useCycles() {
   const context = useContext(CyclesContext)
   if (!context) {
-    throw new Error('useCycles must be used within a CyclesProvider')
+    throw new Error('---> useCycles must be used within a CyclesProvider')
   }
   return context
 }

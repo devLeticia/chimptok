@@ -42,14 +42,31 @@ const NewGoalFormSchema = z.object({
 
 interface NewGoalFormProps {
   closeModal: () => void;
-  goalData?: {
-    id: string;
-    goalName: string;
-    deadline: Date;
-    hoursPerWeek: number;
-    tasks: { id: string; taskName: string; isCompleted: boolean }[];
+  goalData?: Goal
+}
+
+type Goal = {
+  id: string
+  goalName: string
+  tasks: Task[]
+  createdAt: Date
+  deadline: Date
+  hoursPerWeek: number
+  totalHoursSpent: number
+  progressPercentage: number
+  status: number
+    overallProgress?: {
+    overallExpectedHours: number;
+    overallAccomplisedHours: number;
   };
 }
+
+type Task = {
+  id?: string | null
+  taskName: string
+  isCompleted?: boolean | null
+}
+
 
 type NewGoalFormData = z.infer<typeof NewGoalFormSchema>;
 

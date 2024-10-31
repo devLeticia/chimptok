@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 interface ButtonWrapperProps {
-  color: 'yellow' | 'blue' | 'dark'
+  color: 'yellow' | 'blue' | 'dark' | 'red'
   buttonType: 'filled' | 'border' | 'flat'
   fullWidth: boolean
 }

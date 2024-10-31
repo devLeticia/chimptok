@@ -7,11 +7,11 @@ import { NewGoalForm } from '../../../Goals/NewGoalForm';
 import Modal from '../../../../components/Modal';
 import { NewTaskCycleForm } from '../NewTaskCycleForm';
 import { Button } from '../../../../components/Button';
+import { useCycles } from '../../../../contexts/CyclesContext';
 
 
 interface GoalsPanelProps {
-    activeGoals: any,
-    getHomeData: any
+    activeGoals: any
 }
 
 const emptyCardCTAs = [
@@ -48,10 +48,10 @@ const emptyCardCTAs = [
     }
 ];
 
-export function GoalsPanel({ activeGoals, getHomeData }: GoalsPanelProps) {
+export function GoalsPanel({ activeGoals }: GoalsPanelProps) {
     const [isNewGoalModalOpen, setIsNewGoalModalOpen] = useState(false)
     const [isNewCyclelModalOpen, setIsNewCyclelModalOpen] = useState(false)
-
+    const { getHomeData } = useCycles();
     const openModal = () => {
         setIsNewGoalModalOpen(true)
     }
@@ -102,14 +102,14 @@ export function GoalsPanel({ activeGoals, getHomeData }: GoalsPanelProps) {
                             <div>Today</div>
                             <div>{getProgressPercentage(goal.dayProgress.dayExpectedHours, goal.dayProgress.dayAccomplisedHours)}%</div>
                         </ProgressInfoContainer>
-                        <DomainProgressBar progress={getProgressPercentage(goal.dayProgress.dayExpectedHours, goal.dayProgress.dayAccomplisedHours)} />
+                        <DomainProgressBar progress={Number(getProgressPercentage(goal.dayProgress.dayExpectedHours, goal.dayProgress.dayAccomplisedHours))} animated={false} children={''} />
                     </ProgressContainer>
                     <ProgressContainer>
                         <ProgressInfoContainer>
                             <div>Overall</div>
                             <div>{getProgressPercentage(goal.overallProgress.overallAccomplisedHours, goal.overallProgress.overallExpectedHours)}%</div>
                         </ProgressInfoContainer>
-                        <DomainProgressBar progress={(goal.overallProgress.overallAccomplisedHours, goal.overallProgress.overallExpectedHours)} />
+                        <DomainProgressBar progress={(goal.overallProgress.overallAccomplisedHours, goal.overallProgress.overallExpectedHours)} animated={false} children={''} />
                     </ProgressContainer>
                 </GoalToPickCard>
             ))}
@@ -130,7 +130,7 @@ export function GoalsPanel({ activeGoals, getHomeData }: GoalsPanelProps) {
             })}
         </GoalPanelContainer>
         <Modal isOpen={isNewGoalModalOpen} onClose={closeModal}>
-            <NewGoalForm closeModal={closeModal} getHomeData={getHomeData} />
+            <NewGoalForm closeModal={closeModal} />
         </Modal>
         <Modal isOpen={isNewCyclelModalOpen} onClose={closeNewCycleModal} >
             {/* <NewCycleForm closeModal={closeNewCycleModal} /> */}

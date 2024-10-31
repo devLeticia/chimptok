@@ -3,14 +3,11 @@ import Select from '../../../../components/Select'
 import {
   Container,
   CtaContainer,
-  MinutesOptionsContainer,
-  UnlimitedDisclaimer,
+  MinutesOptionsContainer
 } from './styles'
 import { Radio } from './../../../../components/RadioButton/index'
 import { useState } from 'react'
 import { useCycles } from '../../../../contexts/CyclesContext'
-
-import ChimpLogoFlag from '../../../../../public/chimp_flag_logo.svg'
 import cyclesService from '../../../../http/requests/cycles/cycles.service'
 
 type Task = {
@@ -32,6 +29,7 @@ type Goal = {
   progressPercentage: number;
   goalName: string;
   tasks: Task[];
+  isCompleted: boolean
 };
 
 interface NewTaskCycleFormProps {

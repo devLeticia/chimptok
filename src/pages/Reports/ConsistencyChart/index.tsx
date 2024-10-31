@@ -1,6 +1,5 @@
-import { Card } from '../../../components/Card'
-import { Title, ChartSectionContainer, SessionTitle, BlurOverlay } from './styles'
-import { BarChart, Bar, Tooltip, XAxis, ResponsiveContainer } from 'recharts'
+import { ChartSectionContainer, SessionTitle, BlurOverlay } from './styles'
+import { BarChart, Bar, Tooltip, XAxis } from 'recharts'
 
 interface CustomTooltipProps {
   active?: boolean
@@ -52,7 +51,6 @@ export function ConsistencyChart({lastTwoWeeksConsistency, totalCycles}: Consist
   return (
     <ChartSectionContainer>
       <SessionTitle>Last 14 Days</SessionTitle>
-      <ResponsiveContainer width="100%" height={120}>
         {!totalCycles && (<BlurOverlay />)}
         <BarChart data={consistencyData()}>
           <XAxis
@@ -75,7 +73,6 @@ export function ConsistencyChart({lastTwoWeeksConsistency, totalCycles}: Consist
             radius={[6, 6, 6, 6]}
           />
         </BarChart>
-      </ResponsiveContainer>
     </ChartSectionContainer>
   )
 }

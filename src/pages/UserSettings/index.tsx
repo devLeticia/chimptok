@@ -68,7 +68,7 @@ export function UserSettings() {
         </>
       )}
       {showCancelAccount && (
-        <CancelAccount onHandleBack={() => handleCancelAccountClick(false)} />
+        <CancelAccount onHandleBack={() => handleCancelAccountClick} />
       )}
     </MainContainer>
   )

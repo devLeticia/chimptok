@@ -26,10 +26,6 @@ export const shimmer = keyframes`
   }
 `;
 
-// Styled components for Skeleton elements
-import styled from 'styled-components';
-
-
 export const GridWrapper = styled.div<{ cols: string }>`
   display: grid;
   grid-template-columns: ${(props) => props.cols};

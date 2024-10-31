@@ -36,7 +36,7 @@ export function ProgressOfTheDay({ progressOfTheDay }: ProgressOftheDayProps) {
         {formattedTime(progressOfTheDay.minutesAccomplishedToday)} / {formattedTime(progressOfTheDay.goalOfTheDayInHours)}
         </div>
       </LabelContainer>
-      <DomainProgressBar progress={progress} />
+      <DomainProgressBar progress={progress} animated={false} children={''} />
     </ProgressBarContainer>
   )
 }

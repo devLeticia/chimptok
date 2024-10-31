@@ -157,10 +157,10 @@ export function ConsistencyOfTheWeek({
       <DayBoxContainer>
         {consistencyOfTheWeek.weekConsistency.map((day, index) => (
           <div key={index}>
-            <DayBox status={getDayStatus(day.date)} intensity={day.intensity}>
+            <DayBox status={getDayStatus(day.date)}>
               <StyledCaret status={getDayStatus(day.date)}  weight="fill" size={18} />
               <Day status={getDayStatus(day.date)}>{getDayNumber(day.date)}</Day>
-              <DayLabel status={getDayStatus(day.date)} intensity={day.intensity}>
+              <DayLabel status={getDayStatus(day.date)}>
                 {day.name}
               </DayLabel>
             </DayBox>
