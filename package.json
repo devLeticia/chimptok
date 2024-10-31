@@ -10,7 +10,8 @@
     "dev": "vite",
     "build": "CI=false tsc -b && vite build",
     "lint": "eslint src --ext .ts,.tsx --fix",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "serve build -s -n -L -p $PORT"
   },
   "dependencies": {
     "@babel/core": "^7.22.10",
