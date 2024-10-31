@@ -13,6 +13,7 @@
     "moduleResolution": "Node",
     "resolveJsonModule": true,
     "isolatedModules": true,
+    "noEmitOnError": false,
     "jsx": "react-jsx",
   },
   "include": ["src"],
