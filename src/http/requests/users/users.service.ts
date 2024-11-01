@@ -1,6 +1,6 @@
 import axios from 'axios'
-import authConfig from '../../../../auth.config.json'
-const baseURL = `${authConfig.api_url}/users`
+const apiUrl = import.meta.env.VITE_CHIMPTOK_API_URL;
+const baseURL = `${apiUrl}/users`
 
 export default {
   infoAccount(userId: string) {

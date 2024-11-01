@@ -1,6 +1,7 @@
 import axios from 'axios'
-import authConfig from '../../../../auth.config.json'
-const baseURL = `${authConfig.api_url}/auth`
+
+const apiUrl = import.meta.env.VITE_CHIMPTOK_API_URL;
+const baseURL = `${apiUrl}/auth`
 
 type RegisterNewUserRequest = {
   email?: string

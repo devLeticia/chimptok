@@ -5,12 +5,11 @@ import { SocialMedia } from './components/SocialMedia/index'
 import { Support } from './components/Support'
 
 import { MainContainer, DeleteAccountButton } from './styles'
-import usersServices from '../../http/requests/users/users.services'
+import usersServices from '../../http/requests/users/users.service'
 interface UserInfo {
   id: string;
   username: string;
   email: string;
-  // Other properties as needed
 }
 
 
@@ -28,26 +27,22 @@ export function UserSettings() {
   async function getAccountInfo() {
     const userId = localStorage.getItem('user_id');
     if (!userId) {
-      return; // Exit early if userId is not available
+      return; 
     }
   
     try {
       const resp = await usersServices.infoAccount(userId);
       
-      // Type assertion
       const responseData = resp as ApiResponse;
   
       if (responseData.data.length > 0) {
-        const userInfo = responseData.data[0]; // Assuming first user info object
-        console.log(userInfo); // Example usage
-        // Handle setting state or further processing
+        const userInfo = responseData.data[0]; 
+        console.log(userInfo); 
       } else {
         console.log('No user info available');
-        // Handle case where no user info is returned
       }
     } catch (err) {
       console.error(err);
-      // Handle error as needed
     }
   }
 

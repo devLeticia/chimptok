@@ -1,6 +1,7 @@
 import axios from 'axios'
-import authConfig from '../../../../auth.config.json'
-const baseURL = `${authConfig.api_url}/cycles`
+
+const apiUrl = import.meta.env.CHIMPTOK_APP_API_URL
+const baseURL = `${apiUrl}/cycles`
 
 type Cycle = {
   userId: string
