@@ -4,7 +4,6 @@ import { Container, AuthThemeCard, AuthCard, ContentContainer, LogoContainer } f
 import { ForgotPassword } from './ForgotPassword'
 import { ResetPassword } from './Reset Password/index'
 import { ComingSoon } from './ComingSoon/index'
-import ChimpLogoFlag from '../../../public/chimp_flag_logo.svg'
 import { AccountConfirmation } from './AccountConfirmation'
 import { useParams } from 'react-router-dom'
 import PeaceCard from '../../../public/peace-card.svg'
@@ -30,8 +29,7 @@ export function Auth() {
       case '/coming-soon':
         return <ComingSoon />
       default:
-        // return <Login />
-        return <ComingSoon />
+        <Login />
     }
   }
 

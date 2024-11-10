@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const ConfirmationContainer = styled.div`
   width: 100%;
@@ -8,18 +8,25 @@ export const ConfirmationContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
   gap: 4rem;
-`
+  position: relative;
+`;
 
 export const Subtitle = styled.h3`
   color: ${(props) => props.theme['dark-900']};
   margin: 1rem 0rem;
-`
+`;
 
 export const CallToActionContainer = styled.div`
   text-align: center;
-`
+`;
+
+export const LogoContainer = styled.div`
+  left: 5%;
+  top: 5%;
+  cursor: pointer;
+  position: absolute; 
+`;
 
 export const TextContainer = styled.div`
   display: flex;
@@ -27,9 +34,9 @@ export const TextContainer = styled.div`
   gap: 0.5rem;
   p {
     color: ${(props) => props.theme['dark-900']};
-    font-size: 1rem;
+    font-size: 1.25rem;
   }
-`
+`;
 
 export const HeaderContainer = styled.div`
   display: flex;
@@ -44,7 +51,6 @@ export const HeaderContainer = styled.div`
     font-style: italic;
     font-family: 'Barlow Semi Condensed', sans-serif;
     font-weight: 900;
-
     line-height: 90%;
   }
 
@@ -62,4 +68,4 @@ export const HeaderContainer = styled.div`
     color: ${(props) => props.theme['gray-500']};
     font-size: 2rem;
   }
-`
+`;

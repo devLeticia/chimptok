@@ -35,17 +35,17 @@ export function Router() {
         <Route path="/signup" element={<Auth />} />
         <Route path="/forgot-password" element={<Auth />} />
         <Route path="/reset-password/:resetToken" element={<Auth />} />
-        <Route path="/coming-soon" element={<Auth />} />
+        <Route path="/404" element={<Auth />} />
         <Route
           path="/account-confirmation/:confirmationCode"
           element={<Auth />}
         />
-        <Route element={<PrivateRoutes />}>
+        {/* <Route element={<PrivateRoutes />}>
           <Route path="/welcome" element={<Welcome />} />
           <Route path="/onboarding" element={<Onboarding />} />
-        </Route>
+        </Route> */}
       </Route>
-      {/* <Route path="*" element={<NotFoundPage />} /> */}
+      <Route path="*" element={<NotFoundPage />} />
       <Route path="*" element={<Auth />} />
     </Routes>
   )
