@@ -94,22 +94,22 @@ export const TaskDescriptionWrapper = styled.div`
   display: flex;
   flex-direction: row;
   gap: 0.5rem;
+  background-color:  ${(props) => props.theme['gray-150']};
+  padding: 0.5rem;
+  border-radius: 6px;
+  color: ${(props) => props.theme['dark-900']};
 `
 export const TaskIndex = styled.p`
   font-family: 'Roboto Mono', monospace;
-  text-align: right;
-  width: 30px;
-  font-weight: 900;
+  margin-left: 1rem;
   letter-spacing: -0.1rem;
-  font-size: 1.05rem;
+  font-size: 1rem;
   font-style: italic;
   font-family: 'Barlow Semi Condensed', sans-serif;
-  color: ${(props) => props.theme['gray-700']};
 `
 
 export const TaskDescription = styled.p`
-  font-size: 1rem;
-
+  font-size: 0.95rem;
   font-weight: 700;
   line-height: 1.5;
 `
@@ -117,7 +117,6 @@ export const TaskDescription = styled.p`
 export const Task = styled.p`
   font-weight: 700;
   font-size: 0.85rem;
-  color: ${(props) => props.theme['dark-900']};
 `
 
 export const StatusBadge = styled.div`
