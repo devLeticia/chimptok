@@ -22,10 +22,19 @@ export const ChartSectionContainer = styled.div`
 `;
 
 export const SessionTitle = styled.h1`
-  font-size: 1rem;
-  color: ${(props) => props.theme['dark-900']};
-  font-weight: 800;
-  z-index: 10;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  h1 {
+    font-size: 1rem;
+    color: ${(props) => props.theme['dark-900']};
+    font-weight: 800;
+    z-index: 10;
+  }
+  span {
+    font-size: 0.75rem;
+    color: ${(props) => props.theme['gray-500']};
+  }
 `;
 
 export const BlurOverlay = styled.div`

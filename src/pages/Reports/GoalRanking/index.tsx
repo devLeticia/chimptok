@@ -7,11 +7,11 @@ import {
   ListContainer,
   RankingNumber,
   BlurOverlay,
-} from './styles'
-import { DomainProgressBar } from './../../../domain-components/ProgressBar/index'
-import { formatDistanceToNow } from 'date-fns'
+} from './styles';
+import { DomainProgressBar } from './../../../domain-components/ProgressBar/index';
+import { formatDistanceToNow } from 'date-fns';
+import ranking from '../../../../public/ranking.svg';
 
-// Define the types for props and data
 interface GoalRankingProps {
   goalRanking: GoalRanking[];
 }
@@ -24,27 +24,20 @@ type GoalRanking = {
   deadline: Date;
 };
 
-// Function to generate fake goal ranking data
-function generateFakeGoalRankingData(count: number): GoalRanking[] {
-  return Array.from({ length: count }, (_, index) => ({
-    name: `Goal ${index + 1}`,
-    totalExpectedHours: Math.floor(Math.random() * 100) + 1,
-    totalHoursWorked: Math.floor(Math.random() * 100),
-    progressPercentage: Math.floor(Math.random() * 100),
-    deadline: new Date(Date.now() + Math.random() * 10000000000),
-  }));
-}
-
 export function GoalRanking({ goalRanking }: GoalRankingProps) {
-  const dataToDisplay = goalRanking.length > 0 ? goalRanking : generateFakeGoalRankingData(4);
-
   return (
     <GoalRankingContainer>
-      {goalRanking.length === 0 && (<BlurOverlay />)}
       <SessionTitle>Goal Ranking</SessionTitle>
       <ListContainer>
-        {dataToDisplay.map((goal, index) => {
-          return (
+        {goalRanking.length === 0 ? (
+          <img
+            src={ranking}
+            alt="Ranking Placeholder"
+            className="logo"
+            height={180} 
+          />
+        ) : (
+          goalRanking.map((goal, index) => (
             <GoalContainer key={goal.name}>
               <RankingNumber>{index + 1}</RankingNumber>
               <InfoContainer>
@@ -55,8 +48,8 @@ export function GoalRanking({ goalRanking }: GoalRankingProps) {
                 <DomainProgressBar animated={false} progress={goal.progressPercentage < 100 ? goal.progressPercentage : 100} children={''} />
               </InfoContainer>
             </GoalContainer>
-          )
-        })}
+          ))
+        )}
       </ListContainer>
     </GoalRankingContainer>
   );

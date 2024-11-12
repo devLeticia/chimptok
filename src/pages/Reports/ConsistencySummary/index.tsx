@@ -38,7 +38,7 @@ export function ConsistencySummary({ userStats }: ConsistencySummaryProps) {
         <NumberSpan>{value}</NumberSpan> {unit} of work
       </>
     ) : (
-      '0'
+      '0 hours  of work'
     );
   }
 
@@ -48,7 +48,7 @@ export function ConsistencySummary({ userStats }: ConsistencySummaryProps) {
         <NumberSpan>{totalCycles}</NumberSpan> tasks completed
       </>
     ) : (
-      '0'
+      '0 tasks completed'
     );
   }
 

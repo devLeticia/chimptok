@@ -5,12 +5,17 @@ export const TaskHistoryContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  justify-content: start;
+  align-items: start;
   background-color: white;
   padding: 2rem;
   border: solid 1px ${(props) => props.theme['gray-300']};
   border-radius: 9px;
   position: relative; 
 
+  .history-img {
+    margin-top: 1.5rem;
+  }
   h1 {
     font-size: 1rem;
     color: ${(props) => props.theme['dark-900']};

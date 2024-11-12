@@ -15,6 +15,7 @@ import {
 import { formatDistanceToNow } from 'date-fns'
 import { useEffect, useState } from 'react'
 import cyclesService from '../../../http/requests/cycles/cycles.service'
+import history from '../../../../public/history.svg'
 
 type Goal = {
   createdAt: Date;
@@ -54,38 +55,6 @@ interface CyclesHistoryResponse {
   data: Cycle[];
 }
 
-// Function to generate fake task history data
-function generateFakeTaskHistoryData(count: number): Cycle[] {
-  return Array.from({ length: count }, (_, index) => ({
-    id: `task-${index + 1}`,
-    createdAt: new Date(Date.now() - Math.floor(Math.random() * 1000000000)), // Random past date
-    minutesAmount: Math.floor(Math.random() * 120), // Random minutes (0-120)
-    finishAt: new Date(Date.now() + Math.floor(Math.random() * 1000000000)), // Random future date
-    interruptedAt: Math.random() > 0.5 ? null : new Date(), // Randomly set interrupted or not
-    taskId: `task-${index + 1}`,
-    userId: 'user-id', // Replace with actual user id if needed
-    task: {
-      id: `task-${index + 1}`,
-      taskName: `Fake Task ${index + 1}`,
-      createdAt: new Date(Date.now() - Math.floor(Math.random() * 1000000000)), // Random past date
-      updatedAt: new Date(),
-      isCompleted: Math.random() > 0.5, // Random completion status
-      userId: 'user-id', // Replace with actual user id if needed
-      goalId: `goal-${index + 1}`,
-      goal: {
-        createdAt: new Date(),
-        deadline: new Date(Date.now() + Math.floor(Math.random() * 10000000000)), // Random future date
-        goalName: `Fake Goal ${index + 1}`,
-        id: `goal-${index + 1}`,
-        isFinished: Math.random() > 0.5, // Random finished status
-        updatedAt: new Date(),
-        userId: 'user-id', // Replace with actual user id if needed
-        weeklyHours: Math.floor(Math.random() * 10) + 1,
-      }
-    }
-  }));
-}
-
 export function TaskHistory() {
   const [userTaskHistory, setUserTaskHistory] = useState<Cycle[]>([]);
   const [hasNoHistory, setHasNoHistory] = useState(false)
@@ -108,7 +77,6 @@ export function TaskHistory() {
             setUserTaskHistory(responseData.data);
           } else {
             setHasNoHistory(true)
-            setUserTaskHistory(generateFakeTaskHistoryData(5)); // Change 5 to desired fake data count
           }
         })
         .catch((err) => {
@@ -137,31 +105,39 @@ export function TaskHistory() {
 
   return (
     <TaskHistoryContainer>
-       {hasNoHistory && (<BlurOverlay />)}
       <SessionTitle>Task History</SessionTitle>
-      <TaskListContainer>
-        {userTaskHistory.map((cycle, index) => {
-          const { icon, color } = getTaskStatus(cycle);
-
-          return (
-            <TaskContainer key={index}>
-              <IconContainer style={{ color }}>
-                {icon}
-              </IconContainer>
-              <TaskDataContainer>
-                <span>{getDistanceToNow(new Date(cycle.createdAt))}</span>
-                <h1>{cycle.task.taskName}</h1>
-                <GoalDescription>
-                  in <span>{cycle.task.goal.goalName}</span>
-                </GoalDescription>
-              </TaskDataContainer>
-              <MinutesContainer>
-              {cycle.minutesAmount} min
-              </MinutesContainer>
-            </TaskContainer>
-          )
-        })}
-      </TaskListContainer>
+      {hasNoHistory ? (
+        <img
+          src={history}
+          alt=""
+          className="history-img"
+          height={260}
+        />
+      ) : (
+        <TaskListContainer>
+          {userTaskHistory.map((cycle, index) => {
+            const { icon, color } = getTaskStatus(cycle);
+  
+            return (
+              <TaskContainer key={index}>
+                <IconContainer style={{ color }}>
+                  {icon}
+                </IconContainer>
+                <TaskDataContainer>
+                  <span>{getDistanceToNow(new Date(cycle.createdAt))}</span>
+                  <h1>{cycle.task.taskName}</h1>
+                  <GoalDescription>
+                    in <span>{cycle.task.goal.goalName}</span>
+                  </GoalDescription>
+                </TaskDataContainer>
+                <MinutesContainer>
+                  {cycle.minutesAmount} min
+                </MinutesContainer>
+              </TaskContainer>
+            );
+          })}
+        </TaskListContainer>
+      )}
     </TaskHistoryContainer>
-  );
+  )
 }

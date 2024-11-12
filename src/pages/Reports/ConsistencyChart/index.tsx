@@ -1,5 +1,5 @@
-import { ChartSectionContainer, SessionTitle, BlurOverlay } from './styles'
-import { BarChart, Bar, Tooltip, XAxis, YAxis, ResponsiveContainer, LabelList } from 'recharts'
+import { ChartSectionContainer, SessionTitle } from './styles'
+import { BarChart, Bar, XAxis, ResponsiveContainer, LabelList } from 'recharts'
 
 interface CustomTooltipProps {
   active?: boolean
@@ -28,8 +28,8 @@ const formatDate = (timestamp: number) => {
   });
 }
 
-export function ConsistencyChart({lastTwoWeeksConsistency, totalCycles}: ConsistencyChartProps) {
-  
+export function ConsistencyChart({ lastTwoWeeksConsistency, totalCycles }: ConsistencyChartProps) {
+
   function generateFakeConsistencyData(lastTwoWeeksConsistency: LastTwoWeeksConsistency[]) {
     return lastTwoWeeksConsistency.map((day) => {
       const fakeTotalHours = Math.floor(Math.random() * 8) + 1;  // Random hours between 1 and 8
@@ -48,7 +48,7 @@ export function ConsistencyChart({lastTwoWeeksConsistency, totalCycles}: Consist
     return totalCycles > 0 ? lastTwoWeeksConsistency : fakeConsistencyData;
   } 
   
-  function formattedTime (num: number) {
+  function formattedTime(num: number) {
     if (num === 0) return '';
     
     let hours = Math.floor(num);
@@ -61,41 +61,52 @@ export function ConsistencyChart({lastTwoWeeksConsistency, totalCycles}: Consist
     return `${hours}h${minutes}min`;
   }
 
+  const isFakeData = totalCycles === 0;
+
   return (
     <ChartSectionContainer>
-      <SessionTitle>Last 14 Days</SessionTitle>
-        <ResponsiveContainer width="100%" height={140}>
-          <BarChart data={consistencyData()} >
-            <XAxis
-              dataKey="date"
-              tickFormatter={formatDate}
-              tickLine={false}
-              axisLine={{ stroke: '#ebe7e7', strokeWidth: 1 }}
-              tick={{
-                fill: '#a9aaaa', 
-                fontSize: 10,
-                fontWeight: 700
-              }}
-            />
-            
-            {/* <Tooltip/> */}
-            <Bar
-              name="Hours in the day"
-              dataKey="totalHoursWorkedInTheDay"
-              fill="#a9a8fc"
-              barSize={60}
-              radius={[6, 6, 6, 6]}
-            >
-            <LabelList
-              dataKey="totalHoursWorkedInTheDay"
-              position="top"
-              fill="#a9aaaa"
-              fontSize={10}
-              fontWeight={600}
-              formatter={formattedTime}
-            />
-            </Bar>
-          </BarChart>
+      <SessionTitle>
+        <h1>
+        Last 14 Days
+        </h1>
+       { isFakeData && <span>
+        Create a cycle to see progress
+        </span>}
+        
+        </SessionTitle>
+      <ResponsiveContainer width="100%" height={140}>
+        <BarChart data={consistencyData()} >
+          <XAxis
+            dataKey="date"
+            tickFormatter={formatDate}
+            tickLine={false}
+            axisLine={{ stroke: '#ebe7e7', strokeWidth: 1 }}
+            tick={{
+              fill: '#a9aaaa', 
+              fontSize: 10,
+              fontWeight: 700
+            }}
+          />
+          
+          <Bar
+            name="Hours in the day"
+            dataKey="totalHoursWorkedInTheDay"
+            fill={isFakeData ? "#eeeeee" : "#a9a8fc"} // Use red if data is fake, purple if real
+            barSize={60}
+            radius={[6, 6, 6, 6]}
+          >
+            {!isFakeData && (
+              <LabelList
+                dataKey="totalHoursWorkedInTheDay"
+                position="top"
+                fill="#a9aaaa"
+                fontSize={10}
+                fontWeight={600}
+                formatter={formattedTime}
+              />
+            )}
+          </Bar>
+        </BarChart>
       </ResponsiveContainer>
     </ChartSectionContainer>
   )
