@@ -9,6 +9,7 @@ import {
   MembershipCount,
 } from './styles';
 import ChimpPicture from '../../../../../public/ChimpPicture.png';
+import { format } from 'date-fns';
 
 export function ProfileInfo() {
   function getUserDetails(): any {
@@ -39,7 +40,7 @@ export function ProfileInfo() {
   };
 
   const daysChasingGoals = calculateDaysSinceSignUp();
-
+  const formattedDate = format(new Date(signUpDate), 'MMMM d, yyyy');
   return (
     <Container>
       <img src="" alt="" />
@@ -50,7 +51,7 @@ export function ProfileInfo() {
           <Email>{userEmail}</Email> 
         </ContactContainer>
         <MembershipDataContainer>
-          <SignUpDate>since {signUpDate}</SignUpDate>
+          <SignUpDate>since {formattedDate}</SignUpDate>
           <MembershipCount>
             <span>{daysChasingGoals > 1 ? daysChasingGoals : 'Day One:'}</span> {daysChasingGoals > 0 ? ('days chasing your goals')  : ('goals in motion!')}
           </MembershipCount>

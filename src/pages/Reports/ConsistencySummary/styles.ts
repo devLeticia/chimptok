@@ -25,3 +25,8 @@ export const ConsitencySummaryContainer = styled.div`
     }
   }
 `
+
+export const NumberSpan = styled.span`
+  font-weight: 800;
+  font-size: 1.25rem;
+`;

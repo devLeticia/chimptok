@@ -9,7 +9,8 @@ import {
   GoalDescription,
   TaskListContainer,
   SessionTitle,
-  BlurOverlay
+  BlurOverlay,
+  MinutesContainer
 } from './styles'
 import { formatDistanceToNow } from 'date-fns'
 import { useEffect, useState } from 'react'
@@ -35,6 +36,7 @@ type Task = {
   userId: string;
   goalId: string;
   goal: Goal;
+  minutesAmount: number
 };
 
 type Cycle = {
@@ -125,11 +127,11 @@ export function TaskHistory() {
     const taskEnd = new Date(taskStart.getTime() + cycle.minutesAmount * 60000); // Calculate end time
 
     if (cycle.interruptedAt) {
-      return { icon: <StyledXCircle size={18} weight="fill" />, color: 'red' };
+      return { icon: <StyledXCircle size={24} weight="fill" />, color: 'red' };
     } else if (now >= taskEnd) {
-      return { icon: <StyledCheckCircle size={18} weight="fill" />, color: 'green' };
+      return { icon: <StyledCheckCircle size={24} weight="fill" />, color: 'green' };
     } else {
-      return { icon: <StyledPlayCircle size={18} weight="fill" />, color: 'orange' };
+      return { icon: <StyledPlayCircle size={24} weight="fill" />, color: 'orange' };
     }
   }
 
@@ -153,6 +155,9 @@ export function TaskHistory() {
                   in <span>{cycle.task.goal.goalName}</span>
                 </GoalDescription>
               </TaskDataContainer>
+              <MinutesContainer>
+              {cycle.minutesAmount} min
+              </MinutesContainer>
             </TaskContainer>
           )
         })}

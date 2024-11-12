@@ -29,95 +29,78 @@ type Goal = {
   progressPercentage: number;
   goalName: string;
   tasks: Task[];
-  isCompleted: boolean
+  isCompleted: boolean;
 };
 
 interface NewTaskCycleFormProps {
   closeNewCycleModal: () => void,
   getHomeData: () => void
+  selectedGoal?: Goal;
 }
 
-export function NewTaskCycleForm({closeNewCycleModal, getHomeData} : NewTaskCycleFormProps) {
+export function NewTaskCycleForm({
+  closeNewCycleModal,
+  getHomeData,
+  selectedGoal: initialSelectedGoal,
+}: NewTaskCycleFormProps) {
   const { startNewCycle, userGoals } = useCycles()
 
   const minutesAmountOptions = [
-    {
-      id: 1,
-      amountInMinutes: 15,
-    },
-    {
-      id: 2,
-      amountInMinutes: 30,
-    },
-    {
-      id: 3,
-      amountInMinutes: 40,
-    },
-    {
-      id: 4,
-      amountInMinutes: 60,
-    },
+    { id: 1, amountInMinutes: 15 },
+    { id: 2, amountInMinutes: 30 },
+    { id: 3, amountInMinutes: 40 },
+    { id: 4, amountInMinutes: 60 },
   ]
 
-  const [selectedGoal, setSelectedGoal] = useState<Goal>()
-
-  const [selectedTask, setSelectedTask] = useState<Task>()
-
-  const [selectedMinutesAmount, setSelectedMinutesAmount] = useState<number>(30)
+  const [selectedGoal, setSelectedGoal] = useState<Goal | undefined>(initialSelectedGoal);
+  const [selectedTask, setSelectedTask] = useState<Task | undefined>(initialSelectedGoal?.tasks[0]);
+  const [selectedMinutesAmount, setSelectedMinutesAmount] = useState<number>(30);
 
   function handleGoalSelect(goal: Goal) {
-    setSelectedGoal(goal)
-    setSelectedTask(goal.tasks[0]) // Reset selected task when a new goal is selected
-    console.log('Selected goal:', goal)
+    setSelectedGoal(goal);
+    setSelectedTask(goal.tasks[0]);
+    console.log('Selected goal:', goal);
   }
 
   function handleTaskSelect(task: Task) {
-    setSelectedTask(task)
-    console.log('Selected task:', task)
+    setSelectedTask(task);
+    console.log('Selected task:', task);
   }
 
   function handleMinutesSelect(amountInMinutes: number | undefined) {
     if (amountInMinutes !== undefined) {
-      setSelectedMinutesAmount(amountInMinutes)
-      console.log('Selected minutes:', amountInMinutes)
+      setSelectedMinutesAmount(amountInMinutes);
+      console.log('Selected minutes:', amountInMinutes);
     } else {
-      // Handle the case when amountInMinutes is undefined
-      // For example, you can set a default value or show an error message
-      console.error('Error: Selected minutes is undefined')
+      console.error('Error: Selected minutes is undefined');
     }
   }
 
   function isValid() {
-    return (
-      selectedGoal !== null &&
-      selectedTask !== null &&
-      selectedMinutesAmount !== null
-    )
+    return selectedGoal !== null && selectedTask !== null && selectedMinutesAmount !== null;
   }
 
   function handleSumbmitNewTaskCycle() {
-    const userId = localStorage.getItem('user_id')
+    const userId = localStorage.getItem('user_id');
     if (selectedTask && userId) {
       const payload = {
         userId,
         startDate: new Date(),
         taskId: selectedTask.id,
         minutesAmount: selectedMinutesAmount,
-      }
+      };
       cyclesService
         .registerNewCycle(payload)
-        .then((resp) => {
-          closeNewCycleModal()
-          setTimeout(() => {
-            getHomeData()
-          }, 3000);
+        .then(() => {
+          closeNewCycleModal();
+          setTimeout(getHomeData, 3000);
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
         })
         .finally(() => {
-          console.log('finalizou')
-        })
+          console.log('Request completed');
+        });
     }
   }
 
@@ -137,7 +120,7 @@ export function NewTaskCycleForm({closeNewCycleModal, getHomeData} : NewTaskCycl
       />
       {selectedGoal && (
         <Select
-          key={JSON.stringify(selectedGoal)}
+          key={selectedGoal.id}
           placeholder="Choose a Task"
           options={selectedGoal.tasks}
           getLabel={(task) => task.taskName}
@@ -146,33 +129,29 @@ export function NewTaskCycleForm({closeNewCycleModal, getHomeData} : NewTaskCycl
         />
       )}
 
-      <h2>For how long will work on it?</h2>
+      <h2>For how long will you work on it?</h2>
       <MinutesOptionsContainer>
-        {minutesAmountOptions.map((option, index) => (
+        {minutesAmountOptions.map((option) => (
           <Radio
-            key={index}
+            key={option.id}
             id={option.id.toString()}
-            label={
-              option.amountInMinutes ? option.amountInMinutes.toString() : '*'
-            }
-            subLabel={'minutes'}
+            label={option.amountInMinutes.toString()}
+            subLabel="minutes"
             name="minutesAmount"
             value="amountInMinutes"
             onClick={() => handleMinutesSelect(option.amountInMinutes)}
           />
         ))}
       </MinutesOptionsContainer>
-      {/* <UnlimitedDisclaimer>
-        *Work for as long as you need, set to Done when you finish
-      </UnlimitedDisclaimer> */}
+
       <Button
         color="blue"
         fullWidth
         disabled={!isValid()}
         onClick={handleSumbmitNewTaskCycle}
       >
-        {'START'}
+        START
       </Button>
     </Container>
-  )
+  );
 }

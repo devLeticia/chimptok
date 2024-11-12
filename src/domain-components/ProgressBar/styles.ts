@@ -1,12 +1,12 @@
-import styled, { keyframes } from 'styled-components'
+import styled, { keyframes } from 'styled-components';
 
 interface ProgressBarProps {
-  progress: number
-  animated: boolean
+  progress: number;
+  animated: boolean;
 }
 
 const calculateWidth = (progress: number) =>
-  progress === 0 ? `0.7rem` : `${progress}%` // will show a 2% when user has
+  progress <= 2 ? `0.7rem` : progress >= 100 ? `100%` : `${progress}%`;
 
 const progressAnimation = (progress: number) => keyframes`
   0% {
@@ -15,7 +15,7 @@ const progressAnimation = (progress: number) => keyframes`
   100% {
     width: ${calculateWidth(progress)};
   }
-`
+`;
 
 export const StepProgress = styled.div<ProgressBarProps>`
   height: 0.7rem;
@@ -28,10 +28,10 @@ export const StepProgress = styled.div<ProgressBarProps>`
     content: '';
     display: block;
     height: 100%;
-    // width: 100%;
-    width: ${(props) => (`${props.progress}%`)}; 
+    width: ${(props) => calculateWidth(props.progress)};
     border-radius: 9px;
-    background-color: ${(props) => props.theme['blue-500']};
-    // animation: ${(props) => progressAnimation(props.progress)} 1s forwards;
+    background-color: ${(props) => props.theme['blue-500']}; // fallback for older browsers
+    animation: ${(props) =>
+      props.animated ? progressAnimation(props.progress) : 'none'} 1s forwards;
   }
 `

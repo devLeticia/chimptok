@@ -34,7 +34,7 @@ export const GoalContainer = styled.div`
 
 export const RankingNumber = styled.div`
   text-align: right;
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-family: 'Barlow Semi Condensed', sans-serif;
   font-style: italic;
   color: ${(props) => props.theme['dark-900']};

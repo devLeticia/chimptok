@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   CustomDropdown,
   StyledSelect,
@@ -13,7 +13,7 @@ interface SelectProps<T> {
   placeholder?: string
   options: T[]
   getLabel: (option: T) => string
-  onSelect?: (selectedOption: T) => void // Added onSelect prop
+  onSelect?: (selectedOption: T) => void
   initialValue?: T
 }
 
@@ -22,19 +22,22 @@ export function Select<T>({
   getLabel,
   label,
   placeholder,
-  onSelect, // Added onSelect prop
+  onSelect,
   initialValue,
 }: SelectProps<T>) {
   const [isOpen, setIsOpen] = useState(false)
-  const [selectedOption, setSelectedOption] = useState<T | undefined>(
-    initialValue, // Set initial value from prop
-  )
+  const [selectedOption, setSelectedOption] = useState<T | undefined>(initialValue)
+
+  useEffect(() => {
+    if (initialValue) {
+      setSelectedOption(initialValue)
+    }
+  }, [initialValue])
 
   const handleSelect = (option: T) => {
     setSelectedOption(option)
     setIsOpen(false)
 
-    // Call onSelect prop if it's provided
     if (onSelect) {
       onSelect(option)
     }
@@ -52,10 +55,7 @@ export function Select<T>({
       {isOpen && (
         <OptionList>
           {options.map((option) => (
-            <StyledOption
-              key={getLabel(option)}
-              onClick={() => handleSelect(option)}
-            >
+            <StyledOption key={getLabel(option)} onClick={() => handleSelect(option)}>
               {getLabel(option)}
             </StyledOption>
           ))}

@@ -71,45 +71,44 @@ export function Reports() {
   const Skeleton = () => {
     return (
       <>
-      <GridWrapper cols="1fr 1fr 1fr">
-      {[...Array(3)].map((_, index) => (
-        <SkeletonWrapper key={index}>
-          <SpaceY gap="0.25rem">
-            <Box height="1rem" bgColor="rgba(0, 0, 0, 0.05)" />
-            <Box height="2rem" bgColor="rgba(0, 0, 0, 0.1)" />
+        <GridWrapper cols="1fr 1fr 1fr">
+          {[...Array(3)].map((_, index) => (
+            <SkeletonWrapper key={index}>
+              <SpaceY gap="0.25rem">
+                <Box height="1rem" bgColor="rgba(0, 0, 0, 0.05)" />
+                <Box height="2rem" bgColor="rgba(0, 0, 0, 0.1)" />
+              </SpaceY>
+            </SkeletonWrapper>
+          ))}
+        </GridWrapper>
+        <SkeletonWrapper>
+          <SpaceY gap="12px">
+            <Box height="2rem" width="40%" bgColor="rgba(0, 0, 0, 0.05)" /> {/* Slightly darker gray */}
+            <GridWrapper cols="1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr">
+              {[...Array(12)].map((_, index) => (
+                <Box key={index} height="4rem" bgColor="rgba(0, 0, 0, 0.1)" />
+              ))}
+            </GridWrapper>
           </SpaceY>
         </SkeletonWrapper>
-      ))}
-    </GridWrapper>
-      <SkeletonWrapper>
-      <SpaceY gap="12px">
-            <Box height="2rem" width="40%" bgColor="rgba(0, 0, 0, 0.05)" /> {/* Slightly darker gray */}
-          <GridWrapper cols="1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr">
-            {[...Array(12)].map((_, index) => (
-              <Box height="4rem" bgColor="rgba(0, 0, 0, 0.1)" />
-            ))}
-          </GridWrapper>
-          </SpaceY>
-      </SkeletonWrapper>
-      <GridWrapper cols="1fr 1fr">
-        {[...Array(2)].map((_, index) => (
-              <SkeletonWrapper>
-                        <SpaceY gap="20px">
-          {/* Main large skeleton box */}
-          <Box height="2rem" width="50%" bgColor="rgba(0, 0, 0, 0.05)" /> {/* Light gray for main box */}
-          <SpaceY gap="12px">
-            {/* Smaller skeleton bars */}
-            <Box height="4rem" bgColor="rgba(0, 0, 0, 0.1)" /> {/* Light gray */}
-            <Box height="4rem" bgColor="rgba(0, 0, 0, 0.1)" /> {/* Slightly darker gray */}
-            <Box height="4rem" bgColor="rgba(0, 0, 0, 0.1)" /> {/* Slightly darker gray */}
-          </SpaceY>
-        </SpaceY>
-      </SkeletonWrapper>
-            ))}
-      </GridWrapper>
+        <GridWrapper cols="1fr 1fr">
+          {[...Array(2)].map((_, index) => (
+            <SkeletonWrapper key={index}>
+              <SpaceY gap="20px">
+                <Box height="2rem" width="50%" bgColor="rgba(0, 0, 0, 0.05)" />
+                <SpaceY gap="12px">
+                  <Box key={index + 100} height="4rem" bgColor="rgba(0, 0, 0, 0.1)" /> {/* Added key here */}
+                  <Box key={index + 101} height="4rem" bgColor="rgba(0, 0, 0, 0.1)" /> {/* Added key here */}
+                  <Box key={index + 102} height="4rem" bgColor="rgba(0, 0, 0, 0.1)" /> {/* Added key here */}
+                </SpaceY>
+              </SpaceY>
+            </SkeletonWrapper>
+          ))}
+        </GridWrapper>
       </>
     );
   };
+  
 
   return (
     <>

@@ -30,6 +30,7 @@ export const defaultTheme = {
   'yellow-700': '#F3C833',
   // 'yellow-700': '#d9b12b',
   'yellow-800': '#937202',
+  'blue-200': '#86DBFF',
   'blue-400': '#85BEFF',
   'blue-500': '#65A3FF',
   'green-500': '#87D96C',

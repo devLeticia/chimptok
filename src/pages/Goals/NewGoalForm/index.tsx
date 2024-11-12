@@ -55,9 +55,9 @@ type Goal = {
   totalHoursSpent: number
   progressPercentage: number
   status: number
-    overallProgress?: {
+    overallProgress: {
     overallExpectedHours: number;
-    overallAccomplisedHours: number;
+    overallAccomplishedHours: number;
   };
 }
 

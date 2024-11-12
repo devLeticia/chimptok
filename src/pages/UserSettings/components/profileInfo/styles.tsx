@@ -50,7 +50,6 @@ export const MembershipDataContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 0.5rem;
   text-align: right;
   width: 100%;
   flex: 1; 

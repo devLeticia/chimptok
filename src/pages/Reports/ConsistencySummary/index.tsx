@@ -1,64 +1,89 @@
-import { Card } from '../../../components/Card'
-import { ConsitencySummaryContainer } from './styles'
+import { Card } from '../../../components/Card';
+import { ConsitencySummaryContainer, NumberSpan } from './styles';
 
 interface ConsistencySummaryProps {
-  userStats: UserStats  
+  userStats: UserStats;
 }
 
 type UserStats = {
-    totalHoursInTasks: number,
-    totalCycles: number,
-    bestStreak: number
-}
+  totalHoursInTasks: number;
+  totalCycles: number;
+  bestStreak: number;
+};
 
 export function ConsistencySummary({ userStats }: ConsistencySummaryProps) {
   if (!userStats) {
-    return <p>No data available</p>
+    return <p>No data available</p>;
   }
 
-  // essa função esta sendo repetida durante a aplicação
-  // TO DO: centralizar ela 
-  function formattedTime (num: number) {
-    if (num === 0) return '0h';
-    
+  function formattedTime(num: number) {
+    if (num === 0) return { value: '0', unit: 'h' };
+
     let hours = Math.floor(num);
     let minutes = Math.round((num - hours) * 60);
-  
+
     if (hours === 0) {
-      return `${minutes}min `;
+      return { value: `${minutes}`, unit: 'min' };
     }
     if (minutes === 0) {
-      return `${hours}h `;
+      return { value: `${hours}`, unit: 'h' };
     }
-    return `${hours}h ${minutes}min`;
+    return { value: `${hours}h ${minutes}`, unit: 'min' };
   }
 
-  function getHoursOfWork (totalHours: number) {
-    return totalHours > 0 ? `${formattedTime(totalHours)} of work` : 'Log your first hour!'
+  function getHoursOfWork(totalHours: number) {
+    const { value, unit } = formattedTime(totalHours);
+    return totalHours > 0 ? (
+      <>
+        <NumberSpan>{value}</NumberSpan> {unit} of work
+      </>
+    ) : (
+      '0'
+    );
   }
-  function getTotalTasks (totalCycles: number) {
-    return totalCycles > 0 ? `${totalCycles} tasks completed` : 'Start performing!'
+
+  function getTotalTasks(totalCycles: number) {
+    return totalCycles > 0 ? (
+      <>
+        <NumberSpan>{totalCycles}</NumberSpan> tasks completed
+      </>
+    ) : (
+      '0'
+    );
   }
-  function bestStrek (bestStrek: number) {
-    return bestStrek > 0 ? `${bestStrek} consecutive days` : 'No streak.Let’s go!'
+
+  function bestStreak(bestStreak: number) {
+    if (bestStreak === 0) {
+      return '0 streaks';
+    } else if (bestStreak === 1) {
+      return (
+        <>
+          <NumberSpan>1</NumberSpan> consecutive day
+        </>
+      );
+    } else {
+      return (
+        <>
+          <NumberSpan>{bestStreak}</NumberSpan> consecutive days
+        </>
+      );
+    }
   }
   
   return (
-    <>
-      <ConsitencySummaryContainer>
-        <Card>
-          <p>Total Hours</p>
-          <h1>{getHoursOfWork(userStats.totalHoursInTasks)}</h1>
-        </Card>
-        <Card>
-          <p>Total tasks</p>
-          <h1>{getTotalTasks(userStats.totalCycles)}</h1>
-        </Card>
-        <Card>
-          <p>Best Streak</p>
-          <h1>{bestStrek(userStats.bestStreak)} </h1>
-        </Card>
-      </ConsitencySummaryContainer>
-    </>
+    <ConsitencySummaryContainer>
+      <Card>
+        <p>Total Hours</p>
+        <h1>{getHoursOfWork(userStats.totalHoursInTasks)}</h1>
+      </Card>
+      <Card>
+        <p>Total Tasks</p>
+        <h1>{getTotalTasks(userStats.totalCycles)}</h1>
+      </Card>
+      <Card>
+        <p>Best Streak</p>
+        <h1>{bestStreak(userStats.bestStreak)}</h1>
+      </Card>
+    </ConsitencySummaryContainer>
   );
 }

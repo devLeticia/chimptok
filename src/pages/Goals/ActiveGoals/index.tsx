@@ -19,6 +19,10 @@ interface Goal {
   hoursPerWeek: number
   totalHoursSpent: number
   progressPercentage: number
+  overallProgress: {
+    overallExpectedHours: number;
+    overallAccomplishedHours: number;
+  }
   status: number,
   isCompleted: boolean
 }

@@ -1,19 +1,39 @@
 import { useState } from 'react'
-import { Cloud, Target, Medal, PlusCircle, Flag, Plus, Rabbit } from '@phosphor-icons/react'; // Import Phosphor icons
+import { Cloud, Target, Medal, PlusCircle, Flag, Rabbit } from '@phosphor-icons/react'; // Import Phosphor icons
 import { DomainProgressBar } from '../../../../domain-components/ProgressBar';
-import { GoalPanelContainer, GoalToPickCard, GoalTitle, InfoContainer, ProgressContainer, ProgressInfoContainer, TasksContainer, EmptyGoalCard, GoalIndex } from './styles';
+import { GoalPanelContainer, GoalToPickCard, GoalTitle, InfoContainer, ProgressContainer, ProgressInfoContainer, TasksContainer, EmptyGoalCard, GoalIndex, RightColumnContainer } from './styles';
 import { StyledCheckCircle } from './../../../Welcome/styles';
 import { NewGoalForm } from '../../../Goals/NewGoalForm';
 import Modal from '../../../../components/Modal';
 import { NewTaskCycleForm } from '../NewTaskCycleForm';
-import { Button } from '../../../../components/Button';
 import { useCycles } from '../../../../contexts/CyclesContext';
 
 
 interface GoalsPanelProps {
     activeGoals: any
 }
+type Task = {
+    createdAt: string;
+    goalId: string;
+    id: string;
+    isCompleted: boolean;
+    taskName: string;
+    updatedAt: string;
+  };
 
+type Goal = {
+    id: string;
+    createdAt: Date;
+    deadline: Date;
+    hoursPerWeek: number;
+    status: number;
+    totalHoursSpent: number;
+    progressPercentage: number;
+    goalName: string;
+    tasks: Task[];
+    isCompleted: boolean
+  };
+  
 const emptyCardCTAs = [
     {
         cta1: "Space reserved for your next big win.",
@@ -50,23 +70,27 @@ const emptyCardCTAs = [
 
 export function GoalsPanel({ activeGoals }: GoalsPanelProps) {
     const [isNewGoalModalOpen, setIsNewGoalModalOpen] = useState(false)
-    const [isNewCyclelModalOpen, setIsNewCyclelModalOpen] = useState(false)
+    const [isNewCycleModalOpen, setIsNewCycleModalOpen] = useState(false)
+    const [selectedGoalForCycle, setSelectedGoalForCycle] = useState<Goal | undefined>(undefined);
     const { getHomeData } = useCycles();
+    
     const openModal = () => {
         setIsNewGoalModalOpen(true)
     }
     const closeModal = () => {
-        console.log('foi fechar o modal')
         setIsNewGoalModalOpen(false)
     }
 
-    const openNewCycleModal = () => {
-        setIsNewCyclelModalOpen(true)
-    }
-    const closeNewCycleModal = () => {
-        console.log('fechar modal')
-        setIsNewCyclelModalOpen(false)
-    }
+    const openNewCycleModal = (goal: Goal) => {
+        console.log('clicou pra abrir')
+        setSelectedGoalForCycle(goal);
+        setIsNewCycleModalOpen(true);
+      };
+
+      const closeNewCycleModal = () => {
+        setIsNewCycleModalOpen(false);
+        setSelectedGoalForCycle(undefined);
+      };
 
     function formattedDate(dateString: string) {
         const date = new Date(dateString); 
@@ -76,9 +100,36 @@ export function GoalsPanel({ activeGoals }: GoalsPanelProps) {
             day: 'numeric',
         }).format(date); 
     }
-    function getProgressPercentage(expectedHours: number, accomplishedHours: number) {
-        return accomplishedHours === 0 ? 0 : (accomplishedHours / expectedHours).toFixed(1) ;
+
+    function calculateDailyProgress(dayProgress: { dayExpectedHours: number; dayAccomplishedHours: number }) {
+        const { dayExpectedHours, dayAccomplishedHours } = dayProgress;
+        return Math.min(Math.round((dayAccomplishedHours / dayExpectedHours) * 100), 100);
     }
+    
+    function calculateOverallProgress(overallProgress: { overallExpectedHours: number; overallAccomplishedHours: number }) {
+        const { overallExpectedHours, overallAccomplishedHours } = overallProgress;
+    
+        if (isNaN(overallExpectedHours) || isNaN(overallAccomplishedHours) || overallExpectedHours === 0) {
+            return 0;
+        }
+    
+        return Math.min(Math.round((overallAccomplishedHours / overallExpectedHours) * 100), 100);
+    }
+    
+
+    function formattedTime (num: number) {
+        if (num === 0) return '0h';
+        
+        let hours = Math.floor(num);
+        let minutes = Math.round((num - hours) * 60);
+      
+        if (hours === 0) {
+          return `${minutes}min`;
+        }
+      
+        return `${hours}h${minutes}min`;
+      }
+      
 
     const cardsSlots = 4 - activeGoals.length;
 
@@ -86,11 +137,14 @@ export function GoalsPanel({ activeGoals }: GoalsPanelProps) {
         <>
         <GoalPanelContainer>
             {activeGoals.slice(0, 4).map((goal, index) => (
-                <GoalToPickCard key={index} onClick={openNewCycleModal}>
+                <GoalToPickCard key={index} onClick={() => openNewCycleModal(goal)}>
                     <GoalTitle>{goal.goalName}</GoalTitle>
                     <InfoContainer>
-                        <div>{goal.hoursPerWeek}h/week</div>
-                        <div>{formattedDate(goal.deadline)}</div>
+                        <div>{goal.hoursPerWeek}h a week</div>
+                        <RightColumnContainer>
+                            <div>{formattedDate(goal.deadline)}</div>
+                            <div>{formattedTime(goal.dayProgress.dayAccomplishedHours)} / {formattedTime(goal.dayProgress.dayExpectedHours)}</div>
+                        </RightColumnContainer>
                     </InfoContainer>
                     <TasksContainer>
                         {Array.from({ length: goal.totalTasksDoneToday }).map((_, taskIndex) => (
@@ -100,16 +154,16 @@ export function GoalsPanel({ activeGoals }: GoalsPanelProps) {
                     <ProgressContainer>
                         <ProgressInfoContainer>
                             <div>Today</div>
-                            <div>{getProgressPercentage(goal.dayProgress.dayExpectedHours, goal.dayProgress.dayAccomplisedHours)}%</div>
+                            <div>{calculateDailyProgress(goal.dayProgress)}%</div>
                         </ProgressInfoContainer>
-                        <DomainProgressBar progress={Number(getProgressPercentage(goal.dayProgress.dayExpectedHours, goal.dayProgress.dayAccomplisedHours))} animated={false} children={''} />
+                        <DomainProgressBar progress={calculateDailyProgress(goal.dayProgress)} animated={false} children={''} />
                     </ProgressContainer>
                     <ProgressContainer>
                         <ProgressInfoContainer>
                             <div>Overall</div>
-                            <div>{getProgressPercentage(goal.overallProgress.overallAccomplisedHours, goal.overallProgress.overallExpectedHours)}%</div>
+                            <div>{calculateOverallProgress(goal.overallProgress)}%</div>
                         </ProgressInfoContainer>
-                        <DomainProgressBar progress={(goal.overallProgress.overallAccomplisedHours, goal.overallProgress.overallExpectedHours)} animated={false} children={''} />
+                        <DomainProgressBar progress={calculateOverallProgress(goal.overallProgress)} animated={false} children={''} />
                     </ProgressContainer>
                 </GoalToPickCard>
             ))}
@@ -118,12 +172,11 @@ export function GoalsPanel({ activeGoals }: GoalsPanelProps) {
 
                 return (
                     <EmptyGoalCard key={index} onClick={openModal}>
-                        {/* <IconComponent size={42}  weight="duotone" color="#b0bac4"/> */}
                         <GoalIndex>{index + 1}</GoalIndex>
                         <div>
                             <h3>{cta1}</h3>
                             <p>{cta2}</p>
-                            <PlusCircle size={36}  weight="fill" color="#c3c9ce"/>
+                            <PlusCircle size={36} weight="fill" color="#c3c9ce"/>
                         </div>
                     </EmptyGoalCard >
                 );
@@ -132,11 +185,9 @@ export function GoalsPanel({ activeGoals }: GoalsPanelProps) {
         <Modal isOpen={isNewGoalModalOpen} onClose={closeModal}>
             <NewGoalForm closeModal={closeModal} />
         </Modal>
-        <Modal isOpen={isNewCyclelModalOpen} onClose={closeNewCycleModal} >
-            {/* <NewCycleForm closeModal={closeNewCycleModal} /> */}
-            <NewTaskCycleForm closeNewCycleModal={closeNewCycleModal} getHomeData={getHomeData}/>
+        <Modal isOpen={isNewCycleModalOpen} onClose={closeNewCycleModal}>
+            <NewTaskCycleForm closeNewCycleModal={closeNewCycleModal} getHomeData={getHomeData} selectedGoal={selectedGoalForCycle} />
         </Modal>
     </>
     )
 }
-

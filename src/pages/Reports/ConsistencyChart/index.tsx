@@ -1,5 +1,5 @@
 import { ChartSectionContainer, SessionTitle, BlurOverlay } from './styles'
-import { BarChart, Bar, Tooltip, XAxis } from 'recharts'
+import { BarChart, Bar, Tooltip, XAxis, YAxis, ResponsiveContainer, LabelList } from 'recharts'
 
 interface CustomTooltipProps {
   active?: boolean
@@ -48,31 +48,55 @@ export function ConsistencyChart({lastTwoWeeksConsistency, totalCycles}: Consist
     return totalCycles > 0 ? lastTwoWeeksConsistency : fakeConsistencyData;
   } 
   
+  function formattedTime (num: number) {
+    if (num === 0) return '';
+    
+    let hours = Math.floor(num);
+    let minutes = Math.round((num - hours) * 60);
+    
+    if (hours === 0) {
+      return `${minutes}min`;
+    }
+  
+    return `${hours}h${minutes}min`;
+  }
+
   return (
     <ChartSectionContainer>
       <SessionTitle>Last 14 Days</SessionTitle>
-        {!totalCycles && (<BlurOverlay />)}
-        <BarChart data={consistencyData()}>
-          <XAxis
-            dataKey="date"
-            tickFormatter={formatDate}
-            tickLine={false}
-            axisLine={{ stroke: '#ebe7e7', strokeWidth: 1 }}
-            tick={{
-              fill: '#a9aaaa', 
-              fontSize: 10,
-              fontWeight: 700
-            }}
-          />
-          {/* <Tooltip content={<CustomTooltip />} /> */}
-          <Bar
-            name="Dedicated hours"
-            dataKey="totalHoursWorkedInTheDay"
-            fill="#a9a8fc"
-            barSize={60}
-            radius={[6, 6, 6, 6]}
-          />
-        </BarChart>
+        <ResponsiveContainer width="100%" height={140}>
+          <BarChart data={consistencyData()} >
+            <XAxis
+              dataKey="date"
+              tickFormatter={formatDate}
+              tickLine={false}
+              axisLine={{ stroke: '#ebe7e7', strokeWidth: 1 }}
+              tick={{
+                fill: '#a9aaaa', 
+                fontSize: 10,
+                fontWeight: 700
+              }}
+            />
+            
+            {/* <Tooltip/> */}
+            <Bar
+              name="Hours in the day"
+              dataKey="totalHoursWorkedInTheDay"
+              fill="#a9a8fc"
+              barSize={60}
+              radius={[6, 6, 6, 6]}
+            >
+            <LabelList
+              dataKey="totalHoursWorkedInTheDay"
+              position="top"
+              fill="#a9aaaa"
+              fontSize={10}
+              fontWeight={600}
+              formatter={formattedTime}
+            />
+            </Bar>
+          </BarChart>
+      </ResponsiveContainer>
     </ChartSectionContainer>
   )
 }

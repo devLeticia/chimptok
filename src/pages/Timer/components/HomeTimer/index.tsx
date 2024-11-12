@@ -18,7 +18,6 @@ export function HomeTimer() {
 
   useEffect(() => {
     getHomeData()
-    console.log(activeGoals)
   }, [])
 
   return (

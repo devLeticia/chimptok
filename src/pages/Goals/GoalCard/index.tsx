@@ -39,9 +39,9 @@ type Goal = {
   totalHoursSpent: number
   progressPercentage: number
   status: number
-    overallProgress?: {
+  overallProgress: {
     overallExpectedHours: number;
-    overallAccomplisedHours: number;
+    overallAccomplishedHours: number;
   };
 }
 interface GoalCardProps {
@@ -128,10 +128,17 @@ export function GoalCard({ goal, getUserGoals }: GoalCardProps) {
       getUserGoals()
     })
   }
-  function getProgressPercentage(expectedHours: number, accomplishedHours: number) {
-    return accomplishedHours === 0 ? 0 : (accomplishedHours / expectedHours).toFixed(1) ;
-  }
+  
+  function calculateOverallProgress(overallProgress: { overallExpectedHours: number; overallAccomplishedHours: number }) {
+    const { overallExpectedHours, overallAccomplishedHours } = overallProgress;
 
+    if (isNaN(overallExpectedHours) || isNaN(overallAccomplishedHours) || overallExpectedHours === 0) {
+        return 0;
+    }
+
+    return Math.min(Math.round((overallAccomplishedHours / overallExpectedHours) * 100), 100);
+  }
+  
   return (
     <GoalContainer>
       <CardContainer>
@@ -159,9 +166,9 @@ export function GoalCard({ goal, getUserGoals }: GoalCardProps) {
         <hr />
         <TitleContainer>
           <CardTitle>{goal.goalName}</CardTitle>
-          <div>{getProgressPercentage(goal.overallProgress.overallExpectedHours,goal.overallProgress.overallAccomplisedHours)}%</div>
+          <div>{calculateOverallProgress(goal.overallProgress)}%</div>
         </TitleContainer>
-        <DomainProgressBar animated={false} progress={Number(getProgressPercentage(goal.overallProgress.overallExpectedHours, goal.overallProgress.overallAccomplisedHours))} children={''} />
+        <DomainProgressBar animated={false} progress={calculateOverallProgress(goal.overallProgress)} children={''} />
         <TaskDetails>
           <summary>{goal.tasks.length} tasks</summary>
           <TasksContainer>

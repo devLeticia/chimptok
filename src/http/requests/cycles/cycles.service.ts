@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const apiUrl = import.meta.env.CHIMPTOK_APP_API_URL
+const apiUrl = import.meta.env.VITE_CHIMPTOK_API_URL
 const baseURL = `${apiUrl}/cycles`
 
 type Cycle = {

@@ -105,8 +105,6 @@ export function CyclesProvider({ children }: CyclesProviderProps) {
     if (userId) {
       const homeData = await homeService.getHomeData(userId)  as HomeDataResponse;;
       if (homeData) {
-        console.log('homeData:', homeData)
-
         setActiveCycle(homeData.data.activeCycle)
         setUserGoals(homeData.data.userGoals)
         setConsistencyOfTheWeek(homeData.data.consistencyOfTheWeek)

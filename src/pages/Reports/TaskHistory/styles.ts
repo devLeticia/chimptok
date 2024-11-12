@@ -125,3 +125,15 @@ export const BlurOverlay = styled.div`
   left: 0;
   z-index: 20;
 `;
+
+export const MinutesContainer = styled.div`
+  letter-spacing: 0.03rem;
+  background-color: ${(props) => props.theme['gray-150']};
+  padding: 0.15rem;
+  border: solid 1px ${(props) => props.theme['gray-300']};
+  border-radius: 3px;
+  line-height: 180%;
+  font-size: 0.6rem;
+  color: ${(props) => props.theme['gray-500']};
+  font-weight: 700;
+`

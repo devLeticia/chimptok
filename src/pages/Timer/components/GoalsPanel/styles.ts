@@ -106,3 +106,9 @@ export const GoalIndex = styled.h1`
   font-style: italic;
   font-family: 'Barlow Semi Condensed', sans-serif;
 `
+
+export const RightColumnContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+`
