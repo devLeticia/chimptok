@@ -10,3 +10,11 @@ export const RouterContainer = styled.div`
   padding: 2.5rem;
   width: 769px;
 `
+
+export const Copyright = styled.p`
+  text-align: center;
+  font-size: 0.65rem;
+  margin-top: 1rem;
+  color: ${(props) => props.theme['gray-300']};
+
+`

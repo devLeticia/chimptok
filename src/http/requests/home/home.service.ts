@@ -1,22 +1,27 @@
 import axios from 'axios'
 const apiUrl = import.meta.env.VITE_CHIMPTOK_API_URL;
-const baseURL = `${apiUrl}/home`
+const baseURL = `${apiUrl}/home`;
+
 export default {
-  // get data needed to load home
   getHomeData(userId: string) {
+    const todayDate = new Date();
     return new Promise((resolve, reject) => {
       axios
-        .get(`${baseURL}/${userId}`)
+        .get(`${baseURL}/${userId}`, {
+          params: {
+            todayDate,
+          },
+        })
         .then((response) => {
           if (response.status === 200) {
-            resolve(response.data)
+            resolve(response.data);
           } else {
-            reject(response)
+            reject(response);
           }
         })
         .catch((error) => {
-          reject(error)
-        })
-    })
+          reject(error);
+        });
+    });
   },
-}
+};
