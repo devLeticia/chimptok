@@ -139,14 +139,14 @@ export function Login() {
           </Button>
         </form>
       </FormContainer>
-      <Button color="dark" fullWidth>
+      {/* <Button color="dark" fullWidth>
         <img
           src={GoogleLogo}
           width={20}
           alt="Coolest Chimp logo smiling to you"
         />
         Connect with Google
-      </Button>
+      </Button> */}
       <MinorText>
         {`Don't have an account yet? Let's`}{' '}
         <span onClick={handleRedirectToSignup}>create one!</span>

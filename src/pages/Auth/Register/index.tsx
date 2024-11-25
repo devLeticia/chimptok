@@ -168,7 +168,7 @@ export function RegisterNewAccount() {
               </Button>
             </form>
           </FormContainer>
-
+{/* 
           <Button color="dark" fullWidth>
             <img
               src={GoogleLogo}
@@ -176,7 +176,7 @@ export function RegisterNewAccount() {
               alt="Google logo"
             />
             Connect with Google
-          </Button>
+          </Button> */}
 
           <MinorText>
             Already have an account? Just <span onClick={handleRedirectToLogin}>log in</span>
