@@ -8,8 +8,7 @@ export function DefaultLayout() {
     <LayoutContainer>
       <Header />
       <RouterContainer>
-        <Outlet />
-        
+        <Outlet /> 
       <Copyright>© 2024 Chimptok All Rights Reserved</Copyright>
       </RouterContainer>
     </LayoutContainer>
