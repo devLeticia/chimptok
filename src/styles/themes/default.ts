@@ -1,4 +1,7 @@
+import { breakpoints } from './breakpoints';
 export const defaultTheme = {
+  breakpoints,
+
   white: '#FFFFFF',
 
   // 'gray-50': '#E9E9E9',
